@@ -1,0 +1,25 @@
+<label>Email</label><input type="email" size="30" maxlength="40" id="email"><br>
+<label>Password</label><input type="password" size="30" maxlength="40" id="password">
+<button type="button" onclick="identificar()">Entrar</button>
+
+<script>
+		function identificar(){
+			var request= new XMLHttpRequest();
+			request.open("POST", "Identificar.action");
+			request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+			request.onreadystatechange=function(){
+				if(request.readyState==4){
+					if(request.status==200){
+						var respuesta=JSON.parse(request.responseText);
+						alert(respuesta.resultado);
+					}else{
+						alert("Error: "+request.status);
+					}
+				}
+			}
+
+			var pars="email="+document.getElementById("email").value +
+			"&pwd="+document.getElementById("password").value;
+			request.send(pars);
+		}
+	</script>
