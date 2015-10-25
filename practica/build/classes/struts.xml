@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC 
+"-Apache Software Foundation/DID Structus Configuration 2.0/EN"
+"http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<constant name="struts.multipart.maxSize" value="104857600"/>
+	
+	<package name="common" namespace="/" extends="json-default">
+		<action name="Register" class="edu.uclm.esi.tysweb2015.acciones.Registro">
+			<result name="success" type="json"/>
+			<result name="error" type="json"/>
+			<result name="input" type="json"/>
+		</action>
+		<action name="Identificar" class="edu.uclm.esi.tysweb2015.acciones.Login">
+			<result name="success" type="json"/>
+			<result name="error" type="json"/>
+			<result name="input" type="json"/>
+		</action>
+	</package>
+</struts>
