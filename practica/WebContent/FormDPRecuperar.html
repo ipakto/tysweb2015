@@ -1,23 +1,19 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <label>Email</label><input type="email" size="30" maxlength="40" id="email"><br>
+<label>Password</label><input type="password" size="30" maxlength="40" id="password"><br>
 <button type="button" onclick="recuperar()">Recuperar contraseña</button><br>
 
 
 <script>
 		function recuperar(){
 			var request= new XMLHttpRequest();
-			request.open("POST", "Identificar.action");
+			request.open("POST", "Cambiar.action");
 			request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 			request.onreadystatechange=function(){
 				if(request.readyState==4){
 					if(request.status==200){
 						var respuesta=JSON.parse(request.responseText);
-						if(respuesta.resultado=="OK"){
-							sessionStorage.setItem("email", document.getElementById("email").value);
-							$("#datosPersonales").load("FormDPSesion.html");
-						}else{
 							alert(respuesta.resultado);
-						}
 					}else{
 						alert("Error: "+request.status);
 					}

@@ -80,5 +80,10 @@ public class Usuario {
 		this.bd=bdUsuario;
 	}
 
+	public void update() throws ClassNotFoundException, SQLException {
+		DAOUsuario.update(this);
+		
+	}
+
 
 }

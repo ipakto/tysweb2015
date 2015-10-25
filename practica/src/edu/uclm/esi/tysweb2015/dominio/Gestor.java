@@ -23,4 +23,9 @@ public class Gestor {
 		Usuario usuario=new Usuario(email,pwd);
 		return usuario;
 	}
+	public void cambiar(String email, String pwd) throws ClassNotFoundException, SQLException {
+		// TODO Auto-generated method stub
+		Usuario u=new Usuario(email,null,null,null,null,pwd,0);
+		u.update();
+	}
 }

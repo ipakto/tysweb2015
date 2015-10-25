@@ -64,5 +64,30 @@ public class DAOUsuario {
 			bd.close();
 		}
 	}
+	public static void update(Usuario usuario) throws ClassNotFoundException, SQLException {
+		Connection bd=Broker.get().getConnectionInsercion();
+		try{
+			String sql="SELECT id FROM Usuarios WHERE email=?";
+			PreparedStatement p=bd.prepareStatement(sql);
+			p.setString(1,usuario.getEmail());
+			ResultSet rs=p.executeQuery();
+			String userName="";
+			if(rs.next()){
+				int id=rs.getInt(1);
+				userName="tysweb2015"+id;
+			}
+			sql="{call cambiarPassword(?,?)}";
+			CallableStatement cs=bd.prepareCall(sql);
+			cs.setString(1, userName);
+			cs.setString(2, usuario.getPwd1());
+			cs.executeUpdate();
+		}catch(Exception e){
+			throw e;
+		}
+		finally{
+			bd.close();
+		}
+		
+	}
 
 }
