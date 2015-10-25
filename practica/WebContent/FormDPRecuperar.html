@@ -1,12 +1,10 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <label>Email</label><input type="email" size="30" maxlength="40" id="email"><br>
-<label>Password</label><input type="password" size="30" maxlength="40" id="password"><br>
-<button type="button" onclick="identificar()">Entrar</button>
 <button type="button" onclick="recuperar()">Recuperar contraseña</button><br>
 
 
 <script>
-		function identificar(){
+		function recuperar(){
 			var request= new XMLHttpRequest();
 			request.open("POST", "Identificar.action");
 			request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
@@ -29,8 +27,5 @@
 			var pars="email="+document.getElementById("email").value +
 			"&pwd="+document.getElementById("password").value;
 			request.send(pars);
-		}
-		function recuperar(){
-			$("#datosPersonales").load("FormDPRecuperar.html");
 		}
 	</script>
