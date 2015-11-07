@@ -28,4 +28,9 @@ public class Gestor {
 		Usuario u=new Usuario(email,null,null,null,null,pwd,0);
 		u.update();
 	}
+	public void existe(String email) throws Exception{
+		Usuario u=new Usuario();
+		u.setEmail(email);
+		u.existe();
+	}
 }

@@ -35,6 +35,8 @@ public class DAOUsuario {
 			bd.close();
 		}
 	}
+	
+	
 	public static void identificar(Usuario usuario,String email, String pwd) throws Exception {
 		Connection bd=Broker.get().getConnectionSeleccion();
 		try{
@@ -88,6 +90,25 @@ public class DAOUsuario {
 			bd.close();
 		}
 		
+	}
+	public static void existe(Usuario user) throws Exception{
+		Connection bd=Broker.get().getConnectionSeleccion();
+		try{
+			String sql="SELECT id FROM Usuarios WHERE email=?";
+			PreparedStatement p=bd.prepareStatement(sql);
+			p.setString(1, user.getEmail());
+			ResultSet rs=p.executeQuery();
+			if(rs.next()){
+				int id=rs.getInt(1);
+				user.setId(id);
+			}else throw new Exception ("Usuario no encontrado");
+			
+		}catch(Exception e){
+			throw e;
+		}
+		finally{
+			bd.close();
+		}
 	}
 
 }

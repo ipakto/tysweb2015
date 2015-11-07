@@ -22,5 +22,10 @@
 			<result name="error" type="json"/>
 			<result name="input" type="json"/>
 		</action>
+		<action name="EfectuarCambio" class="edu.uclm.esi.tysweb2015.acciones.EfectuarCambio">
+			<result name="success" type="json"/>
+			<result name="error" type="json"/>
+			<result name="input" type="json"/>
+		</action>
 	</package>
 </struts>

@@ -42,6 +42,10 @@ public class Usuario {
 		
 	}
 
+	public void setEmail(String email) {
+		this.email=email;
+	}
+	
 	public String getEmail() {
 		return email;
 	}
@@ -83,6 +87,10 @@ public class Usuario {
 	public void update() throws ClassNotFoundException, SQLException {
 		DAOUsuario.update(this);
 		
+	}
+	
+	public void existe() throws Exception{
+		DAOUsuario.existe(this);
 	}
 
 

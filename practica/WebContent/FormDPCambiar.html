@@ -1,12 +1,15 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<label>Email</label><input type="email" size="30" maxlength="40" id="email"><br>
-<button type="button" onclick="recuperar()">Recuperar contraseña</button><br>
+<label>Password</label><input type="password" size="30" maxlength="40" id="pwd1"><br>
+<label>Confirme password</label><input type="password" size="30" maxlength="40" id="pwd2"><br>
+<button type="button" onclick="recuperar()">Cambiar contraseña</button><br>
 
 
 <script>
+
+		
 		function recuperar(){
 			var request= new XMLHttpRequest();
-			request.open("POST", "Cambiar.action");
+			request.open("POST", "EfectuarCambio.action");
 			request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 			request.onreadystatechange=function(){
 				if(request.readyState==4){
@@ -18,9 +21,9 @@
 					}
 				}
 			}
-
-			var pars="email="+document.getElementById("email").value;
-			//"&pwd="+document.getElementById("password").value;
+			var pars="email="+document.URL+
+			"&pwd1="+document.getElementById("pwd1").value +
+			"&pwd2="+document.getElementById("pwd2").value;
 			request.send(pars);
 		}
 	</script>
