@@ -9,7 +9,7 @@ import com.opensymphony.xwork2.ActionSupport;
 import edu.uclm.esi.tysweb2015.dominio.Gestor;
 
 public class EfectuarCambio extends ActionSupport {
-	private String email;
+	private String token;
 	private String pwd1;
 	private String pwd2;
 	private String resultado;
@@ -20,6 +20,7 @@ public class EfectuarCambio extends ActionSupport {
 		}else{
 			try{
 				Gestor gestor=Gestor.get();
+				String email=gestor.validar(token);
 				gestor.cambiar(email,pwd1);
 				this.resultado="OK";
 				return SUCCESS;
@@ -41,9 +42,9 @@ public class EfectuarCambio extends ActionSupport {
 	public String getResultado(){
 		return this.resultado;
 	}
-	public void setEmail(String email){
-		String[] em=email.split("user=");
-		this.email=em[1];
+	public void setToken(String token){
+		String[] em=token.split("u=");
+		this.token=em[1];
 	}
 	
 	public void setPwd1(String pwd1){this.pwd1=pwd1;}

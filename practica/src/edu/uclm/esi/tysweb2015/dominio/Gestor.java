@@ -2,6 +2,8 @@ package edu.uclm.esi.tysweb2015.dominio;
 
 import java.sql.SQLException;
 
+import edu.uclm.esi.tysweb2015.dao.DAOTokens;
+
 public class Gestor {
 	private static Gestor yo;
 	public static Gestor get(){
@@ -32,5 +34,8 @@ public class Gestor {
 		Usuario u=new Usuario();
 		u.setEmail(email);
 		u.existe();
+	}
+	public String validar(String token) throws Exception {
+		return DAOTokens.comprobar(token);
 	}
 }
