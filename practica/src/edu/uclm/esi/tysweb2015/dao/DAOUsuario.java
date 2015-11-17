@@ -11,7 +11,7 @@ import edu.uclm.esi.tysweb2015.dominio.Usuario;
 public class DAOUsuario {
 
 	public static void insert(Usuario usuario) throws ClassNotFoundException, SQLException {
-		Connection bd=Broker.get().getConnectionInsercion();
+		Conexion bd=Broker.get().getConnectionInsercion();
 		try{
 			String sql="{call insertarUsuario(?,?,?,?,?,?,?,?)}";
 			CallableStatement cs=bd.prepareCall(sql);
@@ -38,7 +38,7 @@ public class DAOUsuario {
 	
 	
 	public static void identificar(Usuario usuario,String email, String pwd) throws Exception {
-		Connection bd=Broker.get().getConnectionSeleccion();
+		Conexion bd=Broker.get().getConnectionSeleccion();
 		try{
 			String sql="SELECT id, nombre, apellido1, apellido2, telefono, idUbicacion FROM Usuarios WHERE email=?";
 			PreparedStatement p=bd.prepareStatement(sql);
@@ -53,10 +53,10 @@ public class DAOUsuario {
 				int idUbicacion=rs.getInt(6);
 				bd.close();
 				String userName="tysweb2015"+id;
-				Connection bdUsuario=Broker.get().getConnection(userName,pwd);
-				usuario=new Usuario(email, nombre, apellido1, apellido2, telefono, pwd, idUbicacion);
-				usuario.setId(id);
-				usuario.setConnection(bdUsuario);
+				if(Broker.get().existe(userName, pwd)){
+					usuario=new Usuario(email, nombre, apellido1, apellido2, telefono, pwd, idUbicacion);
+					usuario.setId(id);
+				}
 			}else throw new Exception ("Login o contraseña incorrectos");
 			
 		}catch(Exception e){
@@ -67,7 +67,7 @@ public class DAOUsuario {
 		}
 	}
 	public static void update(Usuario usuario) throws ClassNotFoundException, SQLException {
-		Connection bd=Broker.get().getConnectionInsercion();
+		Conexion bd=Broker.get().getConnectionInsercion();
 		try{
 			String sql="SELECT id FROM Usuarios WHERE email=?";
 			PreparedStatement p=bd.prepareStatement(sql);
@@ -92,7 +92,7 @@ public class DAOUsuario {
 		
 	}
 	public static void existe(Usuario user) throws Exception{
-		Connection bd=Broker.get().getConnectionSeleccion();
+		Conexion bd=Broker.get().getConnectionSeleccion();
 		try{
 			String sql="SELECT id FROM Usuarios WHERE email=?";
 			PreparedStatement p=bd.prepareStatement(sql);

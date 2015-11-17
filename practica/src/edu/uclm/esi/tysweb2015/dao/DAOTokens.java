@@ -9,7 +9,7 @@ import edu.uclm.esi.tysweb2015.dominio.Usuario;
 
 public class DAOTokens {
 	public static void crearRecuperar(String token,String email) throws Exception{
-		Connection bd=Broker.get().getConnectionInsercion();
+		Conexion bd=Broker.get().getConnectionInsercion();
 		try{
 			String sql="INSERT INTO tokens values (?,?,?);";
 			PreparedStatement p=bd.prepareStatement(sql);
@@ -26,7 +26,7 @@ public class DAOTokens {
 	}
 
 	public static String comprobar(String token) throws Exception{
-		Connection bd=Broker.get().getConnectionSeleccion();
+		Conexion bd=Broker.get().getConnectionSeleccion();
 		String email="";
 		try{
 			String sql="SELECT email, fExpira FROM tokens WHERE token=?;";

@@ -15,7 +15,6 @@ public class Usuario {
 	private String pwd1;
 	private int idUbicacion;
 	private int id;
-	private Connection bd;
 
 	public Usuario(String email, String nombre, String apellido1, String apellido2, String telefono, String pwd1,
 			int ubicacion) {
@@ -77,11 +76,6 @@ public class Usuario {
 	public void setId(int id) {
 		// TODO Auto-generated method stub
 		this.id=id;
-	}
-
-	public void setConnection(Connection bdUsuario) {
-		// TODO Auto-generated method stub
-		this.bd=bdUsuario;
 	}
 
 	public void update() throws ClassNotFoundException, SQLException {

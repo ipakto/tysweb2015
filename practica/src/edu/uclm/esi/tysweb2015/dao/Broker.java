@@ -10,29 +10,34 @@ import java.sql.SQLException;
 public class Broker {
 	private static Broker yo;
 	static String url="jdbc:mysql://localhost:3306/tysweb2015?noAccessToProcedureBodies=true";
-	private Broker() throws ClassNotFoundException{
+	private Pool pool;
+	private Broker() throws ClassNotFoundException, SQLException{
 		Class.forName("com.mysql.jdbc.Driver");
+		this.pool=new Pool(20,10);
 	}
-	public static Broker get() throws ClassNotFoundException{
+	public static Broker get() throws ClassNotFoundException, SQLException{
 		if(yo==null)
 			yo=new Broker();
 		return yo;
 	}
-	public static Connection getConnectionSeleccion() throws SQLException {
+	public Conexion getConnectionSeleccion() throws SQLException {
 		//return DriverManager.getConnection(url,"selectorTSW2015","");
-		return DriverManager.getConnection(url,"root","");
+		//return DriverManager.getConnection(url,"root","");
+		return this.pool.getConexionDeSeleccion();
 	}
-	public static Connection getConnectionInsercion() throws SQLException {
+	public Conexion getConnectionInsercion() throws SQLException {
 		//return DriverManager.getConnection(url,"inserterTyS2015","inserterTyS2015");
-		return DriverManager.getConnection(url,"root","");
+		//return DriverManager.getConnection(url,"root","");
+		return this.pool.getConexionDeInsercion();
 	}
 	public Connection getConnection(String userName, String pwd) throws SQLException {
 		// TODO Auto-generated method stub
 		return DriverManager.getConnection(url,userName,pwd);
 	}
 	
-	public static Connection getDB(String email, String pwd) throws Exception {
-		Connection bd=getConnectionSeleccion();
+	public boolean existe(String email, String pwd) throws Exception {
+		boolean resultado=false;
+		Conexion bd=getConnectionSeleccion();
 		try{
 			String sql="SELECT id FROM Usuarios WHERE email=?";
 			PreparedStatement p=bd.prepareStatement(sql);
@@ -43,9 +48,11 @@ public class Broker {
 				int id=rs.getInt(1);
 				String userName="tysweb2015"+id;
 				result=DriverManager.getConnection(url,userName,pwd);
+				resultado=true;
+				result.close();
 				rs.close();
 			}else throw new Exception ("Login o password inválidos");
-			return result;
+			return resultado;
 		}catch(Exception e){
 			throw e;
 		}
