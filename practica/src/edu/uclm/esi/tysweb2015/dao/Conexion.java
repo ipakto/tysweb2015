@@ -13,7 +13,7 @@ public class Conexion {
 	
 	public Conexion(String user, String pwd, Pool pool,String u) throws SQLException {
 		this.user=u;
-		connection=DriverManager.getConnection("jdbc:mysql://localhost:3306/tysweb2015?noAccessToProcedureBodies=true");
+		connection=DriverManager.getConnection("jdbc:mysql://localhost:3306/tysweb2015?noAccessToProcedureBodies=true",user,pwd);
 		this.pool=pool;
 	}
 

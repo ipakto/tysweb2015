@@ -30,6 +30,7 @@ public class Usuario {
 	public Usuario(String email, String pwd) throws Exception {
 		// TODO Auto-generated constructor stub
 		DAOUsuario.identificar(this, email, pwd);
+		//DAOUsuario.existe(this);
 	}
 
 	public Usuario() {

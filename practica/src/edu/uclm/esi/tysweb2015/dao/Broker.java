@@ -35,7 +35,7 @@ public class Broker {
 		return DriverManager.getConnection(url,userName,pwd);
 	}
 	
-	public boolean existe(String email, String pwd) throws Exception {
+	/*public boolean existe(String email, String pwd) throws Exception {
 		boolean resultado=false;
 		Conexion bd=getConnectionSeleccion();
 		try{
@@ -59,5 +59,16 @@ public class Broker {
 		finally{
 			bd.close();
 		}
+	}*/
+	public boolean existe(String userName, String pwd) throws Exception {
+		boolean resultado=false;
+		try{
+			Connection r=DriverManager.getConnection(url,userName,pwd);
+			resultado=true;
+			r.close();
+		}catch(Exception e){
+			throw e;
+		}
+		return resultado;
 	}
 }

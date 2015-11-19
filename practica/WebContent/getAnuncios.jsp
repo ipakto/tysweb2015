@@ -1,13 +1,17 @@
+<%@page import="edu.uclm.esi.tysweb2015.dao.Broker"%>
+<%@page import="edu.uclm.esi.tysweb2015.dao.Conexion"%>
 <%@ page language="java" contentType="application/json" pageEncoding="ISO-8859-1"%>
 <%@ page import="java.sql.*, org.json.*" %>
 
 <%
 
 int idCategoria=Integer.parseInt(request.getParameter("idCategoria"));
-Class.forName("com.mysql.jdbc.Driver");
+/*Class.forName("com.mysql.jdbc.Driver");
 String url="jdbc:mysql://alarcosj.esi.uclm.es:3306/tysweb2015";
 
-Connection bd=DriverManager.getConnection(url, "selectorTSW2015", "");
+Connection bd=DriverManager.getConnection(url, "selectorTSW2015", "");*/
+Conexion bd=Broker.get().getConnectionSeleccion(); //HAY QUE PONER ESTO CUAND TENGAMOS LOS DATOS EN LA BD LOCAL
+
 
 String sql="select id,descripcion FROM Anuncios WHERE idCategoria=? order by fechaDeAlta DESC";
 PreparedStatement ps=bd.prepareStatement(sql);

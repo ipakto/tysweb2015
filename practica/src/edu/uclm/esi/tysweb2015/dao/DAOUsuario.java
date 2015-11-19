@@ -65,6 +65,7 @@ public class DAOUsuario {
 		finally{
 			bd.close();
 		}
+		
 	}
 	public static void update(Usuario usuario) throws ClassNotFoundException, SQLException {
 		Conexion bd=Broker.get().getConnectionInsercion();
