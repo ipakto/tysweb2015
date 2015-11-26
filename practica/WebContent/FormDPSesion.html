@@ -1,6 +1,7 @@
 <span id="conectadoComo">Conectado como </span>
 <a  id="email" href="javascript:gestionarCuenta()"></a><br>
 <button id="desconectar" type="button" onclick="desconectar()">Desconectar</button>
+<button id="ponerAnuncio" type="button" onclick="ponerAnuncio()">Poner Anuncio</button>
 
 <script>
 	/* var request= new XMLHttpRequest();
@@ -42,4 +43,9 @@
 		request.send();
 
 	}
+	/*Código del ponerAnuncio, reubicar cuando se tenga la estructura*/
+	function ponerAnuncio(){
+		$("#datosPersonales").load("FormPonerAnuncio.html");
+	}
+		
 	</script>

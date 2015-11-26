@@ -3,6 +3,7 @@
 <%@page import="edu.uclm.esi.tysweb2015.dao.Broker"%>
 <%@ page language="java" contentType="application/json"  pageEncoding="ISO-8859-1"%>
 <%@page import="java.sql.*,org.json.*"%>
+<% response.setHeader("Access-Control-Allow-Origin","*"); %>
 <%
 
 String sProvincia=request.getParameter("provincia");
@@ -25,5 +26,19 @@ while (rs.next()){
 	jso.put("nombre",rs.getString(2));
 	jsa.put(jso);
 }
+
+/*or.apache.http.*...
+HttpCLient client=new DefaultHttpClient();
+String url="http://www.uclm.es";
+HttpGet get =new HttpGet(url);
+HttpResponse resp=client.execute(get);
+InputStream is=resp.getEntity().getContent();
+BufferedReader br=new BufferedReader (new InputStreamReader(is));
+String linea;
+while((linea=br.readLine())!=null){
+out.print(linea);
+}
+is.close();*/
 %>
 <%= jsa.toString() %> 
+

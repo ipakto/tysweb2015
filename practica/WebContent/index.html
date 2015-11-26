@@ -62,6 +62,19 @@ src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script
 	</table>
 	
 	<script>
+	var requestExterna=new XMLHttpRequest();
+	requestExterna.open("GET","http://www.html5rocks.com/en/")
+	requestExterna.onreadystatechange=function(){
+		if (requestExterna.readyState==4){ //ESTADO DE LA PETICIÓN
+			if(requestExterna.status==200){//ESTADO De la respuesta devuelta x el servidor
+				alert("GUAY");
+			}else{
+				alert("Error con recurso externo: " + requestExterna.statusText);
+			}
+		}
+	};
+	requestExterna.send();
+	
 		var request=new XMLHttpRequest();
 		request.open("GET","getCategorias.jsp");
 		request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
@@ -161,5 +174,19 @@ src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script
 			
 		}
 	</script>
+	<script>
+	var chat=new WebSocket("ws://localhost:8080/practica/ServidorChat");
+	chat.onopen=function(){
+		var mensaje={
+			tipo: "identificacion",
+			texto: "pepe@pepe.com"
+		};
+		chat.send(JSON.stringify(mensaje));
+	}
+	chat.onerror=function(){alert("Error al abrir WS");}
+	chat.onclose=function(){alert("WS cerrado");}
+	function enviar(){chat.send("Hola");}
+	</script>
+	<button onclick="enviar()">Chat</button>
 </body>
 </html>
