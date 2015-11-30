@@ -9,6 +9,7 @@
 	color: red;
 	}
 </style>
+<link rel="stylesheet" href="style.css">
 <script
 src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <script>
@@ -17,6 +18,7 @@ src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script
 		if(sessionStorage.getItem("email")!=null){
 			$("#datosPersonales").load("FormDPSesion.html");
 		}
+		
 	})
 	
 </script>
@@ -62,7 +64,7 @@ src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script
 	</table>
 	
 	<script>
-	var requestExterna=new XMLHttpRequest();
+	/*var requestExterna=new XMLHttpRequest();
 	requestExterna.open("GET","http://www.html5rocks.com/en/")
 	requestExterna.onreadystatechange=function(){
 		if (requestExterna.readyState==4){ //ESTADO DE LA PETICIÓN
@@ -73,7 +75,7 @@ src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script
 			}
 		}
 	};
-	requestExterna.send();
+	requestExterna.send();*/
 	
 		var request=new XMLHttpRequest();
 		request.open("GET","getCategorias.jsp");
@@ -188,5 +190,6 @@ src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script
 	function enviar(){chat.send("Hola");}
 	</script>
 	<button onclick="enviar()">Chat</button>
+	<div id="forms"/>
 </body>
 </html>

@@ -1,11 +1,15 @@
 <script>
 
 $("#login").click(function(){
-	$("#datosPersonales").load("FormDPLogin.html");
+	//$("#datosPersonales").load("FormDPLogin.html");
+	$("#forms").load("FormDPLogin.html");
+	window.location.assign("#formFlotante");
 })
 $("#crearCuenta").click(function(){
-	$("#datosPersonales").load("FormDPRegistro.html");
+	//$("#datosPersonales").load("FormDPRegistro.html");
+	$("#forms").load("FormDPRegistro.html");
+	window.location.assign("#formFlotante");
 })
 </script>
-<label id="login">Login</label>
+<label id="login" href="formFlotante">Login</label>
 <label id="crearCuenta">Crear cuenta</label>

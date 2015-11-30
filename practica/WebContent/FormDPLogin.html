@@ -1,10 +1,19 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<label>Email</label><input type="email" size="30" maxlength="40" id="email"><br>
-<label>Password</label><input type="password" size="30" maxlength="40" id="password"><br>
-<button type="button" onclick="identificar()">Entrar</button>
-<button type="button" onclick="recuperar()">Recuperar contraseña</button><br>
-
-
+<div id="formFlotante" class="formFlotante">
+	<div>
+	    <a href="" title="Cerrar" class="close">X</a>
+	    <h2>Iniciar sesión </h2>
+	    <strong> Introduzca sus datos para iniciar sesión en su cuenta </strong>
+	    
+	    <p>
+			<label>Email</label><input type="email" size="30" maxlength="40" id="email"><br>
+			<label>Password</label><input type="password" size="30" maxlength="40" id="password"><br>
+			<button type="button" onclick="identificar()">Entrar</button>
+			<button type="button" onclick="recuperar()">Recuperar contraseña</button><br>
+	    </p>
+	    
+	</div>
+</div>
 <script>
 		function identificar(){
 			var request= new XMLHttpRequest();
@@ -16,6 +25,7 @@
 						var respuesta=JSON.parse(request.responseText);
 						if(respuesta.resultado=="OK"){
 							sessionStorage.setItem("email", document.getElementById("email").value);
+							window.location.assign("");
 							$("#datosPersonales").load("FormDPSesion.html");
 						}else{
 							alert(respuesta.resultado);

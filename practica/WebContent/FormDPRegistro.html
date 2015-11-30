@@ -1,28 +1,40 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<label>Email:</label><input type="email" size="30" maxlength="40" id="email"><br>
-<label>Nombre:</label><input type="text" size="30" maxlength="40" id="nombre"><br>
-<label>Apellido 1:</label><input type="text" size="30" maxlength="40" id="apellido1"><br>
-<label>Apellido 2:</label><input type="text" size="30" maxlength="40" id="apellido2"><br>
-<label>Teléfono:</label><input type="tel" size="30" maxlength="40" id="telefono"><br>
-
-<label>Password:</label><input type="password" size="30" maxlength="40" id="pwd1"><br>
-<label>Password:</label><input type="password" size="30" maxlength="40" id="pwd2"><br>
-
-<p>
-		<label for="selectCCAA">Comunidad Autónoma:</label>
-		<select id="selectCCAA" onchange="cargarProvincias();cargarMunicipios();">
-			<option></option>
-		</select>
+<div id="formFlotante" class="formFlotante">
+	<div>
+	    <a href="" title="Cerrar" class="close">X</a>
+	    <h2>» Titulo </h2>
+	    <strong> Subtitulo del Modal </strong>
+	    
+	    <p>
+			<label>Email:</label><input type="email" size="30" maxlength="40" id="email"><br>
+			<label>Nombre:</label><input type="text" size="30" maxlength="40" id="nombre"><br>
+			<label>Apellido 1:</label><input type="text" size="30" maxlength="40" id="apellido1"><br>
+			<label>Apellido 2:</label><input type="text" size="30" maxlength="40" id="apellido2"><br>
+			<label>Teléfono:</label><input type="tel" size="30" maxlength="40" id="telefono"><br>
 			
-	</p>
-	<p>
-		<label for="selectProvincias">Provincia:</label>
-		<select id="selectProvincias" onchange="cargarMunicipios()"></select>
-	</p>
-	<p>
-		<label for="selectMunicipios">Municipio:</label>
-		<select id="selectMunicipios"></select>
-	</p>
+			<label>Password:</label><input type="password" size="30" maxlength="40" id="pwd1"><br>
+			<label>Password:</label><input type="password" size="30" maxlength="40" id="pwd2"><br>
+
+			<p>
+				<label for="selectCCAA">Comunidad Autónoma:</label>
+				<select id="selectCCAA" onchange="cargarProvincias();cargarMunicipios();">
+					<option></option>
+				</select>
+			</p>
+			<p>
+				<label for="selectProvincias">Provincia:</label>
+				<select id="selectProvincias" onchange="cargarMunicipios()"></select>
+			</p>
+			<p>
+				<label for="selectMunicipios">Municipio:</label>
+				<select id="selectMunicipios"></select>
+			</p>
+	    </p>
+	</div>
+</div>
+
+
+
 	
 	<script>
 		function registrar(){
@@ -123,6 +135,12 @@
 			}
 		}
 		request.send();
+
+		$(document).on('change','#selectCCAA',function(){
+			cargarProvincias(function(){
+				cargarMunicipios();
+			});
+		})
 		
 	</script>
 	
