@@ -68,7 +68,7 @@
 				}
 			}
 			var pars="idCategoria="+document.getElementById("categoria").value +
-			"&idAnunciante="+"33"/*document.getElementById("idAnunciante").value*/ +
+			"&emailAnunciante="+sessionStorage.getItem("email") +
 			"&descripcion="+document.getElementById("descripcion").value;
 			request.send(pars);
 		}

@@ -17,6 +17,11 @@
 			<result name="error" type="json"/>
 			<result name="input" type="json"/>
 		</action>
+		<action name="RegistrarUsuarioGoogle" class="edu.uclm.esi.tysweb2015.acciones.RegistrarUsuarioGoogle">
+			<result name="success" type="json"/>
+			<result name="error" type="json"/>
+			<result name="input" type="json"/>
+		</action>
 		<action name="Cambiar" class="edu.uclm.esi.tysweb2015.acciones.Cambio">
 			<result name="success" type="json"/>
 			<result name="error" type="json"/>

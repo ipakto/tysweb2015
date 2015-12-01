@@ -37,8 +37,12 @@ public class Usuario {
 		// TODO Auto-generated constructor stub
 	}
 
-	public void insert(Usuario usuario) throws ClassNotFoundException, SQLException {
-		DAOUsuario.insert(this);
+	public Usuario(String email) {
+		this.email=email;
+	}
+
+	public void insert(int... tipoDeOAuth) throws ClassNotFoundException, SQLException {
+		DAOUsuario.insert(this,tipoDeOAuth);
 		
 	}
 
@@ -79,6 +83,10 @@ public class Usuario {
 		this.id=id;
 	}
 
+	public int getId() {
+		return id;
+	}
+
 	public void update() throws ClassNotFoundException, SQLException {
 		DAOUsuario.update(this);
 		
@@ -87,6 +95,5 @@ public class Usuario {
 	public void existe() throws Exception{
 		DAOUsuario.existe(this);
 	}
-
 
 }

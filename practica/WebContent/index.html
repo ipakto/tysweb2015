@@ -96,7 +96,7 @@ src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script
 						enlace.setAttribute("href", "javascript:cargarAnuncios("+respuesta[i].id+")")
 						
 						enlace.innerHTML=respuesta[i].nombre;
-						li.appendChild(enlace)
+						li.appendChild(enlace);
 						ul.appendChild(li);
 					}
 					arbol.appendChild(ul);
@@ -106,7 +106,6 @@ src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script
 			}
 		};
 		request.send();
-		
 		var anuncios=[];
 		function cargarAnuncios(id){
 			//alert("Anuncio:"+id);
@@ -191,6 +190,5 @@ src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script
 	function enviar(){chat.send("Hola");}
 	</script>
 	<button onclick="enviar()">Chat</button>
-	<div id="forms"/>
 </body>
 </html>

@@ -17,6 +17,7 @@ public class DAOAnuncio {
 	}
 
 	public static void insert(Anuncio anuncio) throws ClassNotFoundException, SQLException {
+		
 		String sql = "INSERT INTO anuncios (descripcion,idCategoria,idAnunciante) values(?,?,?);";
 		Conexion bd = Broker.get().getConnectionInsercion();
 		PreparedStatement p = bd.prepareStatement(sql);

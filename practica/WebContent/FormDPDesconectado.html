@@ -2,14 +2,22 @@
 
 $("#login").click(function(){
 	//$("#datosPersonales").load("FormDPLogin.html");
+	crearForm();
 	$("#forms").load("FormDPLogin.html");
 	window.location.assign("#formFlotante");
 })
 $("#crearCuenta").click(function(){
 	//$("#datosPersonales").load("FormDPRegistro.html");
+	crearForm();
 	$("#forms").load("FormDPRegistro.html");
 	window.location.assign("#formFlotante");
 })
+function crearForm(){
+	var b=document.getElementsByTagName("body");
+	var s=document.createElement("div");
+	s.setAttribute("id","forms");
+	document.body.appendChild(s);
+}
 </script>
 <label id="login" href="formFlotante">Login</label>
 <label id="crearCuenta">Crear cuenta</label>

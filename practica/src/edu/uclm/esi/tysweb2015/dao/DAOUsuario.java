@@ -10,23 +10,36 @@ import edu.uclm.esi.tysweb2015.dominio.Usuario;
 
 public class DAOUsuario {
 
-	public static void insert(Usuario usuario) throws ClassNotFoundException, SQLException {
+	public static void insert(Usuario usuario, int... tipoDeOAuth) throws ClassNotFoundException, SQLException {
 		Conexion bd=Broker.get().getConnectionInsercion();
 		try{
-			String sql="{call insertarUsuario(?,?,?,?,?,?,?,?)}";
-			CallableStatement cs=bd.prepareCall(sql);
-			cs.setString(1, usuario.getEmail());
-			cs.setString(2, usuario.getPwd1());
-			cs.setString(3, usuario.getNombre());
-			cs.setString(4, usuario.getApellido1());
-			cs.setString(5, usuario.getApellido2());
-			cs.setString(6, usuario.getTelefono());
-			cs.setInt(7, usuario.getIdUbicacion());
-			cs.registerOutParameter(8, java.sql.Types.VARCHAR);
-			cs.executeUpdate();
-			String exito=cs.getString(8);
-			if(exito!=null && !(exito.equals("OK"))){
-				throw new SQLException(exito);
+			if(tipoDeOAuth.length==0){
+				String sql="{call insertarUsuario(?,?,?,?,?,?,?,?)}";
+				CallableStatement cs=bd.prepareCall(sql);
+				cs.setString(1, usuario.getEmail());
+				cs.setString(2, usuario.getPwd1());
+				cs.setString(3, usuario.getNombre());
+				cs.setString(4, usuario.getApellido1());
+				cs.setString(5, usuario.getApellido2());
+				cs.setString(6, usuario.getTelefono());
+				cs.setInt(7, usuario.getIdUbicacion());
+				cs.registerOutParameter(8, java.sql.Types.VARCHAR);
+				cs.executeUpdate();
+				String exito=cs.getString(8);
+				if(exito!=null && !(exito.equals("OK"))){
+					throw new SQLException(exito);
+				}
+			}else{
+				String sql="{call insertarUsuarioOAuth(?,?,?)}";
+				CallableStatement cs=bd.prepareCall(sql);
+				cs.setString(1, usuario.getEmail());
+				cs.setInt(2, tipoDeOAuth[0]);
+				cs.registerOutParameter(3, java.sql.Types.VARCHAR);
+				cs.executeUpdate();
+				String exito=cs.getString(3);
+				if(exito!=null && !(exito.equals("OK"))){
+					throw new SQLException(exito);
+				}
 			}
 		}catch(Exception e){
 			throw e;
@@ -35,7 +48,6 @@ public class DAOUsuario {
 			bd.close();
 		}
 	}
-	
 	
 	public static void identificar(Usuario usuario,String email, String pwd) throws Exception {
 		Conexion bd=Broker.get().getConnectionSeleccion();
@@ -61,6 +73,7 @@ public class DAOUsuario {
 			
 		}catch(Exception e){
 			throw e;
+			
 		}
 		finally{
 			bd.close();

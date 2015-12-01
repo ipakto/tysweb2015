@@ -19,7 +19,7 @@ public class Gestor {
 	public void registra(String email, String nombre, String apellido1, String apellido2, String telefono, String pwd1,
 			int ubicacion) throws ClassNotFoundException, SQLException {
 		Usuario usuario=new Usuario(email,nombre,apellido1,apellido2,telefono,pwd1,ubicacion);
-		usuario.insert(usuario);
+		usuario.insert();
 	}
 	public Usuario identificar(String email, String pwd) throws Exception{
 		// TODO Auto-generated method stub
@@ -35,6 +35,11 @@ public class Gestor {
 		Usuario u=new Usuario();
 		u.setEmail(email);
 		u.existe();
+	}
+	public void registraUsuarioGoogle(String email) throws ClassNotFoundException, SQLException {
+		Usuario u=new Usuario(email);
+		u.insert(2);
+		
 	}
 	//TOKEN
 	public String validar(String token) throws Exception {

@@ -17,6 +17,7 @@ public class Anuncio {
 		this.descripcion=d;
 	}
 	public void insert() throws ClassNotFoundException, SQLException {
+		
 		DAOAnuncio.insert(this);
 		
 	}

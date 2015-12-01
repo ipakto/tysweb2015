@@ -2,7 +2,7 @@
 <script src="https://apis.google.com/js/platform.js" async defer></script>
 <div id="formFlotante" class="formFlotante">
 	<div>
-	    <a href="" title="Cerrar" class="close">X</a>
+	    <a title="Cerrar" class="close" onclick="borrarForm()">X</a>
 	    <h2>Iniciar sesión </h2>
 	    <strong> Introduzca sus datos para iniciar sesión en su cuenta </strong>
 	    
@@ -45,11 +45,38 @@
 		function recuperar(){
 			$("#datosPersonales").load("FormDPRecuperar.html");
 		}
+		function borrarForm(){
+			document.body.removeChild(document.getElementById("forms"));
+		}
 		function onSignIn(googleUser) {
 			var profile = googleUser.getBasicProfile();
 			console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
 			console.log('Name: ' + profile.getName());
 			console.log('Image URL: ' + profile.getImageUrl());
 			console.log('Email: ' + profile.getEmail());
+			
+			registrarUsuarioGoogle(profile.getEmail())
+		}
+		function registrarUsuarioGoogle(email){
+			var request= new XMLHttpRequest();
+			request.open("POST", "RegistrarUsuarioGoogle.action");
+			request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+			request.onreadystatechange=function(){
+				if(request.readyState==4){
+					if(request.status==200){
+						var respuesta=JSON.parse(request.responseText);
+						if(respuesta.resultado=="OK"){
+							alert(respuesta.resultado);
+						}else{
+							alert(respuesta.resultado);
+						}
+					}else{
+						alert("Error: "+request.status);
+					}
+				}
+			}
+
+			var pars="email="+email;
+			request.send(pars);
 		}
 	</script>
