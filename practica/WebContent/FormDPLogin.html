@@ -1,4 +1,5 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<script src="https://apis.google.com/js/platform.js" async defer></script>
 <div id="formFlotante" class="formFlotante">
 	<div>
 	    <a href="" title="Cerrar" class="close">X</a>
@@ -10,6 +11,7 @@
 			<label>Password</label><input type="password" size="30" maxlength="40" id="password"><br>
 			<button type="button" onclick="identificar()">Entrar</button>
 			<button type="button" onclick="recuperar()">Recuperar contraseña</button><br>
+	    	<div class="g-signin2" data-onsuccess="onSignIn"></div>
 	    </p>
 	    
 	</div>
@@ -42,5 +44,12 @@
 		}
 		function recuperar(){
 			$("#datosPersonales").load("FormDPRecuperar.html");
+		}
+		function onSignIn(googleUser) {
+			var profile = googleUser.getBasicProfile();
+			console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+			console.log('Name: ' + profile.getName());
+			console.log('Image URL: ' + profile.getImageUrl());
+			console.log('Email: ' + profile.getEmail());
 		}
 	</script>

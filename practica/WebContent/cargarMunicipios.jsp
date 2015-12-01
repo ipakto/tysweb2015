@@ -26,6 +26,7 @@ while (rs.next()){
 	jso.put("nombre",rs.getString(2));
 	jsa.put(jso);
 }
+bd.close();
 
 /*or.apache.http.*...
 HttpCLient client=new DefaultHttpClient();

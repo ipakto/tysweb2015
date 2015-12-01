@@ -17,7 +17,7 @@
 
 			<p>
 				<label for="selectCCAA">Comunidad Autónoma:</label>
-				<select id="selectCCAA" onchange="cargarProvincias();cargarMunicipios();">
+				<select id="selectCCAA" >
 					<option></option>
 				</select>
 			</p>
@@ -32,6 +32,8 @@
 	    </p>
 	</div>
 </div>
+<script
+src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 
 
 
@@ -105,6 +107,7 @@
 							option.innerHTML=respuesta[i].nombre;
 							prov.appendChild(option);
 						}
+						cargarMunicipios();
 					}else{
 						alert("Error: "+request.statusText);
 					}
@@ -135,12 +138,10 @@
 			}
 		}
 		request.send();
-
+		
 		$(document).on('change','#selectCCAA',function(){
-			cargarProvincias(function(){
-				cargarMunicipios();
-			});
-		})
+			cargarProvincias()	;
+		});
 		
 	</script>
 	

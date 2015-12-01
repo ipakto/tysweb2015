@@ -22,5 +22,6 @@ while (rs.next()){
 	jsa.put(jso);
 	//String par="{\"id\" : "+rs.getInt(1)+", "+ "\"nombre\" : \""+rs.getString(2)+ "\"}";
 }
+bd.close();
 %>
 <%= jsa.toString() %>
