@@ -1,4 +1,5 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="google-signin-client_id" content="700041930808-68eapgu8duh7sjfcbcqu3jl88prjtg8q.apps.googleusercontent.com">
 <script src="https://apis.google.com/js/platform.js" async defer></script>
 <div id="formFlotante" class="formFlotante">
 	<div>
@@ -13,6 +14,7 @@
 			<button type="button" onclick="recuperar()">Recuperar contraseña</button><br>
 	    	<div class="g-signin2" data-onsuccess="onSignIn"></div>
 	    </p>
+<iframe id="anuncio" src="http://localhost:8085/CentroDePublicidad/enviarAnuncio.jsp"></iframe>
 	    
 	</div>
 </div>
@@ -28,7 +30,8 @@
 						if(respuesta.resultado=="OK"){
 							sessionStorage.setItem("email", document.getElementById("email").value);
 							window.location.assign("");
-							$("#datosPersonales").load("FormDPSesion.html");
+							enviarDatosAlServidorDePublicidad(sessionStorage.getItem("email"));
+							//$("#datosPersonales").load("FormDPSesion.html");
 						}else{
 							alert(respuesta.resultado);
 						}
@@ -66,7 +69,9 @@
 					if(request.status==200){
 						var respuesta=JSON.parse(request.responseText);
 						if(respuesta.resultado=="OK"){
-							alert(respuesta.resultado);
+							sessionStorage.setItem("email", email);
+							window.location.assign("");
+							$("#datosPersonales").load("FormDPSesion.html");
 						}else{
 							alert(respuesta.resultado);
 						}
@@ -78,5 +83,12 @@
 
 			var pars="email="+email;
 			request.send(pars);
+		}
+		function enviarDatosAlServidorDePublicidad(login){
+			var request=new XMLHttpRequest();
+			request.open("POST","http://localhost:8085/CentroDePublicidad/recibirPreferencia.jsp");
+			request.withCredentials=true;
+			request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+			request.send("preferencia="+login);
 		}
 	</script>

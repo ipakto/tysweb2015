@@ -13,12 +13,24 @@ public class RegistrarUsuarioGoogle extends ActionSupport {
 	public String execute(){
 		try{
 			Gestor gestor=Gestor.get();
-			gestor.registraUsuarioGoogle(email);
+			gestor.existe(email);
 			this.resultado="OK";
 			return SUCCESS;
 		}catch(Exception e){
-			this.resultado=e.getMessage();
-			return ERROR;
+			if(e.getMessage().equals("Usuario no encontrado")){
+				try{
+					Gestor gestor=Gestor.get();
+					gestor.registraUsuarioGoogle(email);
+					this.resultado="OK";
+					return SUCCESS;
+				}catch(Exception e2){
+					this.resultado=e.getMessage();
+					return ERROR;
+				}
+			}else{
+				this.resultado=e.getMessage();
+				return ERROR;
+			}
 		}
 	}
 	public String getResultado(){
