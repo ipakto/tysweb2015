@@ -36,6 +36,11 @@
 		    <result name="success" type="json"/>
 		    <result name="error" type="json"/>
 		    <result name="input" type="json"/>
+		</action>
+		<action name="SubirFoto" class="edu.uclm.esi.tysweb2015.acciones.SubirFoto">
+		    <result name="success" type="json"/>
+		    <result name="error" type="json"/>
+		    <result name="input" type="json"/>
 	    </action>
 	</package>
 </struts>
