@@ -15,7 +15,7 @@ import edu.uclm.esi.tysweb2015.dominio.Usuario;
 public class SubirFoto  extends ActionSupport {
 		private String resultado;
 		private String tempFileName;
-		private Object uploadContextType;
+		private Object uploadContentType;
 		private int idFoto;
 		private File upload;
 		
@@ -26,8 +26,11 @@ public class SubirFoto  extends ActionSupport {
 				this.tempFileName=tmpFolder+rnd;
 				File theFile=new File (tempFileName);
 				FileUtils.copyFile(upload,  theFile);
-				Anuncio anuncio=(Anuncio) ServletActionContext.getRequest().getSession().get
-				this.idFoto=anuncio.addFoto(theFile,this.uploadContextType);
+				int idAnuncio=(int) ServletActionContext.getRequest().getSession().getAttribute("idAnuncio");
+				Gestor gestor=Gestor.get();
+				gestor.insertarFoto(theFile,idAnuncio);
+				ServletActionContext.getRequest().getSession().removeAttribute("idAnuncio");
+			//	this.idFoto=anuncio.addFoto(theFile,this.uploadContextType);
 				
 				return SUCCESS;
 			}catch(Exception e){
@@ -43,8 +46,8 @@ public void setResultado(String resultado) {
 public void setTempFileName(String tempFileName) {
 	this.tempFileName = tempFileName;
 }
-public void setUploadContextType(Object uploadContextType) {
-	this.uploadContextType = uploadContextType;
+public void setUploadContentType(Object uploadContentType) {
+	this.uploadContentType = uploadContentType;
 }
 public void setIdFoto(int idFoto) {
 	this.idFoto = idFoto;

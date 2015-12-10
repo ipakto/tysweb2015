@@ -10,6 +10,7 @@ public class Anuncio {
 	private int idCategoria;
 	private int idAnunciante;
 	private String descripcion;
+	private int idAnuncio;
 
 	public  Anuncio (int idC, int idA, String d){
 		this.idCategoria=idC;
@@ -27,6 +28,12 @@ public class Anuncio {
 	}
 	public String getDescripcion() {
 		return descripcion;
+	}
+	public int getIdAnuncio(){
+		return idAnuncio;
+	}
+	public void setIdAnuncio(int idAnuncio){
+		this.idAnuncio=idAnuncio;
 	}
 	
 }

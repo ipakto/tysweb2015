@@ -1,5 +1,6 @@
 package edu.uclm.esi.tysweb2015.dominio;
 
+import java.io.File;
 import java.sql.SQLException;
 
 import edu.uclm.esi.tysweb2015.dao.DAOTokens;
@@ -46,9 +47,15 @@ public class Gestor {
 		return DAOTokens.comprobar(token);
 	}
 	//ANUNCIOS
-	public  void ponerAnuncio(int idCategoria, int idAnunciante, String descripcion) throws ClassNotFoundException, SQLException{
+	public Anuncio ponerAnuncio(int idCategoria, int idAnunciante, String descripcion) throws ClassNotFoundException, SQLException{
 		Anuncio a= new Anuncio (idCategoria, idAnunciante, descripcion);
 		a.insert();
+		return a;
+		
+	}
+	public void insertarFoto(File archivo, int idAnuncio) throws ClassNotFoundException, SQLException {
+		Foto f=new Foto(archivo,idAnuncio);
+		f.insert();
 		
 	}
 }

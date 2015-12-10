@@ -18,6 +18,10 @@ src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script
 		$("#datosPersonales").load("FormDPDesconectado.html");
 		if(sessionStorage.getItem("email")!=null){
 			$("#datosPersonales").load("FormDPSesion.html");
+			var b=document.createElement("button");
+		      b.setAttribute("id","btnChat");
+		      b.innerHTML = 'Chat';
+		      document.body.appendChild(b);
 		}
 		
 	})
@@ -187,8 +191,13 @@ src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script
 	}
 	chat.onerror=function(){alert("Error al abrir WS");}
 	chat.onclose=function(){alert("WS cerrado");}
-	function enviar(){chat.send("Hola");}
+	function enviar(){
+		var mensaje={
+				tipo: "mensaje",
+				texto: "Holaaa"
+		};
+		chat.send(JSON.stringify(mensaje));
+		}
 	</script>
-	<button onclick="enviar()">Chat</button>
 </body>
 </html>

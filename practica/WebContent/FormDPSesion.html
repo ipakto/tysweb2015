@@ -33,6 +33,7 @@
 					}else{
 						alert(respuesta.resultado);
 					}*/
+					document.body.removeChild(document.getElementById("btnChat"));
 					sessionStorage.clear();
 					$("#datosPersonales").load("FormDPDesconectado.html");
 				}else{
@@ -45,7 +46,15 @@
 	}
 	/*Código del ponerAnuncio, reubicar cuando se tenga la estructura*/
 	function ponerAnuncio(){
-		$("#datosPersonales").load("FormPonerAnuncio.html");
+		crearForm();
+		$("#forms").load("FormPonerAnuncio.html");
+		window.location.assign("#formFlotante");
+	}
+	function crearForm(){
+		var b=document.getElementsByTagName("body");
+		var s=document.createElement("div");
+		s.setAttribute("id","forms");
+		document.body.appendChild(s);
 	}
 		
 	</script>
