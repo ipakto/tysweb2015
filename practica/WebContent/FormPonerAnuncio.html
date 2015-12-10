@@ -1,36 +1,153 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="ISO-8859-1">
-<title>Insert title here</title>
-</head>
-<body>
-<p>
-	<label for="categoria">Categoria</label>
-	<select id="categoria">
-		<option></option>
-	</select>
-</p>
-<p>
-	<label for="descripcion"><input id="descripcion" type="text" size="100" maxlength="140"><br>
-	</label>
-</p>
-
-<div id="zonaDeFotos">
-<form id="formFoto" enctype="multipart/form-data" >
-	<label for="foto">Fotos</label><input type="file" id="foto" name="foto" accept="image/*"><br>
-	<button type="button" id="guardar" onclick="subirFoto()">Subir</button>
-	<div id="progreso"></div>
-</form>
-</div>
-<button type="button" id="publicar" onclick="publicarAnuncio()">Publicar</button>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<div id="formFlotante" class="formFlotante">
+	<div>
+	    <a title="Cerrar" class="close" onclick="borrarForm()">X</a>
+	    <h1>Poner anuncio</h2>
+	    <strong> Introduzca los datos del anuncio </strong>
+	    
+	    <p>
+	    <table style="width: 100%">
+	    <tr><td style="width: 50%">
+	    	<p>
+				<label for="categoria">Categoria</label>
+				<select id="categoria">
+					<option></option>
+				</select>
+			</p>
+			<p>
+				<label for="descripcion"><textarea id="descripcion" rows="10" cols="35">Escriba aquí la descripción</textarea><br>
+				</label>
+			<button type="button" id="publicar" onclick="publicarAnuncio()">Publicar</button>
+			</p></td>
+			<td style="width: 50%"><div id="zonaArchivo">
+			<link rel="stylesheet" href="css/html5demos.css">
+<script src="js/h5utils.js"></script></head>
+<section id="wrapper">
+<style>
+#holder { border: 10px dashed #ccc; width: 200px; min-height: 200px; margin: 20px auto;}
+#holder.hover { border: 10px dashed #0c0; }
+#holder img { display: block; margin: 10px auto; }
+#holder p { margin: 10px; font-size: 14px; }
+.fail { background: #c00; padding: 2px; color: #fff; }
+.hidden { display: none !important;}
+</style>
+<article>
+<label>Arrastre aquí las fotos:</label>
+  <div id="holder">
+  </div> 
+  <p id="upload" class="hidden"><label>Drag & drop not supported, but you can still upload via this input field:<br><input type="file"></label></p>
+  <p id="filereader">File API & FileReader API not supported</p>
+  <p id="formdata">XHR2's FormData is not supported</p>
+  </article>
 <script>
-	//Cargar las categor�as existentes
+var holder = document.getElementById('holder'),
+    tests = {
+      filereader: typeof FileReader != 'undefined',
+      dnd: 'draggable' in document.createElement('span'),
+      formdata: !!window.FormData,
+    }, 
+    support = {
+      filereader: document.getElementById('filereader'),
+      formdata: document.getElementById('formdata'),
+    },
+    acceptedTypes = {
+      'image/png': true,
+      'image/jpeg': true,
+      'image/gif': true
+    },
+    fileupload = document.getElementById('upload');
+
+"filereader formdata".split(' ').forEach(function (api) {
+  if (tests[api] === false) {
+    support[api].className = 'fail';
+  } else {
+    // FFS. I could have done el.hidden = true, but IE doesn't support
+    // hidden, so I tried to create a polyfill that would extend the
+    // Element.prototype, but then IE10 doesn't even give me access
+    // to the Element object. Brilliant.
+    support[api].className = 'hidden';
+  }
+});
+
+function previewfile(file) {
+  if (tests.filereader === true && acceptedTypes[file.type] === true) {
+    var reader = new FileReader();
+    reader.onload = function (event) {
+      var image = new Image();
+      image.src = event.target.result;
+      image.width = 100; // a fake resize
+      holder.appendChild(image);
+    };
+
+    reader.readAsDataURL(file);
+  }  else {
+    holder.innerHTML += '<p>Uploaded ' + file.name + ' ' + (file.size ? (file.size/1024|0) + 'K' : '');
+    console.log(file);
+  }
+}
+
+function readfiles(files) {
+    debugger;
+    var formData = tests.formdata ? new FormData() : null;
+    for (var i = 0; i < files.length; i++) {
+      if (tests.formdata) formData.append('file', files[i]);
+      previewfile(files[i]);
+    }
+
+    // now post a new XHR request
+    if (tests.formdata) {
+      var xhr = new XMLHttpRequest();
+      xhr.open('POST', '/devnull.php');
+
+      
+
+      xhr.send(formData);
+    }
+}
+
+if (tests.dnd) { 
+  holder.ondragover = function () { this.className = 'hover'; return false; };
+  holder.ondragend = function () { this.className = ''; return false; };
+  holder.ondrop = function (e) {
+    this.className = '';
+    e.preventDefault();
+    readfiles(e.dataTransfer.files);
+  }
+} else {
+  fileupload.className = 'hidden';
+  fileupload.querySelector('input').onchange = function () {
+    readfiles(this.files);
+  };
+}
+
+</script>
+
+<script>
+try {
+var pageTracker = _gat._getTracker("UA-1656750-18");
+pageTracker._trackPageview();
+} catch(err) {}</script>
+			</div>
+				<!-- <div id="zonaDeFotos">
+				<form id="formFoto" enctype="multipart/form-data" >
+					<label for="foto">Fotos</label><input type="file" id="foto" name="foto" accept="image/*"><br>
+					<button type="button" id="guardar" onclick="subirFoto()">Subir</button>
+					<div id="progreso"></div>
+				</form> -->
+			</div>
+			</td></tr>
+	    </p>	
+	    </table>
+			    
+	</div>
+</div>
+<script>
+	//Cargar las categorías existentes
 	var request=new XMLHttpRequest();
 	request.open("GET","getCategorias.jsp");
 	request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 	request.onreadystatechange=function(){
-		if (request.readyState==4){ //ESTADO DE LA PETICI�N
+		if (request.readyState==4){ //ESTADO DE LA PETICIÓN
 			if(request.status==200){//ESTADO De la respuesta devuelta x el servidor
 				var respuesta=JSON.parse(request.responseText);
 				var categorias=document.getElementById("categoria");
@@ -47,7 +164,6 @@
 		}
 	};
 	request.send();
-	
 		function publicarAnuncio(){
 			var request= new XMLHttpRequest();
 			request.open("POST", "PonerAnuncio.action");
@@ -57,8 +173,9 @@
 					if(request.status==200){
 						var respuesta=JSON.parse(request.responseText);
 						if(respuesta.resultado=="OK"){
+							subirFoto();
 							$("#datosPersonales").load("FormDPSesion.html");
-							alert("Anuncio a�adido correctamente.");
+							alert("Anuncio añadido correctamente.");
 						}else{
 							alert(respuesta.resultado);
 						}
@@ -72,7 +189,7 @@
 			"&descripcion="+document.getElementById("descripcion").value;
 			request.send(pars);
 		}
-
+	//http://jonathanmelgoza.com/blog/guardar-y-leer-imagenes-en-mysql-con-java/
 		function subirFoto(){
 			var request= new XMLHttpRequest();
 			var progreso=document.getElementById("progreso");
@@ -97,6 +214,8 @@
 			}
 			request.send(formData);
 		}
+
+		function borrarForm(){
+			document.body.removeChild(document.getElementById("forms"));
+		}
 	</script>
-</body>
-</html>
