@@ -50,11 +50,18 @@ var holder = document.getElementById('holder'),
       filereader: document.getElementById('filereader'),
       formdata: document.getElementById('formdata'),
     },
-    acceptedTypes = {
+    acceptedTypesImg = {
       'image/png': true,
+      'image/bmp': true, 
       'image/jpeg': true,
       'image/gif': true
     },
+    acceptedTypesVideo={
+		'video/mp4': true,
+	    'video/3gpp': true,
+	    'video/mpeg': true,
+	    'video/ogg': true
+	},
     fileupload = document.getElementById('upload');
 
 "filereader formdata".split(' ').forEach(function (api) {
@@ -70,7 +77,7 @@ var holder = document.getElementById('holder'),
 });
 
 function previewfile(file) {
-  if (tests.filereader === true && acceptedTypes[file.type] === true) {
+  if (tests.filereader === true && acceptedTypesImg[file.type] === true) {
     var reader = new FileReader();
     reader.onload = function (event) {
       var image = new Image();
@@ -78,31 +85,47 @@ function previewfile(file) {
       image.width = 100; // a fake resize
       holder.appendChild(image);
     };
-
     reader.readAsDataURL(file);
-  }  else {
+  }else if(tests.filereader === true && acceptedTypesVideo[file.type] === true){
+	 /* var reader = new FileReader();
+	    reader.onload = function (event) {
+	      var video = new Video();
+	      video.src = event.target.result;
+	      video.width = 100; // a fake resize
+	      holder.appendChild(video);
+	    };
+	    reader.readAsDataURL(file);*/
+	    var video = document.createElement('video');
+	    video.src=file.src;
+	    video.width=100;
+	    video.type=file.type;
+	    holder.appendChild(video);
+	    video.load();
+	    video.play();
+  }else {
     holder.innerHTML += '<p>Uploaded ' + file.name + ' ' + (file.size ? (file.size/1024|0) + 'K' : '');
     console.log(file);
   }
 }
-
+var img=[];
 function readfiles(files) {
     debugger;
     var formData = tests.formdata ? new FormData() : null;
     for (var i = 0; i < files.length; i++) {
-      if (tests.formdata) formData.append('file', files[i]);
+      if (tests.formdata) {formData.append('foto', files[i]);img.push(files[i]);}
       previewfile(files[i]);
     }
 
     // now post a new XHR request
-    if (tests.formdata) {
+    /*if (tests.formdata) {
       var xhr = new XMLHttpRequest();
       xhr.open('POST', '/devnull.php');
 
       
-
+		
       xhr.send(formData);
-    }
+      
+    }*/
 }
 
 if (tests.dnd) { 
@@ -173,9 +196,13 @@ pageTracker._trackPageview();
 					if(request.status==200){
 						var respuesta=JSON.parse(request.responseText);
 						if(respuesta.resultado=="OK"){
-							subirFoto();
-							$("#datosPersonales").load("FormDPSesion.html");
-							alert("Anuncio añadido correctamente.");
+							if(img.length!=0)
+								subirFotos();
+							else{
+								alert("Anuncio añadido correctamente.");
+								borrarForm();
+							}
+							//$("#datosPersonales").load("FormDPSesion.html");
 						}else{
 							alert(respuesta.resultado);
 						}
@@ -188,6 +215,29 @@ pageTracker._trackPageview();
 			"&emailAnunciante="+sessionStorage.getItem("email") +
 			"&descripcion="+document.getElementById("descripcion").value;
 			request.send(pars);
+		}
+		
+		function subirFotos(){
+			for(var i=0;i<img.length;i++){
+		    	var f=new FormData();
+		    	f.append('foto',img[i]);
+				var request= new XMLHttpRequest();
+		    	request.open("POST", "SubirFoto.action");
+				request.onreadystatechange=function(){
+					if(request.readyState==4){
+						if(request.status==200){
+							var respuesta=JSON.parse(request.responseText);
+							if(respuesta.resultado=="OK"){
+								alert("Anuncio añadido correctamente.");
+								borrarForm();
+							}else{
+								alert("Error al subir la foto "+i);
+							}
+						}
+					}
+			    }
+				request.send(f);
+			}
 		}
 	//http://jonathanmelgoza.com/blog/guardar-y-leer-imagenes-en-mysql-con-java/
 		function subirFoto(){
@@ -204,9 +254,8 @@ pageTracker._trackPageview();
 					var respuesta=JSON.parse(request.responseText);
 					respuesta=JSON.parse(respuesta.resultado);
 					if(request.status==200){
-						progreso.innerHTML="Foto subida correctamente. Id="+respuesta.mensaje;
-						cargarZonaDeFotos();
-						alert(respuesta.resultado);
+						alert("Anuncio añadido correctamente.");
+						borrarForm();
 					}else{
 						progreso.innerHTML=respuesta.mensaje;
 					}

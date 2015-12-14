@@ -240,9 +240,11 @@
 		}
 		
 		Anuncio.prototype.getWidget=function(){
-			var result=document.createElement("span");
+			var result=document.createElement("a");
 			result.setAttribute("id","anuncio"+this.id);
+			result.setAttribute("value",this.id);
 			result.setAttribute("class","spanAnuncio"+this.id);
+			result.setAttribute("href","javascript:marcarFavorito("+this.id+");");
 			var etiquetaDescripcion=document.createElement("label");
 			etiquetaDescripcion.innerHTML=this.descripcion;
 			result.appendChild(etiquetaDescripcion);

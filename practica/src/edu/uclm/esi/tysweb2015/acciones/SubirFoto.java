@@ -23,33 +23,36 @@ public class SubirFoto  extends ActionSupport {
 			try{
 				String tmpFolder=System.getProperty("java.io.tmpdir");
 				int rnd=Math.abs(new Random().nextInt());
-				this.tempFileName=tmpFolder+rnd;
+				this.tempFileName=tmpFolder+"tysweb2015/"+rnd;
 				File theFile=new File (tempFileName);
 				FileUtils.copyFile(upload,  theFile);
 				int idAnuncio=(int) ServletActionContext.getRequest().getSession().getAttribute("idAnuncio");
 				Gestor gestor=Gestor.get();
 				gestor.insertarFoto(theFile,idAnuncio);
 				ServletActionContext.getRequest().getSession().removeAttribute("idAnuncio");
-			//	this.idFoto=anuncio.addFoto(theFile,this.uploadContextType);
-				
+				this.resultado="OK";
 				return SUCCESS;
 			}catch(Exception e){
+				this.resultado=e.getMessage();
 				return ERROR;
 			}
 		}
-public void setFoto(File upload){
-	this.upload=upload;
-}
-public void setResultado(String resultado) {
-	this.resultado = resultado;
-}
-public void setTempFileName(String tempFileName) {
-	this.tempFileName = tempFileName;
-}
-public void setUploadContentType(Object uploadContentType) {
-	this.uploadContentType = uploadContentType;
-}
-public void setIdFoto(int idFoto) {
-	this.idFoto = idFoto;
-}
+	public void setFoto(File upload){
+		this.upload=upload;
+	}
+	public void setResultado(String resultado) {
+		this.resultado = resultado;
+	}
+	public void setTempFileName(String tempFileName) {
+		this.tempFileName = tempFileName;
+	}
+	public void setUploadContentType(Object uploadContentType) {
+		this.uploadContentType = uploadContentType;
+	}
+	public void setIdFoto(int idFoto) {
+		this.idFoto = idFoto;
+	}
+	public String getResultado(){
+		return this.resultado;
+	}
 }
