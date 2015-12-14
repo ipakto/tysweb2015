@@ -3,7 +3,7 @@
 <script src="https://apis.google.com/js/platform.js" async defer></script>
 <div id="formFlotante" class="formFlotante">
 	<div>
-	    <a title="Cerrar" class="close" onclick="borrarForm()">X</a>
+	    <a title="Cerrar" class="closeForm" onclick="borrarForm()">X</a>
 	    <h2>Iniciar sesión </h2>
 	    <strong> Introduzca sus datos para iniciar sesión en su cuenta </strong>
 	    
@@ -47,9 +47,6 @@
 		}
 		function recuperar(){
 			$("#datosPersonales").load("FormDPRecuperar.html");
-		}
-		function borrarForm(){
-			document.body.removeChild(document.getElementById("forms"));
 		}
 		function onSignIn(googleUser) {
 			var profile = googleUser.getBasicProfile();

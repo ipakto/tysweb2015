@@ -1,141 +1,87 @@
 <!DOCTYPE html>
-<html lang="es">
-
+<html>
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">    
-	<meta name="google-signin-client_id" content="700041930808-68eapgu8duh7sjfcbcqu3jl88prjtg8q.apps.googleusercontent.com">
+<meta charset="UTF-8">
+<meta name="google-signin-client_id" content="700041930808-68eapgu8duh7sjfcbcqu3jl88prjtg8q.apps.googleusercontent.com">
+<title>Publianuncios</title>
 
-    <title>PubliAnuncios.com</title>
-
-    <!-- Bootstrap Core CSS -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- Custom CSS -->
-    <link href="css/shop-item.css" rel="stylesheet">
-
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <script>
+<style type="text/css">
+	.celdaRoja{
+	color: red;
+	}
+</style>
+<link rel="stylesheet" href="css/style.css">
+<script
+src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script>
 	$(document).ready(function(){
 		$("#datosPersonales").load("FormDPDesconectado.html");
 		if(sessionStorage.getItem("email")!=null){
 			$("#datosPersonales").load("FormDPSesion.html");
+			var b=document.createElement("button");
+		      b.setAttribute("id","btnChat");
+		      b.innerHTML = 'Chat';
+		      document.body.appendChild(b);
 		}
 		
 	})
 	
 </script>
 </head>
-
-<body>
-    <!-- Navigation -->
-    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-       <div class="container">    		
-    				<nav role="navigation" class="navbar plain">    							
-    					<div id="navbar-collapse-02" class="collapse navbar-collapse">
-	    					<ul class="nav navbar-nav navbar-left">
-	    						<li> <a href="http://localhost:8080/practica/index2.html" class="navbar-brand" id="areaEmpresa"><img alt=""  style="height: 5px;"> PubliAnuncios.com</a></li>
-	    					</ul>
-    						<ul class="nav navbar-nav navbar-right">
-    							<li class="propClone"><span  id="datosPersonales">Datos</span></li>
-    						</ul> 	
-    						<ul class="nav navbar-nav navbar-center" style="float:left; min-width: 700px; ">			      
-    							<li class="propClone" style="padding-left:40%; padding-top: 2%" id="areaBusqueda">
-    							<input  style="padding:2%; border-radius:15px;  background-image: url(http://es.downloadicons.net/sites/default/files/icono-de-la-lupa-56204.png); background-position: right; background-repeat: no-repeat" type="text" size="30" maxlength="40" id="buscar" placeholder="Busca en publianuncios.com">		</li>
-    						</ul> 		      
-    					</div><!-- /.navbar-collapse -->
-    				</nav>
-    		
-    			</div><!-- /.container -->
-    </nav>
-
-    <!-- Page Content -->
-    <div style="padding-top:2%" class="container">
-
-        <div class="row">
-
-            <div class="col-md-3">
-                <div id="areaArbol" class="list-group">Categorías:</div>
-                <div style="padding-top: 2%;" id="anuncioCategoria1"> <img class="img-responsive" src="http://jsequeiros.com/sites/default/files/imagen-cachorro-comprimir.jpg?1399003306" alt=""></div>
-                <div  style="padding-top: 2%;" id="anuncioCategoria2"> <img class="img-responsive" src="http://jsequeiros.com/sites/default/files/imagen-cachorro-comprimir.jpg?1399003306" alt=""></div>
-            </div>
-
-            <div class="col-md-9">
-					<span itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
-					<a href="/" title="Ir a la página de inicio" itemprop=“url"><span itemprop=“title">Inicio</span></a> > 
-					<span itemprop="child" itemscope itemtype="http://data-vocabulary.org/Breadcrumb">	<a href="#" title="Categoria" itemprop=“url">
-					<span itemprop="title">Categoria</span>	</a> > 
-					<span itemprop="child" itemscope itemtype="http://data-vocabulary.org/Breadcrumb"> 
-					<a href="#" title="Ir a subcategoria" itemprop=“url">
-					<span itemprop=“title">Subcategoria</span>
-					</a> > <strong>Anuncio</strong> 
-					</span> 
-					</span> 
-					</span>
-                <div class="thumbnail">
-                    <img class="img-responsive"  alt="">
-                    <div class="caption-full">
-                        <span id="areaPrincipal">xavsxkasxasdxasd</span>
-                   </div>
-                    
-               </div>   
-           </div>
-        </div>
-
-    </div>
-    <!-- /.container -->
-
-    <div class="container">
-
-        <hr>
-		
-        <!-- Footer -->
-        <footer>
-        	<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <ul style="padding-left: 30%" class="nav navbar-nav">
-                	<li>
-                        <a href="#" id="terminosUso">Términos de uso</a>
-                    </li>
-                    <li>
-                        <a href="#" id="areaCookies">Área cookies</a>
-                    </li>
-                    <li>
-                        <a href="#" id="AreaQuienesSomos">Quiénes somos</a>
-                    </li>
-                    <li>
-                        <a href="#" id="areaContacto">Contacto</a>
-                    </li>
-                </ul>
-            </div>
-            <div class="row">
-                <div class="col-lg-12">
-                    <p style="padding-left: 40%">Copyright &copy; PubliAnuncios.com 2016</p>
-                </div>
-            </div>
-            
-        </footer>
-		  <!-- Collect the nav links, forms, and other content for toggling -->
-            
-            <!-- /.navbar-collapse -->
-    </div>
-    <!-- /.container -->
-
-    <!-- jQuery -->
-    <script src="js/jquery.js"></script>
-
-    <!-- Bootstrap Core JavaScript -->
-    <script src="js/bootstrap.min.js"></script>
-
-<script>	
+<body id="paraForms">
+	<table border="1">
+		<tr class="celdaRoja">
+			<td>
+				<span id="areaEmpresa">Publianuncios.com</span>
+			</td>
+			<td>
+				<span id="areaBusqueda">
+					<input type="text" size="20" maxlength="40" id="buscar">
+					<button type="button" onclick="buscar()">Buscar</button>
+				</span>
+			</td>
+			<td colspan="2">
+				<span id="datosPersonales">Datos</span>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<span id="areaArbol">Árbol</span>
+			</td>
+			<td colspan="3">
+				<span id="areaPrincipal">xavsxkasxasdxasd</span>
+			</td>
+		</tr>
+		<tr class="celdaRoja">
+			<td>
+				<span id="terminosUso">Términos de uso</span>
+			</td>
+			<td>
+				<span id="areaCookies">Área cookies</span>
+			</td>
+			<td>
+				<span id="AreaQuienesSomos">Quiénes somos</span>
+			</td>
+			<td>
+				<span id="areaContacto">Contacto</span>
+			</td>
+		</tr>
+	</table>
+	
+	<script>
+	/*var requestExterna=new XMLHttpRequest();
+	requestExterna.open("GET","http://www.html5rocks.com/en/")
+	requestExterna.onreadystatechange=function(){
+		if (requestExterna.readyState==4){ //ESTADO DE LA PETICIÓN
+			if(requestExterna.status==200){//ESTADO De la respuesta devuelta x el servidor
+				alert("GUAY");
+			}else{
+				alert("Error con recurso externo: " + requestExterna.statusText);
+			}
+		}
+	};
+	requestExterna.send();*/
+	
 		var request=new XMLHttpRequest();
 		request.open("GET","getCategorias.jsp");
 		request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
@@ -152,7 +98,7 @@
 						
 						var enlace=document.createElement("a");
 						enlace.setAttribute("href", "javascript:cargarAnuncios("+respuesta[i].id+")")
-						enlace.setAttribute("class","list-group-item");
+						
 						enlace.innerHTML=respuesta[i].nombre;
 						li.appendChild(enlace);
 						ul.appendChild(li);
@@ -245,8 +191,13 @@
 	}
 	chat.onerror=function(){alert("Error al abrir WS");}
 	chat.onclose=function(){alert("WS cerrado");}
-	function enviar(){chat.send("Hola");}
+	function enviar(){
+		var mensaje={
+				tipo: "mensaje",
+				texto: "Holaaa"
+		};
+		chat.send(JSON.stringify(mensaje));
+		}
 	</script>
 </body>
-
 </html>

@@ -1,7 +1,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <div id="formFlotante" class="formFlotante">
 	<div>
-	    <a title="Cerrar" class="close" onclick="borrarForm()">X</a>
+	    <a title="Cerrar" class="closeForm" onclick="borrarForm()">X</a>
 	    <h1>Poner anuncio</h2>
 	    <strong> Introduzca los datos del anuncio </strong>
 	    
@@ -32,7 +32,7 @@
 .hidden { display: none !important;}
 </style>
 <article>
-<label>Arrastre aquí las fotos:</label>
+<label style="margin-top: 0px; margin-bottom: 0px;">Arrastre aquí las fotos:</label>
   <div id="holder">
   </div> 
   <p id="upload" class="hidden"><label>Drag & drop not supported, but you can still upload via this input field:<br><input type="file"></label></p>
@@ -216,6 +216,7 @@ pageTracker._trackPageview();
 		}
 
 		function borrarForm(){
-			document.body.removeChild(document.getElementById("forms"));
+			//document.body.removeChild(document.getElementById("forms"));
+			document.getElementById("paraForms").removeChild(document.getElementById("forms"));
 		}
 	</script>

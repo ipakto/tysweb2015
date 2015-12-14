@@ -2,7 +2,11 @@
 <a  id="email" href="javascript:gestionarCuenta()"></a><br>
 <button id="desconectar" type="button" onclick="desconectar()">Desconectar</button>
 <button id="ponerAnuncio" type="button" onclick="ponerAnuncio()">Poner Anuncio</button>
-
+<style>
+	#conectadoComo{
+		color:white;
+	}
+</style>
 <script>
 	/* var request= new XMLHttpRequest();
 	request.open("GET", "dameEmail.jsp");
@@ -49,12 +53,6 @@
 		crearForm();
 		$("#forms").load("FormPonerAnuncio.html");
 		window.location.assign("#formFlotante");
-	}
-	function crearForm(){
-		var b=document.getElementsByTagName("body");
-		var s=document.createElement("div");
-		s.setAttribute("id","forms");
-		document.body.appendChild(s);
 	}
 		
 	</script>
