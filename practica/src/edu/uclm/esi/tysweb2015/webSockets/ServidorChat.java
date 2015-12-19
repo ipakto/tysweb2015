@@ -43,6 +43,10 @@ public class ServidorChat {
 				ChatUser chatUser=new ChatUser(login,session);
 				chatUsers.put(login,chatUser);
 			}
+			if(jso.get("tipo").equals("mensaje")){
+				String login=jso.getString("texto");
+				enviar(session,"mensaje","Servidor","hola jorge");
+			}
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}

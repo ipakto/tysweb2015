@@ -5,17 +5,19 @@ import java.sql.SQLException;
 
 import edu.uclm.esi.tysweb2015.dao.DAOAnuncio;
 
-public class Foto {
+public class Archivo {
 	private File archivo;
 	private int idAnuncio;
+	private String tipo;
 	
-	public Foto(File archivo,int idAnuncio){
+	public Archivo(File archivo,int idAnuncio,String tipo){
 		this.archivo=archivo;
 		this.idAnuncio=idAnuncio;
+		this.tipo=tipo;
 	}
 
 	public void insert() throws ClassNotFoundException, SQLException {
-		DAOAnuncio.insertFoto(this);
+		DAOAnuncio.insertArchivo(this);
 	}
 	
 	public File getArchivo() {
@@ -24,6 +26,10 @@ public class Foto {
 
 	public int getIdAnuncio() {
 		return idAnuncio;
+	}
+
+	public String getTipo() {
+		return tipo;
 	}
 
 	

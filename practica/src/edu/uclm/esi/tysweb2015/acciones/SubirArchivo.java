@@ -12,12 +12,11 @@ import edu.uclm.esi.tysweb2015.dominio.Anuncio;
 import edu.uclm.esi.tysweb2015.dominio.Gestor;
 import edu.uclm.esi.tysweb2015.dominio.Usuario;
 
-public class SubirFoto  extends ActionSupport {
+public class SubirArchivo  extends ActionSupport {
 		private String resultado;
 		private String tempFileName;
-		private Object uploadContentType;
-		private int idFoto;
 		private File upload;
+		private String tipo;
 		
 		public String execute(){
 			try{
@@ -28,7 +27,7 @@ public class SubirFoto  extends ActionSupport {
 				FileUtils.copyFile(upload,  theFile);
 				int idAnuncio=(int) ServletActionContext.getRequest().getSession().getAttribute("idAnuncio");
 				Gestor gestor=Gestor.get();
-				gestor.insertarFoto(theFile,idAnuncio);
+				gestor.insertarArchivo(theFile,idAnuncio,tipo);
 				ServletActionContext.getRequest().getSession().removeAttribute("idAnuncio");
 				this.resultado="OK";
 				return SUCCESS;
@@ -37,20 +36,17 @@ public class SubirFoto  extends ActionSupport {
 				return ERROR;
 			}
 		}
-	public void setFoto(File upload){
+	public void setArchivo(File upload){
 		this.upload=upload;
+	}
+	public void setTipo(String tipo){
+		this.tipo=tipo;
 	}
 	public void setResultado(String resultado) {
 		this.resultado = resultado;
 	}
 	public void setTempFileName(String tempFileName) {
 		this.tempFileName = tempFileName;
-	}
-	public void setUploadContentType(Object uploadContentType) {
-		this.uploadContentType = uploadContentType;
-	}
-	public void setIdFoto(int idFoto) {
-		this.idFoto = idFoto;
 	}
 	public String getResultado(){
 		return this.resultado;

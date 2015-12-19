@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Chat</title>
+</head>
+<body>
+	<div id="chat" class="flotante">
+  		<div id="welcome">
+  			<label>Welcome,</label>
+    		<label>Paco</label></div>
+  			<br>
+  		<div id="conversacion" style= "overflow-y: scroll;"></div>
+  		<br>
+  		<div id="enviar">  
+  		<input id="txtChat" type="text" size="30" id="texto" placeholder="Escribe aquí tu consulta"
+  				onkeypress="submitonenter(conversacion,event,this)"><br>
+  		<button id="btnEnviar" onclick="responder()">Responder</button></div>
+	</div>
+</body>
+
+<script>
+function submitonenter(idChat,evt,thisObj) {
+    evt = (evt) ? evt : ((window.event) ? window.event : "")
+    if (evt) {
+        // process event here
+        if ( evt.keyCode==13 || evt.which==13 ) {
+            enviar();
+        }
+    }
+}
+</script>
+<script>
+function responder(){
+    var textoEnviar=document.getElementById("txtChat");
+    var txt = textoEnviar.value;
+    if(txt != ""){
+      var mensaje=document.createElement("label");
+      mensaje.setAttribute("class", "lblDerecha");
+      mensaje.innerHTML = "Yo: "+txt;
+      var c=document.getElementById("conversacion");
+      c.appendChild(mensaje);
+      var mensaje={
+          tipo: "mensaje",
+          texto: txt
+        };
+      chat.send(JSON.stringify(mensaje));
+      textoEnviar.value = "";
+      textoEnviar.focus();
+    }    
+  }
+</script>
+
+</html>
+
