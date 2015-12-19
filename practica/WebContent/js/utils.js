@@ -22,3 +22,8 @@ function borrarForm(){
 	//document.body.removeChild(document.getElementById("forms"));
 	document.getElementById("paraForms").removeChild(document.getElementById("forms"));
 }
+function gestionarCuenta(){
+	var areaPrincipal=document.getElementById("areaPrincipal");
+	areaPrincipal.innerHTML="";
+	$("#areaPrincipal").load("FormGestionarCuenta.html");
+}

@@ -13,6 +13,8 @@ public class PonerAnuncio extends ActionSupport {
 	private String emailAnunciante;
 	private String descripcion;
 	private String resultado;
+	private String titulo;
+	private String precio;
 	
 	public String execute(){
 		if(idCategoria==0){
@@ -26,7 +28,7 @@ public class PonerAnuncio extends ActionSupport {
 			Gestor g= Gestor.get();
 			Usuario u=new Usuario(emailAnunciante);
 			u.existe();
-			Anuncio a = g.ponerAnuncio(idCategoria, u.getId(), descripcion);
+			Anuncio a = g.ponerAnuncio(idCategoria, u.getId(), descripcion, titulo, precio);
 			ServletActionContext.getRequest().getSession().setAttribute("idAnuncio",a.getIdAnuncio());
 			this.resultado="OK";
 			return SUCCESS;
@@ -36,7 +38,8 @@ public class PonerAnuncio extends ActionSupport {
 		}
 	}
 	public void setIdCategoria(int idCategoria) {this.idCategoria = idCategoria;}
-
+	public void setTitulo(String titulo) {this.titulo = titulo;}
+	public void setPrecio(String precio) {this.precio = precio;}
 	public void setEmailAnunciante(String emailAnunciante) {this.emailAnunciante = emailAnunciante;}
 	public void setDescripcion(String descripcion) {this.descripcion = descripcion;}
 	public String getResultado(){return resultado;}

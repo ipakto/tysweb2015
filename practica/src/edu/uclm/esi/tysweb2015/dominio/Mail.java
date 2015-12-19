@@ -38,7 +38,7 @@ Session session = Session.getInstance(props, new javax.mail.Authenticator() {
 });
 		return session;
 	}
-	public static void enviarMail(String destino) throws Exception{
+	public static void enviarMail(String destino, int idUsuario) throws Exception{
 		try {
 
 			Message message = new MimeMessage(getSession());
@@ -49,7 +49,7 @@ Session session = Session.getInstance(props, new javax.mail.Authenticator() {
 			String token=GenerateID.generate();
 			message.setText("Recuperar contraseña: "+
 			"http://localhost:8080/practica/FormDPCambiar.html?u="+token);
-			DAOTokens.crearRecuperar(token, destino);
+			DAOTokens.crearRecuperar(token, idUsuario);
 			Transport.send(message);
 
 			//System.out.println("Mail sent succesfully!");

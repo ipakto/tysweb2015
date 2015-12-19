@@ -13,7 +13,7 @@ Connection bd=DriverManager.getConnection(url, "selectorTSW2015", "");*/
 Conexion bd=Broker.get().getConnectionSeleccion(); //HAY QUE PONER ESTO CUAND TENGAMOS LOS DATOS EN LA BD LOCAL
 
 
-String sql="select id,descripcion FROM Anuncios WHERE idCategoria=? order by fechaDeAlta DESC";
+String sql="select id,descripcion,titulo, precio FROM Anuncios WHERE idCategoria=? order by fechaDeAlta DESC";
 PreparedStatement ps=bd.prepareStatement(sql);
 JSONArray jsa=new JSONArray();
 ps.setInt(1, idCategoria);
@@ -23,6 +23,8 @@ while (rs.next()) {
 	   JSONObject jso=new JSONObject();
 	   jso.put("id",rs.getInt(1));
 	   jso.put("descripcion",rs.getString(2));
+	   jso.put("titulo",rs.getString(3));
+	   jso.put("precio",rs.getString(4));
 	   jsa.put(jso);//rs.getString(1));
 	}
 bd.close();

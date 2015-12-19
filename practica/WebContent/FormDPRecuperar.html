@@ -1,7 +1,17 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<label>Email</label><input type="email" size="30" maxlength="40" id="email"><br>
-<button type="button" onclick="recuperar()">Recuperar contraseña</button><br>
-
+<div id="formFlotante" class="formFlotante">
+	<div>
+	    <a title="Cerrar" class="closeForm" onclick="borrarForm()">X</a>
+	    <h2>Recuperar contraseña </h2>
+	    <strong> Introduzca su email para recuperar la contraseña </strong>
+	    
+	    <p>
+			<label>Email</label><input type="email" size="30" maxlength="40" id="email"><br>
+			<button type="button" onclick="recuperar()">Recuperar contraseña</button><br>
+	    </p>
+	    
+	</div>
+</div>
 
 <script>
 		function recuperar(){

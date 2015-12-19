@@ -11,11 +11,20 @@ public class Anuncio {
 	private int idAnunciante;
 	private String descripcion;
 	private int idAnuncio;
+	private String titulo;
+	private String precio;
+	
 
-	public  Anuncio (int idC, int idA, String d){
+	public  Anuncio (int idC, int idA, String d, String t, String p){
 		this.idCategoria=idC;
 		this.idAnunciante=idA;
 		this.descripcion=d;
+		this.titulo=t;
+		this.precio=p;
+	}
+	public Anuncio (int idAnuncio, int idAnunciante){
+		this.idAnunciante=idAnunciante;
+		this.idAnuncio=idAnuncio;
 	}
 	public void insert() throws ClassNotFoundException, SQLException {
 		DAOAnuncio.insert(this);		
@@ -34,6 +43,18 @@ public class Anuncio {
 	}
 	public void setIdAnuncio(int idAnuncio){
 		this.idAnuncio=idAnuncio;
+	}
+	public String getTitulo() {
+		return titulo;
+	}
+	public String getPrecio() {
+		return precio;
+	}
+	
+	public void marcarFavorito() throws ClassNotFoundException, SQLException {
+		// TODO Auto-generated method stub
+		DAOAnuncio.marcarFavorito(this);
+		
 	}
 	
 }

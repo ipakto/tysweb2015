@@ -61,7 +61,8 @@
         box-shadow: 1px 1px 3px #000;
 }
  
-.closeForm:hover { background: #fff; color: #000; }
+.closeForm:hover { background: #fff; color: #000;cursor:pointer; 
+  	text-decoration: none;}
 
 
 .flotante {
@@ -72,7 +73,139 @@
     right:10px;
     cursor: pointer;
 }
-.flotante:hover{ 
+.flotante img:hover{ 
     -webkit-transform: scale(0.9);
     transform: scale(0.9);
+}
+
+
+#chat{
+  background:black;
+  border-radius:7%;
+  width:300px;
+  height:400px;
+  -webkit-box-shadow: 0px 0px 30px -5px rgba(0,0,0,0.75);
+-moz-box-shadow: 0px 0px 30px -5px rgba(0,0,0,0.75);
+box-shadow: 0px 0px 30px -5px rgba(0,0,0,0.75);
+  }
+#welcome{
+  padding-top:20px;
+  padding-left:10px;
+  color:white;
+  }
+
+#conversacion{
+  background-color:white;
+  width:250px;
+  height:250px;
+  margin-left:25px;
+  margin-right:25px;
+  border: 1px solid #504aff;
+  }
+#enviar{
+  margin-left:25px;
+  }
+#btnEnviar{
+  float:right;
+  margin-right:25px;
+  margin-top:5px;
+  }
+
+#btnEnviar {
+  background: #474747;
+  background-image: -webkit-linear-gradient(top, #474747, #000000);
+  background-image: -moz-linear-gradient(top, #474747, #000000);
+  background-image: -ms-linear-gradient(top, #474747, #000000);
+  background-image: -o-linear-gradient(top, #474747, #000000);
+  background-image: linear-gradient(to bottom, #474747, #000000);
+  -webkit-border-radius: 28;
+  -moz-border-radius: 28;
+  border-radius: 28px;
+  font-family: Arial;
+  color: #ffffff;
+  font-size: 1+px;
+  padding: 6px 14px 6px 14px;
+  text-decoration: none;
+}
+
+#btnEnviar:hover {
+  background: #6e6e6e;
+  background-image: -webkit-linear-gradient(top, #6e6e6e, #000000);
+  background-image: -moz-linear-gradient(top, #6e6e6e, #000000);
+  background-image: -ms-linear-gradient(top, #6e6e6e, #000000);
+  background-image: -o-linear-gradient(top, #6e6e6e, #000000);
+  background-image: linear-gradient(to bottom, #6e6e6e, #000000);
+  text-decoration: none;
+}
+
+.lblDerecha{
+  display: block;
+  text-align: right;
+  margin-left: 20px;
+}
+
+
+#btnFavorito{
+	background-image: url("http://localhost:8080/practica/img/heb.png");
+	background-position: center;  
+	background-repeat: no-repeat;
+	border:none;
+	height: 38px;
+	width:20%;
+	float: right;
+}
+#btnFavorito:hover{
+	background-image: url("http://localhost:8080/practica/img/her.png");
+}
+#btnMod{
+	background-image: url("http://localhost:8080/practica/img/penB.png");
+	background-position: center;  
+	background-repeat: no-repeat;
+	border:none;
+	height: 38px;
+	width:38px;
+	float: right;
+}
+#btnMod:hover{
+	background-image: url("http://localhost:8080/practica/img/pen.png");
+		cursor: pointer;
+}
+#btnAceptar{
+	background-image: url("http://localhost:8080/practica/img/tickB.png");
+	background-position: center;  
+	background-repeat: no-repeat;
+	border:none;
+	height: 38px;
+	width:38px;
+	float: right;
+	display:none;
+}
+#btnAceptar:hover{
+	background-image: url("http://localhost:8080/practica/img/tickG.png");
+	cursor: pointer;
+}
+#btnCancelar{
+	background-image: url("http://localhost:8080/practica/img/crossB.png");
+	background-position: center;  
+	background-repeat: no-repeat;
+	border:none;
+	height: 38px;
+	width:38px;
+	float: right;
+	display:none;
+}
+#btnCancelar:hover{
+	background-image: url("http://localhost:8080/practica/img/crossR.png");
+		cursor: pointer;
+}
+
+#inputBus{
+	padding:2%; 
+	border-radius:15px;  
+	background-image: url("http://localhost:8080/practica/img/search.png"); 
+	background-position: right; 
+	background-repeat: no-repeat;"
+}
+.inputFav{
+	 	
 }

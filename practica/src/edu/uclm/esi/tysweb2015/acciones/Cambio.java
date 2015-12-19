@@ -17,8 +17,8 @@ public class Cambio extends ActionSupport {
 	public String execute(){
 		try{
 			Gestor gestor=Gestor.get();
-			gestor.existe(email);
-			Mail.enviarMail(email);
+			Usuario u=gestor.existe(email);
+			Mail.enviarMail(email,u.getId());
 			this.resultado="Te hemos enviado un mail para cambiar tu contraseña.";
 			return SUCCESS;
 		}catch(Exception e){

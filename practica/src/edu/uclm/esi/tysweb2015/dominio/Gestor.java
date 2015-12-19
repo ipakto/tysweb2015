@@ -32,10 +32,11 @@ public class Gestor {
 		Usuario u=new Usuario(email,null,null,null,null,pwd,0);
 		u.update();
 	}
-	public void existe(String email) throws Exception{
+	public Usuario existe(String email) throws Exception{
 		Usuario u=new Usuario();
 		u.setEmail(email);
 		u.existe();
+		return u;
 	}
 	public void registraUsuarioGoogle(String email) throws ClassNotFoundException, SQLException {
 		Usuario u=new Usuario(email);
@@ -47,15 +48,20 @@ public class Gestor {
 		return DAOTokens.comprobar(token);
 	}
 	//ANUNCIOS
-	public Anuncio ponerAnuncio(int idCategoria, int idAnunciante, String descripcion) throws ClassNotFoundException, SQLException{
-		Anuncio a= new Anuncio (idCategoria, idAnunciante, descripcion);
+	public Anuncio ponerAnuncio(int idCategoria, int idAnunciante, String descripcion,String titulo, String precio) throws ClassNotFoundException, SQLException{
+		Anuncio a= new Anuncio (idCategoria, idAnunciante, descripcion, titulo, precio);
 		a.insert();
 		return a;
 		
 	}
-	public void insertarFoto(File archivo, int idAnuncio) throws ClassNotFoundException, SQLException {
-		Foto f=new Foto(archivo,idAnuncio);
-		f.insert();
+	public void insertarArchivo(File archivo, int idAnuncio, String tipo) throws ClassNotFoundException, SQLException {
+		Archivo a=new Archivo(archivo,idAnuncio,tipo);
+		a.insert();
 		
+	}
+	public void marcarFavorito(int idAnuncio, int idAnunciante) throws ClassNotFoundException, SQLException {
+		// TODO Auto-generated method stub
+		Anuncio a=new Anuncio(idAnuncio, idAnunciante);
+		a.marcarFavorito();
 	}
 }

@@ -37,7 +37,12 @@
 		    <result name="error" type="json"/>
 		    <result name="input" type="json"/>
 		</action>
-		<action name="SubirFoto" class="edu.uclm.esi.tysweb2015.acciones.SubirFoto">
+		<action name="SubirArchivo" class="edu.uclm.esi.tysweb2015.acciones.SubirArchivo">
+		    <result name="success" type="json"/>
+		    <result name="error" type="json"/>
+		    <result name="input" type="json"/>
+	    </action>
+	    <action name="MarcarFavorito" class="edu.uclm.esi.tysweb2015.acciones.MarcarFavorito">
 		    <result name="success" type="json"/>
 		    <result name="error" type="json"/>
 		    <result name="input" type="json"/>

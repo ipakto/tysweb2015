@@ -46,7 +46,9 @@
 			request.send(pars);
 		}
 		function recuperar(){
-			$("#datosPersonales").load("FormDPRecuperar.html");
+			crearForm();
+			$("#forms").load("FormDPRecuperar.html");
+			window.location.assign("#formFlotante");
 		}
 		function onSignIn(googleUser) {
 			var profile = googleUser.getBasicProfile();

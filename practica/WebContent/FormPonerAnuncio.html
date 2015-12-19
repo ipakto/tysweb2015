@@ -15,7 +15,7 @@
 				</select>
 			</p>
 			<p>
-				<label for="descripcion"><textarea id="descripcion" rows="10" cols="35">Escriba aquí la descripción</textarea><br>
+				<label for="descripcion"><textarea id="descripcion" rows="10" cols="35" placeholder="Escriba aquí la descripción"></textarea><br>
 				</label>
 			<button type="button" id="publicar" onclick="publicarAnuncio()">Publicar</button>
 			</p></td>
@@ -24,10 +24,51 @@
 <script src="js/h5utils.js"></script></head>
 <section id="wrapper">
 <style>
-#holder { border: 10px dashed #ccc; width: 200px; min-height: 200px; margin: 20px auto;}
+#holder { border: 10px dashed #ccc; width: 240px; min-height: 240px; margin: 20px auto;}
 #holder.hover { border: 10px dashed #0c0; }
 #holder img { display: block; margin: 10px auto; }
-#holder p { margin: 10px; font-size: 14px; }
+#holder video { display: block; margin: 10px auto; }
+#imag{
+    float: right;
+    position: relative;
+    margin-right: 70px;
+    margin-top: 10px;
+}
+.imag{
+    margin-left: 155px;
+    position: absolute;
+    font-size: 16px;	
+    background:red;
+  	padding: 3px 4px 2px 4px;
+  	border-radius: 5px;
+    color:white;
+  	transition: background 0.2s linear 0s, color 0.2s linear 0s;
+  	box-shadow: 1px 1px 3px #000;
+  	text-decoration: none;
+}
+.imag:hover{
+  background: #fff; color: #000;
+  cursor:pointer;
+  	text-decoration: none;
+}
+.vid{
+    margin-left: 205px;
+    position: absolute;
+    font-size: 16px;	
+    background:red;
+  	padding: 3px 4px 2px 4px;
+  	border-radius: 5px;
+    color:white;
+  	transition: background 0.2s linear 0s, color 0.2s linear 0s;
+  	box-shadow: 1px 1px 3px #000;
+  	text-decoration: none;
+}
+.vid:hover{
+  background: #fff; color: #000;
+  cursor:pointer;
+  	text-decoration: none;
+}
+
 .fail { background: #c00; padding: 2px; color: #fff; }
 .hidden { display: none !important;}
 </style>
@@ -76,6 +117,8 @@ var holder = document.getElementById('holder'),
   }
 });
 
+var files=[];
+var eliminados=0;
 function previewfile(file) {
   if (tests.filereader === true && acceptedTypesImg[file.type] === true) {
     var reader = new FileReader();
@@ -83,34 +126,64 @@ function previewfile(file) {
       var image = new Image();
       image.src = event.target.result;
       image.width = 100; // a fake resize
+      image.setAttribute("id","file"+file.name);
+	  var a=document.createElement("a");
+	  a.setAttribute("class","imag");
+	  a.setAttribute("title","Eliminar archivo");
+	  a.setAttribute("id","X"+file.name);
+	  //a.setAttribute("href","javascript:eliminarArchivo("+(files.length+eliminados)+");")
+	  a.setAttribute("href", "javascript:eliminarArchivo(\""+file.name+"\");")
+	  a.innerHTML="X";
+	  holder.appendChild(a);
       holder.appendChild(image);
+      files.push(file);
     };
     reader.readAsDataURL(file);
   }else if(tests.filereader === true && acceptedTypesVideo[file.type] === true){
-	 /* var reader = new FileReader();
+	  var reader = new FileReader();
 	    reader.onload = function (event) {
-	      var video = new Video();
-	      video.src = event.target.result;
-	      video.width = 100; // a fake resize
-	      holder.appendChild(video);
+			var myVideo = document.createElement("video");
+			myVideo.setAttribute("src",event.target.result);
+			myVideo.setAttribute("controls",true);
+			myVideo.setAttribute("width",200);
+			myVideo.setAttribute("id","file"+file.name);
+			myVideo.load();
+			var a=document.createElement("a");
+		    a.setAttribute("class","vid");
+			 a.setAttribute("id","X"+file.name);
+			a.setAttribute("href", "javascript:eliminarArchivo(\""+file.name+"\");")
+		    a.innerHTML="X";
+		    holder.appendChild(a);
+			holder.appendChild(myVideo);
+		    files.push(file);
 	    };
-	    reader.readAsDataURL(file);*/
-	    var video = document.createElement('video');
-	    video.src=file.src;
-	    video.width=100;
-	    video.type=file.type;
-	    holder.appendChild(video);
-	    video.load();
-	    video.play();
+	    reader.readAsDataURL(file);
   }else {
-    holder.innerHTML += '<p>Uploaded ' + file.name + ' ' + (file.size ? (file.size/1024|0) + 'K' : '');
-    console.log(file);
+    /*holder.innerHTML += '<p>Uploaded ' + file.name + ' ' + (file.size ? (file.size/1024|0) + 'K' : '');
+    console.log(file);*/
+    alert("Fichero no admitido. Solo admitimos png, bmp, jpeg, gif, mp4, 3gpp, mpeg, ogg.")
   }
 }
-var img=[];
+function eliminarArchivo(name){
+	for(var i=0;i<files.length;i++){
+		if((files[i].name)===(name)){
+			files.remove(i);
+		}
+	}
+	/*files.remove(i);
+	eliminados++;*/
+	holder.removeChild(document.getElementById("file"+name));
+	holder.removeChild(document.getElementById("X"+name));
+}
+//Array Remove - By John Resig (MIT Licensed)
+Array.prototype.remove = function(from, to) {
+  var rest = this.slice((to || from) + 1 || this.length);
+  this.length = from < 0 ? this.length + from : from;
+  return this.push.apply(this, rest);
+};
 function readfiles(files) {
     debugger;
-    var formData = tests.formdata ? new FormData() : null;
+    /*var formData = tests.formdata ? new FormData() : null;
     for (var i = 0; i < files.length; i++) {
       if (tests.formdata) {formData.append('foto', files[i]);img.push(files[i]);}
       previewfile(files[i]);
@@ -126,6 +199,9 @@ function readfiles(files) {
       xhr.send(formData);
       
     }*/
+    for (var i = 0; i < files.length; i++) {
+    	previewfile(files[i]);
+    }
 }
 
 if (tests.dnd) { 
@@ -161,10 +237,23 @@ pageTracker._trackPageview();
 			</td></tr>
 	    </p>	
 	    </table>
+			   
+
+<form action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post" target="_top">
+<input type="hidden" name="cmd" value="_s-xclick">
+<input type="hidden" name="hosted_button_id" value="WWQMLKEGPHTQ4">
+<input onclick="javascript:hola()" type="image" src="https://www.sandbox.paypal.com/es_ES/ES/i/btn/btn_buynowCC_LG.gif" border="0" name="submit" alt="PayPal. La forma rápida y segura de pagar en Internet.">
+<img alt="" border="0" src="https://www.sandbox.paypal.com/es_ES/i/scr/pixel.gif" width="1" height="1">
+</form>
+
+
 			    
 	</div>
 </div>
 <script>
+	function hola(){
+		sessionStorage.setItem("upgradeAcount", true);
+	}
 	//Cargar las categorías existentes
 	var request=new XMLHttpRequest();
 	request.open("GET","getCategorias.jsp");
@@ -196,8 +285,8 @@ pageTracker._trackPageview();
 					if(request.status==200){
 						var respuesta=JSON.parse(request.responseText);
 						if(respuesta.resultado=="OK"){
-							if(img.length!=0)
-								subirFotos();
+							if(files.length!=0)
+								subirArchivos();
 							else{
 								alert("Anuncio añadido correctamente.");
 								borrarForm();
@@ -213,16 +302,20 @@ pageTracker._trackPageview();
 			}
 			var pars="idCategoria="+document.getElementById("categoria").value +
 			"&emailAnunciante="+sessionStorage.getItem("email") +
-			"&descripcion="+document.getElementById("descripcion").value;
+			 "&descripcion="+document.getElementById("descripcion").value +
+			 "&titulo="+"Titulo1"+"&precio=36,5";
 			request.send(pars);
 		}
 		
-		function subirFotos(){
-			for(var i=0;i<img.length;i++){
+		function subirArchivos(){
+			for(var i=0;i<files.length;i++){
+
+		    	var type=(files[i].type).substring(0,5);
 		    	var f=new FormData();
-		    	f.append('foto',img[i]);
+		    	f.append('archivo',files[i]);
+		    	f.append('tipo',type);
 				var request= new XMLHttpRequest();
-		    	request.open("POST", "SubirFoto.action");
+		    	request.open("POST", "SubirArchivo.action");
 				request.onreadystatechange=function(){
 					if(request.readyState==4){
 						if(request.status==200){
@@ -231,7 +324,7 @@ pageTracker._trackPageview();
 								alert("Anuncio añadido correctamente.");
 								borrarForm();
 							}else{
-								alert("Error al subir la foto "+i);
+								alert("Error al subir el archivo "+i);
 							}
 						}
 					}
