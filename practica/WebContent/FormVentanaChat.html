@@ -1,0 +1,13 @@
+
+<meta charset="UTF-8">
+<div id="rChat" >
+ 	<label id="welcome">Paco</label>
+	<br>
+	<section id="rConversacion" style= "overflow-y: scroll;"></section>
+	<br>
+	<div id="rEnviar">  
+		<input type="text" size="70" id="txtChat" placeholder="Escriba aquí su respuesta"
+				onkeypress="submitonenter(rConversacion,event,this)"><br>
+		<button id="btnEnviar" onclick="responder()" style="margin-right:50px !important;margin-top:12px !important;">Responder</button>
+	</div>
+</div>

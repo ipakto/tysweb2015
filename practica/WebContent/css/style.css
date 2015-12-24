@@ -88,10 +88,20 @@
 -moz-box-shadow: 0px 0px 30px -5px rgba(0,0,0,0.75);
 box-shadow: 0px 0px 30px -5px rgba(0,0,0,0.75);
   }
+  #rChat{
+  background:black;
+  border-radius:7%;
+  width:600px;
+  height:400px;
+  -webkit-box-shadow: 0px 0px 30px -5px rgba(0,0,0,0.75);
+-moz-box-shadow: 0px 0px 30px -5px rgba(0,0,0,0.75);
+box-shadow: 0px 0px 30px -5px rgba(0,0,0,0.75);
+  }
 #welcome{
   padding-top:20px;
   padding-left:10px;
   color:white;
+  display: block;
   }
 
 #conversacion{
@@ -102,8 +112,19 @@ box-shadow: 0px 0px 30px -5px rgba(0,0,0,0.75);
   margin-right:25px;
   border: 1px solid #504aff;
   }
+  #rConversacion{
+  background-color:white;
+  width:500px;
+  height:250px;
+  margin-left:50px;
+  margin-right:50px;
+  border: 1px solid #504aff;
+  }
 #enviar{
   margin-left:25px;
+  }
+  #rEnviar{
+  margin-left:50px;
   }
 #btnEnviar{
   float:right;
@@ -142,6 +163,11 @@ box-shadow: 0px 0px 30px -5px rgba(0,0,0,0.75);
   display: block;
   text-align: right;
   margin-left: 20px;
+}
+.lblIzquierda{
+  display: block;
+  text-align: left;
+  margin-right: 20px;
 }
 
 

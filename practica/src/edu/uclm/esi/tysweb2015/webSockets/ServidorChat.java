@@ -17,6 +17,7 @@ import org.json.JSONObject;
 public class ServidorChat {
 	static Set<Session> users=Collections.synchronizedSet(new HashSet<Session>());
 	static Hashtable<String,ChatUser> chatUsers= new Hashtable<>();
+	static ChatUser admin=null;
 	@OnOpen
 	public void open(Session session) {
 		users.add(session);
@@ -28,24 +29,25 @@ public class ServidorChat {
 	}
 	@OnMessage
 	public void recibir(String msg, Session session) {
-		/*try {
-			JSONObject jso=new JSONObject(msg);
-			if (jso.get("tipo").equals("mensaje")) {
-				enviar(session, "eco", jso.getString("remitente"), jso.getString("contenido"));
-			}
-		} catch (JSONException e) {
-		}*/
 		System.out.println("Se ha recibido: "+msg);
 		try {
 			JSONObject jso=new JSONObject(msg);
 			if(jso.get("tipo").equals("identificacion")){
 				String login=jso.getString("texto");
-				ChatUser chatUser=new ChatUser(login,session);
-				chatUsers.put(login,chatUser);
-			}
-			if(jso.get("tipo").equals("mensaje")){
-				String login=jso.getString("texto");
-				enviar(session,"mensaje","Servidor","hola jorge");
+				if(login.equals("admin")){
+					admin=new ChatUser(login,session);
+				}else{
+					ChatUser chatUser=new ChatUser(login,session);
+					chatUsers.put(login,chatUser);
+					enviar(admin.getSession(),"nuevoChat",jso.getString("texto"),"");
+				}
+			}else if(jso.get("tipo").equals("mensaje") && admin!=null){
+				enviar(admin.getSession(),"mensaje",jso.getString("remitente"),jso.getString("texto"));
+			}else if(jso.get("tipo").equals("respuesta")){
+				ChatUser u=chatUsers.get(jso.getString("destinatario"));
+				enviar(u.getSession(),"respuesta",jso.getString("remitente"),jso.getString("texto"));
+			}else if(jso.get("tipo").equals("cierre") && admin!=null){
+				enviar(admin.getSession(),"cierre",jso.getString("texto"),"");
 			}
 		} catch (JSONException e) {
 			e.printStackTrace();

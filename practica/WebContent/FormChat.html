@@ -1,3 +1,4 @@
+<meta charset="UTF-8">
 <div id="chat" class="flotante">
   <div id="welcome">
   <label>Welcome,</label>
@@ -6,32 +7,48 @@
   <div id="conversacion" style= "overflow-y: scroll;"></div>
   <br>
   <div id="enviar">  
-  <input id="txtChat" type="text" size="30" id="texto" placeholder="Escribe aqu� tu consulta"
+  <input id="txtChat" type="text" size="32" id="texto" placeholder="Escribe aquí tu consulta"
   	onkeypress="submitonenter(conversacion,event,this)"><br>
   <button id="btnEnviar" onclick="enviar()">Enviar</button></div>
 </div>
 <script>
-  var chat=new WebSocket("ws://localhost:8080/practica/ServidorChat");
-  chat.onopen=function(){
-    var mensaje={
-      tipo: "identificacion",
-      texto: "pepe@pepe.com"
-    };
-    chat.send(JSON.stringify(mensaje));
-  }
-  
-  chat.onerror=function(){alert("Error al abrir WS");}
-  chat.onclose=function(){alert("WS cerrado");}
-  chat.onmessage=function(mensaje){
-      var msg = JSON.parse(mensaje.data);
-      var txt=msg.contenido;
-      var remit=msg.remitente;
-      var mensaje=document.createElement("label");
-      mensaje.innerHTML = remit+": "+txt;
-      var c=document.getElementById("conversacion");
-      c.appendChild(mensaje);
-     
-  }
+	var chat={};
+	iniciarChat();
+	function iniciarChat(){
+		if (window.WebSocket==undefined) {
+			alert("Lo sentimos, pero tu navegador no soporta este tipo de comunicación");
+			return;
+		} 	
+		chat=new WebSocket("ws://localhost:8080/practica/ServidorChat");
+		chat.onopen=function(){
+		    var mensaje={
+		      tipo: "identificacion",
+		      texto: sessionStorage.getItem("email")
+		    };
+		    chat.send(JSON.stringify(mensaje));
+		  }
+		  
+		  chat.onerror=function(){alert("Error al abrir WS");}
+		  chat.onclose=function(){
+				var mensaje={
+				   tipo: "cierre",
+				   texto: sessionStorage.getItem("email")
+				 };
+				 chat.send(JSON.stringify(mensaje));
+			  alert("WS cerrado");
+			}
+		  chat.onmessage=function(mensaje){
+		      var msg = JSON.parse(mensaje.data);
+		      var txt=msg.contenido;
+		      var remit=msg.remitente;
+		      var mensaje=document.createElement("label");
+		      mensaje.setAttribute("class", "lblIzquierda");
+		      mensaje.innerHTML = remit+": "+txt;
+		      var c=document.getElementById("conversacion");
+		      c.appendChild(mensaje);
+		     
+		  }
+	}
 
   function enviar(){
     var textoEnviar=document.getElementById("txtChat");
@@ -44,6 +61,7 @@
       c.appendChild(mensaje);
       var mensaje={
           tipo: "mensaje",
+          remitente: sessionStorage.email,
           texto: txt
         };
       chat.send(JSON.stringify(mensaje));
@@ -51,10 +69,7 @@
       textoEnviar.focus();
     }    
   }
-</script>
-
-<script>
-    function submitonenter(idChat,evt,thisObj) {
+  function submitonenter(idChat,evt,thisObj) {
         evt = (evt) ? evt : ((window.event) ? window.event : "")
         if (evt) {
             // process event here

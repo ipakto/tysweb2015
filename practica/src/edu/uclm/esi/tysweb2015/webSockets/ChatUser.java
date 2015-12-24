@@ -11,5 +11,8 @@ public class ChatUser {
 		this.login=login;
 		this.session=session;
 	}
+	public Session getSession(){
+		return session;
+	}
 
 }

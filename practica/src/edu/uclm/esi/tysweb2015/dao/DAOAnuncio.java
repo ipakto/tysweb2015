@@ -49,18 +49,18 @@ public class DAOAnuncio {
 			bd.close();
 		}
 	}
-	public static Vector<String> recuperarArchivos(Archivo foto) throws ClassNotFoundException, SQLException{
-		String sql="select ruta from fotosr where idAnuncio=?;";
+	public static Vector<String> recuperarArchivos(Archivo archivo) throws ClassNotFoundException, SQLException{
+		String sql="select ruta from archivos where idAnuncio=?;";
 		Conexion bd = Broker.get().getConnectionInsercion();
 		try {	
 			PreparedStatement p=bd.prepareStatement(sql);
-			p.setInt(1, foto.getIdAnuncio());
+			p.setInt(1, archivo.getIdAnuncio());
 			ResultSet rs=p.executeQuery();
-			Vector<String> fotos=new Vector<String>();
+			Vector<String> archivos=new Vector<String>();
 			if(rs.next()){
-				fotos.add(rs.getString(1));
+				archivos.add(rs.getString(1));
 			}
-			return fotos;
+			return archivos;
 		} catch (Exception e) {
 			throw e;
 		} finally {

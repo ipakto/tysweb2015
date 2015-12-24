@@ -1,23 +1,9 @@
-<!DOCTYPE html>
-<html>
-<head>
 <meta charset="UTF-8">
-<title>Chat</title>
-</head>
-<body>
-	<div id="chat" class="flotante">
-  		<div id="welcome">
-  			<label>Welcome,</label>
-    		<label>Paco</label></div>
-  			<br>
-  		<div id="conversacion" style= "overflow-y: scroll;"></div>
-  		<br>
-  		<div id="enviar">  
-  		<input id="txtChat" type="text" size="30" id="texto" placeholder="Escribe aquí tu consulta"
-  				onkeypress="submitonenter(conversacion,event,this)"><br>
-  		<button id="btnEnviar" onclick="responder()">Responder</button></div>
+
+	<link rel="stylesheet" href="css/style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+	<div id="chats">
 	</div>
-</body>
 
 <script>
 function submitonenter(idChat,evt,thisObj) {
@@ -25,31 +11,97 @@ function submitonenter(idChat,evt,thisObj) {
     if (evt) {
         // process event here
         if ( evt.keyCode==13 || evt.which==13 ) {
-            enviar();
+            responder();
         }
     }
 }
 </script>
 <script>
-function responder(){
-    var textoEnviar=document.getElementById("txtChat");
-    var txt = textoEnviar.value;
+var chat={};
+var remitente="";
+var chatKeys=[];
+var count=0;
+iniciarChat();
+function iniciarChat(){
+	if (window.WebSocket==undefined) {
+		alert("Lo sentimos, pero tu navegador no soporta este tipo de comunicación");
+		return;
+	} 	
+	chat=new WebSocket("ws://localhost:8080/practica/ServidorChat");
+	chat.onopen=function(){
+	    var mensaje={
+	      tipo: "identificacion",
+	      texto: "admin"
+	    };
+	    chat.send(JSON.stringify(mensaje));
+	  }
+	  
+	  chat.onerror=function(){alert("Error al abrir WS");}
+	  chat.onclose=function(){alert("WS cerrado");}
+	  chat.onmessage=function(mensaje){
+	      var msg = JSON.parse(mensaje.data);
+	      if((msg.tipo) === "nuevoChat"){
+	    	  var chats=document.getElementById("chats");
+	    	  var div=document.createElement("div");
+	    	  div.setAttribute("id", "chat"+chatKeys.length);
+	    	  div.setAttribute("style","display: inline-block;margin-left:20px;margin-top:20px;")
+	    	  chats.appendChild(div);
+	    	  $("#chat"+chatKeys.length).load("FormVentanaChat.html",function(){
+		    	  asignarPosicion(msg.remitente);
+		    	  chatKeys.push({id:chatKeys.length,value:msg.remitente});
+	    	  });
+	      }else if(msg.tipo === "cierre"){
+	    	  for(var aux;aux<chatKeys.length;aux++){
+	    		  if(chatKeys[aux].value===msg.remitente){
+	    			  alert("Termino "+msg.remitente);
+	    		  }
+	    	  }
+	      }
+	      else{
+		      var txt=msg.contenido;
+		      var remit=msg.remitente;
+		      remitente=remit;
+		      var mensaje=document.createElement("label");
+		      mensaje.setAttribute("class", "lblIzquierda");
+		      mensaje.innerHTML = remit+": "+txt;
+		      var convers=document.getElementsByTagName("section");
+		      for(var aux=0;aux<chatKeys.length;aux++){
+	    		  if(chatKeys[aux].value===msg.remitente){
+	    		      convers[aux].appendChild(mensaje);
+	    		      return;
+	    		  }
+	    	  }
+		     /* var c=document.getElementById("rConversacion");
+		      c.appendChild(mensaje);*/
+	      }
+	     
+	  }
+}
+function asignarPosicion(remitente){
+	var btn=document.getElementsByTagName("button");
+	btn[chatKeys.length].setAttribute("onclick","responder("+chatKeys.length+")");
+	var lbl=document.getElementsByTagName("label");
+	lbl[chatKeys.length].innerHTML=remitente;
+}
+function responder(position){
+    var textoEnviar=document.getElementsByTagName("input");
+    var txt = textoEnviar[position].value;
     if(txt != ""){
       var mensaje=document.createElement("label");
       mensaje.setAttribute("class", "lblDerecha");
       mensaje.innerHTML = "Yo: "+txt;
-      var c=document.getElementById("conversacion");
-      c.appendChild(mensaje);
+      var convers=document.getElementsByTagName("section");
+      convers[position].appendChild(mensaje);
       var mensaje={
-          tipo: "mensaje",
+          tipo: "respuesta",
+          remitente: "admin",
+          destinatario: chatKeys[position].value,
           texto: txt
         };
       chat.send(JSON.stringify(mensaje));
-      textoEnviar.value = "";
-      textoEnviar.focus();
+      textoEnviar[position].value = "";
+      textoEnviar[position].focus();
     }    
   }
 </script>
-
-</html>
 
