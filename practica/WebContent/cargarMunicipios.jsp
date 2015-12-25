@@ -1,5 +1,4 @@
 
-<%@page import="edu.uclm.esi.tysweb2015.dao.Conexion"%>
 <%@page import="edu.uclm.esi.tysweb2015.dao.Broker"%>
 <%@ page language="java" contentType="application/json"  pageEncoding="ISO-8859-1"%>
 <%@page import="java.sql.*,org.json.*"%>
