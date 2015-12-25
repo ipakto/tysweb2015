@@ -16,7 +16,7 @@ public class Archivo {
 		this.tipo=tipo;
 	}
 
-	public void insert() throws ClassNotFoundException, SQLException {
+	public void insert() throws Exception {
 		DAOAnuncio.insertArchivo(this);
 	}
 	

@@ -10,8 +10,8 @@ import edu.uclm.esi.tysweb2015.dominio.Usuario;
 
 public class DAOUsuario {
 
-	public static void insert(Usuario usuario, int... tipoDeOAuth) throws ClassNotFoundException, SQLException {
-		Conexion bd=Broker.get().getConnectionInsercion();
+	public static void insert(Usuario usuario, int... tipoDeOAuth) throws Exception {
+		Connection bd=Broker.get().getConnectionInsercion();
 		try{
 			if(tipoDeOAuth.length==0){
 				String sql="{call insertarUsuario(?,?,?,?,?,?,?,?)}";
@@ -50,7 +50,7 @@ public class DAOUsuario {
 	}
 	
 	public static void identificar(Usuario usuario,String email, String pwd) throws Exception {
-		Conexion bd=Broker.get().getConnectionSeleccion();
+		Connection bd=Broker.get().getConnectionSeleccion();
 		try{
 			String sql="SELECT id, nombre, apellido1, apellido2, telefono, idUbicacion FROM Usuarios WHERE email=?";
 			PreparedStatement p=bd.prepareStatement(sql);
@@ -80,8 +80,8 @@ public class DAOUsuario {
 		}
 		
 	}
-	public static void update(Usuario usuario) throws ClassNotFoundException, SQLException {
-		Conexion bd=Broker.get().getConnectionInsercion();
+	public static void update(Usuario usuario) throws Exception {
+		Connection bd=Broker.get().getConnectionInsercion();
 		try{
 			String sql="SELECT id FROM Usuarios WHERE email=?";
 			PreparedStatement p=bd.prepareStatement(sql);
@@ -106,7 +106,7 @@ public class DAOUsuario {
 		
 	}
 	public static void existe(Usuario user) throws Exception{
-		Conexion bd=Broker.get().getConnectionSeleccion();
+		Connection bd=Broker.get().getConnectionSeleccion();
 		try{
 			String sql="SELECT id FROM Usuarios WHERE email=?";
 			PreparedStatement p=bd.prepareStatement(sql);

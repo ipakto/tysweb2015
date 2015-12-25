@@ -26,7 +26,7 @@ public class Anuncio {
 		this.idAnunciante=idAnunciante;
 		this.idAnuncio=idAnuncio;
 	}
-	public void insert() throws ClassNotFoundException, SQLException {
+	public void insert() throws Exception {
 		DAOAnuncio.insert(this);		
 	}
 	public int getIdCategoria() {
@@ -51,7 +51,7 @@ public class Anuncio {
 		return precio;
 	}
 	
-	public void marcarFavorito() throws ClassNotFoundException, SQLException {
+	public void marcarFavorito() throws Exception {
 		// TODO Auto-generated method stub
 		DAOAnuncio.marcarFavorito(this);
 		

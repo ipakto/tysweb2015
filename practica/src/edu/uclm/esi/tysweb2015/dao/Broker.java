@@ -2,64 +2,58 @@ package edu.uclm.esi.tysweb2015.dao;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 
+import org.apache.commons.dbcp2.DriverManagerConnectionFactory;
+import org.apache.commons.dbcp2.PoolableConnection;
+import org.apache.commons.dbcp2.PoolableConnectionFactory;
+import org.apache.commons.pool2.impl.GenericObjectPool;
+import org.apache.commons.pool2.impl.GenericObjectPoolConfig;
 
 public class Broker {
-	private static Broker yo;
-	static String url="jdbc:mysql://localhost:3306/tysweb2015?noAccessToProcedureBodies=true";
-	private Pool pool;
-	private Broker() throws ClassNotFoundException, SQLException{
-		Class.forName("com.mysql.jdbc.Driver");
-		this.pool=new Pool(20,10);
-	}
-	public static Broker get() throws ClassNotFoundException, SQLException{
-		if(yo==null)
-			yo=new Broker();
-		return yo;
-	}
-	public Conexion getConnectionSeleccion() throws SQLException {
-		//return DriverManager.getConnection(url,"selectorTSW2015","");
-		//return DriverManager.getConnection(url,"root","");
-		return this.pool.getConexionDeSeleccion();
-	}
-	public Conexion getConnectionInsercion() throws SQLException {
-		//return DriverManager.getConnection(url,"inserterTyS2015","inserterTyS2015");
-		//return DriverManager.getConnection(url,"root","");
-		return this.pool.getConexionDeInsercion();
-	}
-	public Connection getConnection(String userName, String pwd) throws SQLException {
-		// TODO Auto-generated method stub
-		return DriverManager.getConnection(url,userName,pwd);
+	private String url="jdbc:mysql://localhost:3306/tysweb2015?noAccessToProcedureBodies=true";
+	private GenericObjectPool<PoolableConnection> poolSelects;
+	private GenericObjectPool<PoolableConnection> poolInserts;
+	
+	private Broker() {
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+			GenericObjectPoolConfig poolConfig=new GenericObjectPoolConfig();
+			poolConfig.setMaxTotal(50);
+
+			PoolableConnectionFactory poolableConnectionFactorySelects=
+					new PoolableConnectionFactory(new DriverManagerConnectionFactory(url, "root", ""), null); 
+			this.poolSelects=new GenericObjectPool<PoolableConnection>(poolableConnectionFactorySelects, poolConfig);
+			poolableConnectionFactorySelects.setPool(poolSelects);
+			
+			PoolableConnectionFactory poolableConnectionFactoryInserts=
+					new PoolableConnectionFactory(new DriverManagerConnectionFactory(url, "root", ""), null);
+			this.poolInserts=new GenericObjectPool<PoolableConnection>(poolableConnectionFactoryInserts, poolConfig);
+			poolableConnectionFactoryInserts.setPool(poolInserts);
+		}
+		catch (Exception e) {}
 	}
 	
-	/*public boolean existe(String email, String pwd) throws Exception {
-		boolean resultado=false;
-		Conexion bd=getConnectionSeleccion();
-		try{
-			String sql="SELECT id FROM Usuarios WHERE email=?";
-			PreparedStatement p=bd.prepareStatement(sql);
-			p.setString(1, email);
-			ResultSet rs=p.executeQuery();
-			Connection result=null;
-			if(rs.next()){
-				int id=rs.getInt(1);
-				String userName="tysweb2015"+id;
-				result=DriverManager.getConnection(url,userName,pwd);
-				resultado=true;
-				result.close();
-				rs.close();
-			}else throw new Exception ("Login o password inválidos");
-			return resultado;
-		}catch(Exception e){
-			throw e;
-		}
-		finally{
-			bd.close();
-		}
-	}*/
+	private static class BrokerHolder {
+		private static Broker broker=new Broker();
+	}
+
+	public static Broker get() throws Exception {
+		return BrokerHolder.broker;
+	}
+
+	public Connection getConnectionSeleccion() throws Exception {
+		return this.poolSelects.borrowObject();
+	}
+	
+	public Connection getConnectionInsercion() throws Exception {
+		return this.poolInserts.borrowObject();
+	}
+
+	public Connection getConnection(String userName, String pwd) throws Exception {
+		Connection bd=DriverManager.getConnection(url, userName, pwd);
+		bd.close();
+		return this.poolInserts.borrowObject();
+	}
 	public boolean existe(String userName, String pwd) throws Exception {
 		boolean resultado=false;
 		try{

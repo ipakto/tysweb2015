@@ -3,13 +3,10 @@ package edu.uclm.esi.tysweb2015.dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
-
-import edu.uclm.esi.tysweb2015.dominio.Usuario;
 
 public class DAOTokens {
 	public static void crearRecuperar(String token,int idUsuario) throws Exception{
-		Conexion bd=Broker.get().getConnectionInsercion();
+		Connection bd=Broker.get().getConnectionInsercion();
 		try{
 			String sql="INSERT INTO tokens values (?,?,?);";
 			PreparedStatement p=bd.prepareStatement(sql);
@@ -26,7 +23,7 @@ public class DAOTokens {
 	}
 
 	public static String comprobar(String token) throws Exception{
-		Conexion bd=Broker.get().getConnectionSeleccion();
+		Connection bd=Broker.get().getConnectionSeleccion();
 		String email="";
 		try{
 			String sql="SELECT fExpira FROM tokens WHERE token=?;";

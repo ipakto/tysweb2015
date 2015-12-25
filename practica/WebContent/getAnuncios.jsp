@@ -10,7 +10,7 @@ int idCategoria=Integer.parseInt(request.getParameter("idCategoria"));
 String url="jdbc:mysql://alarcosj.esi.uclm.es:3306/tysweb2015";
 
 Connection bd=DriverManager.getConnection(url, "selectorTSW2015", "");*/
-Conexion bd=Broker.get().getConnectionSeleccion(); //HAY QUE PONER ESTO CUAND TENGAMOS LOS DATOS EN LA BD LOCAL
+Connection bd=Broker.get().getConnectionSeleccion(); //HAY QUE PONER ESTO CUAND TENGAMOS LOS DATOS EN LA BD LOCAL
 
 
 String sql="select id,descripcion,titulo, precio FROM Anuncios WHERE idCategoria=? order by fechaDeAlta DESC";

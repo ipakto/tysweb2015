@@ -9,7 +9,7 @@
 String url="jdbc:mysql://alarcosj.esi.uclm.es:3306/tysweb2015";
 
 Connection bd=DriverManager.getConnection(url,"selectorTSW2015","");*/
-Conexion bd=Broker.get().getConnectionSeleccion(); 
+Connection bd=Broker.get().getConnectionSeleccion(); 
 String sql="SELECT id,nombre FROM ubicaciones WHERE tipo='Comunidad autónoma' order by nombre";
 
 PreparedStatement ps=bd.prepareStatement(sql);

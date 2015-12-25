@@ -4,19 +4,17 @@ import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.Vector;
 
 import edu.uclm.esi.tysweb2015.dao.Broker;
-import edu.uclm.esi.tysweb2015.dao.Conexion;
 import edu.uclm.esi.tysweb2015.dominio.Anuncio;
 import edu.uclm.esi.tysweb2015.dominio.Archivo;
 
 public class DAOAnuncio {
 
-	public static void insert(Anuncio anuncio) throws ClassNotFoundException, SQLException {
+	public static void insert(Anuncio anuncio) throws Exception {
 		String sql="{call insertarAnuncio(?,?,?,?,?,?)}";
-		Conexion bd = Broker.get().getConnectionInsercion();
+		Connection bd = Broker.get().getConnectionInsercion();
 		try {	
 			CallableStatement cs=bd.prepareCall(sql);
 			cs.setInt(1, anuncio.getIdAnunciante());
@@ -34,9 +32,9 @@ public class DAOAnuncio {
 		}
 	}
 
-	public static void insertArchivo(Archivo archivo) throws ClassNotFoundException, SQLException {
+	public static void insertArchivo(Archivo archivo) throws Exception {
 		String sql="insert into archivos (idAnuncio,ruta,tipo) values (?,?,?);";
-		Conexion bd = Broker.get().getConnectionInsercion();
+		Connection bd = Broker.get().getConnectionInsercion();
 		try {	
 			CallableStatement cs=bd.prepareCall(sql);
 			cs.setInt(1, archivo.getIdAnuncio());
@@ -49,9 +47,9 @@ public class DAOAnuncio {
 			bd.close();
 		}
 	}
-	public static Vector<String> recuperarArchivos(Archivo archivo) throws ClassNotFoundException, SQLException{
+	public static Vector<String> recuperarArchivos(Archivo archivo) throws Exception{
 		String sql="select ruta from archivos where idAnuncio=?;";
-		Conexion bd = Broker.get().getConnectionInsercion();
+		Connection bd = Broker.get().getConnectionInsercion();
 		try {	
 			PreparedStatement p=bd.prepareStatement(sql);
 			p.setInt(1, archivo.getIdAnuncio());
@@ -67,10 +65,10 @@ public class DAOAnuncio {
 			bd.close();
 		}
 	}
-	public static void marcarFavorito(Anuncio anuncio) throws ClassNotFoundException, SQLException {
+	public static void marcarFavorito(Anuncio anuncio) throws Exception {
 		// TODO Auto-generated method stub
 		String sql="insert into favoritos (idAnuncio,idUsuario) values (?,?);";
-		Conexion bd = Broker.get().getConnectionInsercion();
+		Connection bd = Broker.get().getConnectionInsercion();
 		try {	
 			CallableStatement cs=bd.prepareCall(sql);
 			cs.setInt(1, anuncio.getIdAnuncio());

@@ -18,7 +18,7 @@ public class Gestor {
 	}
 	//USUARIOS
 	public void registra(String email, String nombre, String apellido1, String apellido2, String telefono, String pwd1,
-			int ubicacion) throws ClassNotFoundException, SQLException {
+			int ubicacion) throws Exception {
 		Usuario usuario=new Usuario(email,nombre,apellido1,apellido2,telefono,pwd1,ubicacion);
 		usuario.insert();
 	}
@@ -27,7 +27,7 @@ public class Gestor {
 		Usuario usuario=new Usuario(email,pwd);
 		return usuario;
 	}
-	public void cambiar(String email, String pwd) throws ClassNotFoundException, SQLException {
+	public void cambiar(String email, String pwd) throws Exception {
 		// TODO Auto-generated method stub
 		Usuario u=new Usuario(email,null,null,null,null,pwd,0);
 		u.update();
@@ -38,7 +38,7 @@ public class Gestor {
 		u.existe();
 		return u;
 	}
-	public void registraUsuarioGoogle(String email) throws ClassNotFoundException, SQLException {
+	public void registraUsuarioGoogle(String email) throws Exception {
 		Usuario u=new Usuario(email);
 		u.insert(2);
 		
@@ -48,18 +48,18 @@ public class Gestor {
 		return DAOTokens.comprobar(token);
 	}
 	//ANUNCIOS
-	public Anuncio ponerAnuncio(int idCategoria, int idAnunciante, String descripcion,String titulo, String precio) throws ClassNotFoundException, SQLException{
+	public Anuncio ponerAnuncio(int idCategoria, int idAnunciante, String descripcion,String titulo, String precio) throws Exception{
 		Anuncio a= new Anuncio (idCategoria, idAnunciante, descripcion, titulo, precio);
 		a.insert();
 		return a;
 		
 	}
-	public void insertarArchivo(File archivo, int idAnuncio, String tipo) throws ClassNotFoundException, SQLException {
+	public void insertarArchivo(File archivo, int idAnuncio, String tipo) throws Exception {
 		Archivo a=new Archivo(archivo,idAnuncio,tipo);
 		a.insert();
 		
 	}
-	public void marcarFavorito(int idAnuncio, int idAnunciante) throws ClassNotFoundException, SQLException {
+	public void marcarFavorito(int idAnuncio, int idAnunciante) throws Exception {
 		// TODO Auto-generated method stub
 		Anuncio a=new Anuncio(idAnuncio, idAnunciante);
 		a.marcarFavorito();

@@ -41,7 +41,7 @@ public class Usuario {
 		this.email=email;
 	}
 
-	public void insert(int... tipoDeOAuth) throws ClassNotFoundException, SQLException {
+	public void insert(int... tipoDeOAuth) throws Exception {
 		DAOUsuario.insert(this,tipoDeOAuth);
 		
 	}
@@ -87,7 +87,7 @@ public class Usuario {
 		return id;
 	}
 
-	public void update() throws ClassNotFoundException, SQLException {
+	public void update() throws Exception {
 		DAOUsuario.update(this);
 		
 	}

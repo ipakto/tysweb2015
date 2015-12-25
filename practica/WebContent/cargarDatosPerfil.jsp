@@ -4,7 +4,7 @@
 <%@ page language="java" contentType="application/json"  pageEncoding="ISO-8859-1"%>
 <%@page import="java.sql.*,org.json.*"%>
 <%
-Conexion bd=Broker.get().getConnectionSeleccion(); 
+Connection bd=Broker.get().getConnectionSeleccion(); 
 String email=request.getParameter("email");
 String sql="SELECT nombre,apellido1,apellido2,telefono FROM Usuarios WHERE email=?;";
 PreparedStatement ps=bd.prepareStatement(sql);

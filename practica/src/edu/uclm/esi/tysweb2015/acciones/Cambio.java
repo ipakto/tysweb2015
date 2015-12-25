@@ -1,7 +1,5 @@
 package edu.uclm.esi.tysweb2015.acciones;
 
-
-
 import org.apache.struts2.ServletActionContext;
 
 import com.opensymphony.xwork2.ActionSupport;
