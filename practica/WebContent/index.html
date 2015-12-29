@@ -195,7 +195,8 @@
 							var descripcion=anunciosRecibidos[i].descripcion;
 							var titulo=anunciosRecibidos[i].titulo;
 							var precio=anunciosRecibidos[i].precio;
-							var anuncio=new Anuncio(id,descripcion,titulo, precio);
+							var ruta=anunciosRecibidos[i].ruta;
+							var anuncio=new Anuncio(id,descripcion,titulo, precio,ruta);
 							anuncios.push(anuncio);
 						}
 						mostrarAnuncios();					
@@ -310,16 +311,7 @@
 			request.onreadystatechange=function(){
 				if (request.readyState==4){ //ESTADO DE LA PETICIÓN
 					if(request.status==200){//ESTADO De la respuesta devuelta x el servidor
-						anuncios=[];
-						var anunciosRecibidos=JSON.parse(request.responseText);
-						for(var i=0; i<anunciosRecibidos.length;i++){
-							var id=anunciosRecibidos[i].id;
-							var descripcion=anunciosRecibidos[i].descripcion;
-							var anuncio=new Anuncio(id,descripcion);
-							document.getElementById("btnFavorito").setAttribute("background-image", url("http://localhost:8080/practica/img/her.png"))
-							anuncios.push(anuncio);
-						}
-						mostrarAnuncios();					
+										
 						
 					}else{
 						alert("Error: " + request.statusText);
