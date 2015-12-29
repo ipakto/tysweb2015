@@ -57,9 +57,9 @@
 			console.log('Image URL: ' + profile.getImageUrl());
 			console.log('Email: ' + profile.getEmail());
 			
-			registrarUsuarioGoogle(profile.getEmail())
+			registrarUsuarioGoogle(profile)
 		}
-		function registrarUsuarioGoogle(email){
+		function registrarUsuarioGoogle(profile){
 			var request= new XMLHttpRequest();
 			request.open("POST", "RegistrarUsuarioGoogle.action");
 			request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
@@ -68,7 +68,7 @@
 					if(request.status==200){
 						var respuesta=JSON.parse(request.responseText);
 						if(respuesta.resultado=="OK"){
-							sessionStorage.setItem("email", email);
+							sessionStorage.setItem("email", profile.getEmail());
 							window.location.assign("");
 							$("#datosPersonales").load("FormDPSesion.html");
 						}else{
@@ -80,7 +80,9 @@
 				}
 			}
 
-			var pars="email="+email;
+			var pars="email="+profile.getEmail()+
+			"&nombre="+profile.getGivenName()+
+			"&apellidos="+profile.getFamilyName();
 			request.send(pars);
 		}
 		function enviarDatosAlServidorDePublicidad(login){

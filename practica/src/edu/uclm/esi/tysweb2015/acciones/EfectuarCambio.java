@@ -20,8 +20,8 @@ public class EfectuarCambio extends ActionSupport {
 		}else{
 			try{
 				Gestor gestor=Gestor.get();
-				String email=gestor.validar(token);
-				gestor.cambiar(email,pwd1);
+				int idUsuario=gestor.validar(token);
+				gestor.cambiar(idUsuario,pwd1);
 				this.resultado="OK";
 				return SUCCESS;
 			}catch(Exception e){

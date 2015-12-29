@@ -30,13 +30,16 @@ public class DAOUsuario {
 					throw new SQLException(exito);
 				}
 			}else{
-				String sql="{call insertarUsuarioOAuth(?,?,?)}";
+				String sql="{call insertarUsuarioOAuth(?,?,?,?,?,?)}";
 				CallableStatement cs=bd.prepareCall(sql);
 				cs.setString(1, usuario.getEmail());
-				cs.setInt(2, tipoDeOAuth[0]);
-				cs.registerOutParameter(3, java.sql.Types.VARCHAR);
+				cs.setString(2, usuario.getNombre());
+				cs.setString(3, usuario.getApellido1());
+				cs.setString(4, usuario.getApellido2());
+				cs.setInt(5, tipoDeOAuth[0]);
+				cs.registerOutParameter(6, java.sql.Types.VARCHAR);
 				cs.executeUpdate();
-				String exito=cs.getString(3);
+				String exito=cs.getString(6);
 				if(exito!=null && !(exito.equals("OK"))){
 					throw new SQLException(exito);
 				}
@@ -83,16 +86,8 @@ public class DAOUsuario {
 	public static void update(Usuario usuario) throws Exception {
 		Connection bd=Broker.get().getConnectionInsercion();
 		try{
-			String sql="SELECT id FROM Usuarios WHERE email=?";
-			PreparedStatement p=bd.prepareStatement(sql);
-			p.setString(1,usuario.getEmail());
-			ResultSet rs=p.executeQuery();
-			String userName="";
-			if(rs.next()){
-				int id=rs.getInt(1);
-				userName="tysweb2015"+id;
-			}
-			sql="{call cambiarPassword(?,?)}";
+			String sql="{call cambiarPassword(?,?)}";
+			String userName="tysweb2015"+usuario.getId();
 			CallableStatement cs=bd.prepareCall(sql);
 			cs.setString(1, userName);
 			cs.setString(2, usuario.getPwd1());
@@ -117,6 +112,34 @@ public class DAOUsuario {
 				user.setId(id);
 			}else throw new Exception ("Usuario no encontrado");
 			
+		}catch(Exception e){
+			throw e;
+		}
+		finally{
+			bd.close();
+		}
+	}
+
+	public static void modify(Usuario u, String emailSesion) throws Exception {
+		Connection bd=Broker.get().getConnectionInsercion();
+		try{
+			String sql="SELECT id FROM Usuarios WHERE email=?";
+			PreparedStatement p=bd.prepareStatement(sql);
+			p.setString(1,emailSesion);
+			ResultSet rs=p.executeQuery();
+			int id;
+			if(rs.next()){
+				id=rs.getInt(1);
+			}else throw new Exception("Usuario no encontrado");
+			sql="UPDATE Usuarios SET email=?, nombre=?, apellido1=?, apellido2=?, telefono=? WHERE id=?;";
+			PreparedStatement p2=bd.prepareStatement(sql);
+			p2.setString(1, u.getEmail());
+			p2.setString(2, u.getNombre());
+			p2.setString(3, u.getApellido1());
+			p2.setString(4, u.getApellido2());
+			p2.setString(5, u.getTelefono());
+			p2.setInt(6, id);
+			p2.executeUpdate();
 		}catch(Exception e){
 			throw e;
 		}

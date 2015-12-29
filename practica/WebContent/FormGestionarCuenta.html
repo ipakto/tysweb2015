@@ -17,7 +17,7 @@
 </tbody>
 </table>
 <img id="btnMod" onclick="clickMod()"></img>
-<img id="btnAceptar" onclick="clickCancelar()"></img>
+<img id="btnAceptar" onclick="clickAceptar()"></img>
 <img id="btnCancelar" onclick="gestionarCuenta()"></img>
 <br></br>
 </div>
@@ -25,28 +25,31 @@
 </div>
 </div>
 <script>
-	
-var request=new XMLHttpRequest();
-request.open("POST","cargarDatosPerfil.jsp");
-request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-request.onreadystatechange=function(){
-	if (request.readyState==4){ //ESTADO DE LA PETICIÓN
-		if(request.status==200){//ESTADO De la respuesta devuelta x el servidor
-			var respuesta=JSON.parse(request.responseText);
-			document.getElementById("inputNombre").value=respuesta.nombre;
-			document.getElementById("inputApellido1").value=respuesta.apellido1;
-			document.getElementById("inputApellido2").value=respuesta.apellido2;
-			document.getElementById("inputTelef").value=respuesta.telefono;
-			document.getElementById("inputEmail").value=respuesta.email;
-				
-			
-		}else{
-			alert("Error: " + request.statusText);
-		}
+	cargarDatosPerfil();
+	cargarFavoritos();
+	function cargarDatosPerfil(){
+		var request=new XMLHttpRequest();
+		request.open("POST","cargarDatosPerfil.jsp");
+		request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+		request.onreadystatechange=function(){
+			if (request.readyState==4){ //ESTADO DE LA PETICIÓN
+				if(request.status==200){//ESTADO De la respuesta devuelta x el servidor
+					var respuesta=JSON.parse(request.responseText);
+					document.getElementById("inputNombre").value=respuesta.nombre;
+					document.getElementById("inputApellido1").value=respuesta.apellido1;
+					document.getElementById("inputApellido2").value=respuesta.apellido2;
+					document.getElementById("inputTelef").value=respuesta.telefono;
+					document.getElementById("inputEmail").value=respuesta.email;
+						
+					
+				}else{
+					alert("Error: " + request.statusText);
+				}
+			}
+		};
+		var sessionEmail="email="+sessionStorage.getItem("email");
+		request.send(sessionEmail);
 	}
-};
-var sessionEmail="email="+sessionStorage.getItem("email");
-request.send(sessionEmail);
 	
 	function clickMod(){
 		document.getElementById("inputNombre").removeAttribute("disabled");
@@ -60,6 +63,135 @@ request.send(sessionEmail);
 		
 	}
 	function clickAceptar(){
+		var emailUserSession = sessionStorage.getItem("email");
+		var request= new XMLHttpRequest();
+		request.open("POST", "ModificarPerfil.action");
+		request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+		request.onreadystatechange=function(){
+			if(request.readyState==4){
+				if(request.status==200){
+					var respuesta=JSON.parse(request.responseText);
+					alert(respuesta.resultado);
+					cargarDatosPerfil();
+				}else{
+					alert("Error: "+request.status);
+				}
+			}
+		}
+
+		var pars="email="+document.getElementById("inputEmail").value +
+		"&emailSession="+emailUserSession +
+		"&nombre="+document.getElementById("inputNombre").value +
+		"&apellido1="+document.getElementById("inputApellido1").value +
+		"&apellido2="+document.getElementById("inputApellido2").value +
+		"&telefono="+document.getElementById("inputTelef").value;
+		request.send(pars);
+	}
+	
+	function cargarFavoritos(){
+		var request=new XMLHttpRequest();
+		request.open("POST","getFavoritos.jsp");
+		request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+		request.onreadystatechange=function(){
+			if (request.readyState==4){ //ESTADO DE LA PETICIÓN
+				if(request.status==200){//ESTADO De la respuesta devuelta x el servidor
+					anuncios=[];
+					var anunciosRecibidos=JSON.parse(request.responseText);
+					for(var i=0; i<anunciosRecibidos.length;i++){
+						var id=anunciosRecibidos[i].id;
+						var descripcion=anunciosRecibidos[i].descripcion;
+						var titulo=anunciosRecibidos[i].titulo;
+						var precio=anunciosRecibidos[i].precio;
+						var ruta=anunciosRecibidos[i].ruta;
+						var anuncio=new Anuncio(id,descripcion,titulo, precio,ruta);
+						anuncios.push(anuncio);
+					}
+					mostrarAnuncios();					
+					
+				}else{
+					alert("Error: " + request.statusText);
+				}
+			}
+		};
+		var par="&emailUsuario="+sessionStorage.getItem("email");
+		request.send(par);
+	}
+
+
+	function mostrarAnuncios(){
+		var divFavoritos=document.getElementById("divFavoritos");
+		divFavoritos.innerHTML="";
+		var span=document.createElement("span");
+		span.innerHTML="Tus anuncios favoritos son: ";
+		areaPrincipal.appendChild(span);
+		
+		var tabla=document.createElement("table");
+		areaPrincipal.appendChild(tabla);
+		var cols=3;
+		var filas=anuncios.length/cols;
+		var cont=0;
+		for(var i=0;i<filas;i++){
+			var fila=document.createElement("tr");
+			tabla.appendChild(fila);
+			for(var j=0;j<cols;j++){
+				var celda=document.createElement("td");
+				celda.setAttribute("id", "celdaAnuncioFav")
+				fila.appendChild(celda);							
+				var div=anuncios[cont++].getWidget();									
+				celda.appendChild(div);
+			}
+		}
+	}
+
+	function Anuncio(id,descripcion,titulo, precio,ruta){
+		this.id=id;
+		this.descripcion=descripcion;
+		this.titulo=titulo;
+		this.precio=precio;
+		this.fotos=ruta;
+	}
+
+	Anuncio.prototype.getWidget=function(){
+		var div= document.createElement("div");
+		div.setAttribute("id","divAnuncio"+this.id);
+		div.setAttribute("class","divAnuncio");
+		//IMAGEN ANUNCIO
+		var foto=document.createElement("img");
+		foto.setAttribute("src",this.fotos);
+		foto.setAttribute("height","175px");
+		foto.setAttribute("width","150px");
+		//TITULO ANUNCIO
+		var verMas=document.createElement("a");
+		verMas.setAttribute("href","javascript:mostrarAnuncio("+this.id+");");
+		var etiquetaTitulo=document.createElement("label");
+		etiquetaTitulo.innerHTML=this.titulo;
+		verMas.setAttribute("id", "labelVerMas");
+		verMas.appendChild(etiquetaTitulo);			
+		var divPrecioFav= document.createElement("div");
+		//PRECIO ANUNCIO
+		var precio=document.createElement("label");
+		precio.innerHTML=this.precio+" €";
+		//MARCAR FAVORITO
+		var botonFav=document.createElement("span");
+		var a=document.createElement("a");
+		a.setAttribute("href","javascript:marcarFavorito("+this.id+");");
+		botonFav.setAttribute("id","btnFavorito");
+
+		//CREACION DE ESTRUCTURA	
+		div.appendChild(foto);
+		div.appendChild(document.createElement("br"));
+		div.appendChild(verMas);
+		div.appendChild(document.createElement("br"));
+		a.appendChild(botonFav);
+		divPrecioFav.appendChild(a);
+		divPrecioFav.appendChild(precio);
+		div.appendChild(divPrecioFav);
+		
+		return div;
 		
 	}
+	//function mostrarAnuncio(id){
+//		$("#areaPrincipal").load("FormDPAnunciosMostrados.html");
+	//}
+
 </script>

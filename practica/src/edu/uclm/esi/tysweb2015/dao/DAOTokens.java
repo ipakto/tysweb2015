@@ -22,16 +22,17 @@ public class DAOTokens {
 		}
 	}
 
-	public static String comprobar(String token) throws Exception{
+	public static int comprobar(String token) throws Exception{
 		Connection bd=Broker.get().getConnectionSeleccion();
-		String email="";
+		int idUsuario;
 		try{
-			String sql="SELECT fExpira FROM tokens WHERE token=?;";
+			String sql="SELECT fExpira,idUsuario FROM tokens WHERE token=?;";
 			PreparedStatement p=bd.prepareStatement(sql);
 			p.setString(1,token);
 			ResultSet rs=p.executeQuery();
 			if(rs.next()){
 				long fExpira=rs.getLong(1);
+				idUsuario=rs.getInt(2);
 				bd.close();
 				if(fExpira<System.currentTimeMillis()){
 					throw new Exception ("La fecha ha expirado");
@@ -43,7 +44,7 @@ public class DAOTokens {
 		finally{
 			bd.close();
 		}
-		return email;
+		return idUsuario;
 	}
 
 }

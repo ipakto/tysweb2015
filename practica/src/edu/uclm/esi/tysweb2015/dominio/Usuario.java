@@ -96,4 +96,13 @@ public class Usuario {
 		DAOUsuario.existe(this);
 	}
 
+	public void setPwd(String pwd) {
+		this.pwd1=pwd;
+		
+	}
+
+	public void modificar(String emailSesion) throws Exception{
+		DAOUsuario.modify(this, emailSesion);
+	}
+
 }

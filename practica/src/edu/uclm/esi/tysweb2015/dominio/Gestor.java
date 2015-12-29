@@ -27,9 +27,11 @@ public class Gestor {
 		Usuario usuario=new Usuario(email,pwd);
 		return usuario;
 	}
-	public void cambiar(String email, String pwd) throws Exception {
+	public void cambiar(int idUsuario, String pwd) throws Exception {
 		// TODO Auto-generated method stub
-		Usuario u=new Usuario(email,null,null,null,null,pwd,0);
+		Usuario u=new Usuario();
+		u.setId(idUsuario);
+		u.setPwd(pwd);
 		u.update();
 	}
 	public Usuario existe(String email) throws Exception{
@@ -38,13 +40,13 @@ public class Gestor {
 		u.existe();
 		return u;
 	}
-	public void registraUsuarioGoogle(String email) throws Exception {
-		Usuario u=new Usuario(email);
+	public void registraUsuarioGoogle(String email, String nombre, String[] apellidos) throws Exception {
+		Usuario u=new Usuario(email,nombre,apellidos[0],apellidos[1],null,null,0);
 		u.insert(2);
 		
 	}
 	//TOKEN
-	public String validar(String token) throws Exception {
+	public int validar(String token) throws Exception {
 		return DAOTokens.comprobar(token);
 	}
 	//ANUNCIOS
@@ -63,5 +65,11 @@ public class Gestor {
 		// TODO Auto-generated method stub
 		Anuncio a=new Anuncio(idAnuncio, idAnunciante);
 		a.marcarFavorito();
+	}
+	public void modificarPerfil(String emailSesion, String email, String nombre, String apellido1,
+		String apellido2, String telefono) throws Exception {
+		// TODO Auto-generated method stub
+		Usuario u=new Usuario(email,nombre, apellido1 ,apellido2, telefono,"",0);
+		u.modificar(emailSesion);
 	}
 }
