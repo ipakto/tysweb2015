@@ -27,3 +27,60 @@ function gestionarCuenta(){
 	areaPrincipal.innerHTML="";
 	$("#areaPrincipal").load("FormGestionarCuenta.html");
 }
+function Anuncio(id,descripcion,titulo, precio,ruta,tipo){
+	this.id=id;
+	this.descripcion=descripcion;
+	this.titulo=titulo;
+	this.precio=precio;
+	this.fotos=ruta;
+	this.tipo=tipo;
+}
+
+Anuncio.prototype.getWidget=function(){
+	var div= document.createElement("div");
+	div.setAttribute("id","divAnuncio"+this.id);
+	div.setAttribute("class","divAnuncio");
+	//IMAGEN ANUNCIO
+	var foto=document.createElement("img");
+	foto.setAttribute("src",this.fotos);
+	foto.setAttribute("height","175px");
+	foto.setAttribute("width","150px");
+	//TITULO ANUNCIO
+	var verMas=document.createElement("a");
+	verMas.setAttribute("href","javascript:mostrarAnuncio("+this.id+");");
+	var etiquetaTitulo=document.createElement("label");
+	etiquetaTitulo.innerHTML=this.titulo;
+	verMas.setAttribute("id", "labelVerMas");
+	verMas.appendChild(etiquetaTitulo);			
+	var divPrecioFav= document.createElement("div");
+	//PRECIO ANUNCIO
+	var precio=document.createElement("label");
+	precio.innerHTML=this.precio+" €";
+	//DESMARCAR FAVORITO (TIPO = 0) O BORRAR (TIPO = 1) O MARCAR FAVORITO (TIPO = 2)
+	var boton=document.createElement("span");
+	var a=document.createElement("a");
+	
+	if(this.tipo==0){
+		a.setAttribute("href","javascript:desmarcarFavorito("+this.id+");");
+		boton.setAttribute("id","btnFavorito2");
+	}else if(this.tipo==1){
+		a.setAttribute("href","javascript:borrarAnuncio("+this.id+");");
+		boton.setAttribute("id","btnBorrarAnuncio");
+	}else if(this.tipo==2){
+		a.setAttribute("href","javascript:marcarFavorito("+this.id+");");
+		boton.setAttribute("id","btnFavorito");
+	}
+	
+	//CREACION DE ESTRUCTURA	
+	div.appendChild(foto);
+	div.appendChild(document.createElement("br"));
+	div.appendChild(verMas);
+	div.appendChild(document.createElement("br"));
+	a.appendChild(boton);
+	divPrecioFav.appendChild(a);
+	divPrecioFav.appendChild(precio);
+	div.appendChild(divPrecioFav);
+	
+	return div;
+	
+}

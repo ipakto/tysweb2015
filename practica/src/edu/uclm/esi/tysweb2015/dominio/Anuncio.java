@@ -53,8 +53,15 @@ public class Anuncio {
 	
 	public void marcarFavorito() throws Exception {
 		// TODO Auto-generated method stub
-		DAOAnuncio.marcarFavorito(this);
-		
+		DAOAnuncio.marcarFavorito(this);	
+	}
+	public void desmarcarFavorito() throws Exception {
+		// TODO Auto-generated method stub
+		DAOAnuncio.desmarcarFavorito(this);
+	}
+	public void borrarAnuncio() throws Exception {
+		// TODO Auto-generated method stub
+		DAOAnuncio.borrarAnuncio(this);
 	}
 	
 }

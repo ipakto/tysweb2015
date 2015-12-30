@@ -72,4 +72,14 @@ public class Gestor {
 		Usuario u=new Usuario(email,nombre, apellido1 ,apellido2, telefono,"",0);
 		u.modificar(emailSesion);
 	}
+	public void desmarcarFavorito(int idAnuncio, int idAnunciante) throws Exception {
+		// TODO Auto-generated method stub
+		Anuncio a=new Anuncio(idAnuncio, idAnunciante);
+		a.desmarcarFavorito();
+	}
+	public void borrarAnuncio(int idAnuncio, int idAnunciante) throws Exception {
+		// TODO Auto-generated method stub
+		Anuncio a=new Anuncio(idAnuncio, idAnunciante);
+		a.borrarAnuncio();
+	}
 }

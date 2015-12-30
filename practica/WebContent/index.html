@@ -196,7 +196,8 @@
 							var titulo=anunciosRecibidos[i].titulo;
 							var precio=anunciosRecibidos[i].precio;
 							var ruta=anunciosRecibidos[i].ruta;
-							var anuncio=new Anuncio(id,descripcion,titulo, precio,ruta);
+							var tipo=2;
+							var anuncio=new Anuncio(id,descripcion,titulo, precio,ruta,tipo);
 							anuncios.push(anuncio);
 						}
 						mostrarAnuncios();					
@@ -235,71 +236,8 @@
 			}
 		}
 		
-		function Anuncio(id,descripcion,titulo, precio,ruta){
-			this.id=id;
-			this.descripcion=descripcion;
-			this.titulo=titulo;
-			this.precio=precio;
-			this.fotos=ruta;
-		}
+	
 		
-		Anuncio.prototype.getWidget=function(){
-			var div= document.createElement("div");
-			div.setAttribute("id","divAnuncio"+this.id);
-			div.setAttribute("class","divAnuncio");
-			//IMAGEN ANUNCIO
-			var foto=document.createElement("img");
-			foto.setAttribute("src",this.fotos);
-			foto.setAttribute("height","175px");
-			foto.setAttribute("width","150px");
-			//TITULO ANUNCIO
-			var verMas=document.createElement("a");
-			verMas.setAttribute("href","javascript:mostrarAnuncio("+this.id+");");
-			var etiquetaTitulo=document.createElement("label");
-			etiquetaTitulo.innerHTML=this.titulo;
-			verMas.setAttribute("id", "labelVerMas");
-			verMas.appendChild(etiquetaTitulo);			
-			//var etiquetaDescripcion=document.createElement("label");
-			//etiquetaDescripcion.innerHTML=this.descripcion;
-			var divPrecioFav= document.createElement("div");
-			//PRECIO ANUNCIO
-			var precio=document.createElement("label");
-			precio.innerHTML=this.precio+" €";
-			//MARCAR FAVORITO
-			var botonFav=document.createElement("span");
-			var a=document.createElement("a");
-			a.setAttribute("href","javascript:marcarFavorito("+this.id+");");
-			//botonFav.setAttribute("onclick","marcarFavorito("+this.id+");");
-			botonFav.setAttribute("id","btnFavorito");
-			//var verMas=document.createElement("a");
-			//verMas.setAttribute("href","www.google.com");
-			//var label=document.createElement("label");
-			//label.innerHTML="Ver más";
-			//verMas.setAttribute("id", "labelVerMas");
-			//verMas.appendChild(label);
-			//botonFav.innerHTML="Favorito";
-		
-			//CREACION DE ESTRUCTURA	
-			div.appendChild(foto);
-			div.appendChild(document.createElement("br"));
-			//div.appendChild(etiquetaTitulo);
-			//div.appendChild(document.createElement("br"));
-			//div.appendChild(etiquetaDescripcion);
-			//div.appendChild(document.createElement("br"));
-			div.appendChild(verMas);
-			div.appendChild(document.createElement("br"));
-			//div.appendChild(precio);
-			//div.appendChild(document.createElement("br"));
-			a.appendChild(botonFav);
-			//div.appendChild(a);
-			divPrecioFav.appendChild(a);
-			divPrecioFav.appendChild(precio);
-			div.appendChild(divPrecioFav);
-			
-			
-			return div;
-			
-		}
 		function mostrarAnuncio(id){
 			$("#areaPrincipal").load("FormDPAnunciosMostrados.html");
 		}	

@@ -197,6 +197,19 @@ box-shadow: 0px 0px 30px -5px rgba(0,0,0,0.75);
   background-image: url("http://localhost:8080/practica/img/noHerB.png");
 }
 
+#btnBorrarAnuncio{
+  background-image: url("http://localhost:8080/practica/img/binBlack.png");
+  background-position: center;  
+  background-repeat: no-repeat;
+  border:none;
+  height: 38px;
+  width:20%;
+  float: right;
+}
+#btnBorrarAnuncio:hover{
+  background-image: url("http://localhost:8080/practica/img/binBlue.png");
+}
+
 #btnMod{
 	background-image: url("http://localhost:8080/practica/img/penB.png");
 	background-position: center;  

@@ -80,5 +80,35 @@ public class DAOAnuncio {
 			bd.close();
 		}
 	}
+	
+	public static void desmarcarFavorito(Anuncio anuncio) throws Exception {
+		// TODO Auto-generated method stub
+		String sql="delete from favoritos where idAnuncio=?;";
+		Connection bd = Broker.get().getConnectionInsercion();
+		try {	
+			CallableStatement cs=bd.prepareCall(sql);
+			cs.setInt(1, anuncio.getIdAnuncio());
+			cs.executeUpdate();
+		} catch (Exception e) {
+			throw e;
+		} finally {
+			bd.close();
+		}
+	}
+
+	public static void borrarAnuncio(Anuncio anuncio) throws Exception {
+		// TODO Auto-generated method stub
+				String sql="delete from Anuncios where id=?;";
+				Connection bd = Broker.get().getConnectionInsercion();
+				try {	
+					CallableStatement cs=bd.prepareCall(sql);
+					cs.setInt(1, anuncio.getIdAnuncio());
+					cs.executeUpdate();
+				} catch (Exception e) {
+					throw e;
+				} finally {
+					bd.close();
+				}
+	}
 
 }
