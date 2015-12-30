@@ -17,7 +17,13 @@ public class PonerAnuncio extends ActionSupport {
 	private String precio;
 	
 	public String execute(){
-		if(idCategoria==0){
+		if(titulo.equals("")){
+			this.resultado="Por favor, introduzca un titulo del anuncio.";
+			return ERROR;
+		}else if(precio.equals("")){
+			this.resultado="Por favor, introduzca un precio para el anuncio.";
+			return ERROR;
+		}else if(idCategoria==0){
 			this.resultado="Por favor, seleccione una categoría.";
 			return ERROR;
 		}else if(descripcion.equals("")){

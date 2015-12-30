@@ -9,10 +9,19 @@
 	    <table style="width: 100%">
 	    <tr><td style="width: 50%">
 	    	<p>
+	    	<div>
+	    		<label for="titulo">Título</label>
+	    		<input type="text" id="titulo" maxlength="25" size="25"></div>
+	    	<div style="margin-top:5px; margin-bottom: 5px;">
+	    		<label for="precio"> Precio (€)</label>
+	    		<input type="number" id="precio" step="0.01" min="0.01" style="width:80px;">
+	    		</div>
+	    		<div>
 				<label for="categoria">Categoria</label>
 				<select id="categoria">
 					<option></option>
 				</select>
+				</div>
 			</p>
 			<p>
 				<label for="descripcion"><textarea id="descripcion" rows="10" cols="35" placeholder="Escriba aquí la descripción"></textarea><br>
@@ -303,7 +312,8 @@ pageTracker._trackPageview();
 			var pars="idCategoria="+document.getElementById("categoria").value +
 			"&emailAnunciante="+sessionStorage.getItem("email") +
 			 "&descripcion="+document.getElementById("descripcion").value +
-			 "&titulo="+"Titulo1"+"&precio=36,5";
+			 "&titulo="+document.getElementById("titulo").value +
+			 "&precio="+document.getElementById("precio").value;
 			request.send(pars);
 		}
 		

@@ -1,3 +1,4 @@
+
 <meta charset="UTF-8">
  <script src="js/utils.js"></script>
 <div id="divPpal">
@@ -16,9 +17,9 @@
 </tr>
 </tbody>
 </table>
-<img id="btnMod" onclick="clickMod()"></img>
-<img id="btnAceptar" onclick="clickAceptar()"></img>
-<img id="btnCancelar" onclick="gestionarCuenta()"></img>
+<span id="btnMod" onclick="clickMod()"></span>
+<span id="btnAceptar" onclick="clickAceptar()"></span>
+<span id="btnCancelar" onclick="gestionarCuenta()"></span>
 <br></br>
 </div>
 <div id="divFavoritos">ANUNCIOS FAVORITOS:
@@ -106,7 +107,7 @@
 						var anuncio=new Anuncio(id,descripcion,titulo, precio,ruta);
 						anuncios.push(anuncio);
 					}
-					mostrarAnuncios();					
+					mostrarAnunciosFavoritos();					
 					
 				}else{
 					alert("Error: " + request.statusText);
@@ -118,15 +119,15 @@
 	}
 
 
-	function mostrarAnuncios(){
+	function mostrarAnunciosFavoritos(){
 		var divFavoritos=document.getElementById("divFavoritos");
 		divFavoritos.innerHTML="";
 		var span=document.createElement("span");
 		span.innerHTML="Tus anuncios favoritos son: ";
-		areaPrincipal.appendChild(span);
+		divFavoritos.appendChild(span);
 		
 		var tabla=document.createElement("table");
-		areaPrincipal.appendChild(tabla);
+		divFavoritos.appendChild(tabla);
 		var cols=3;
 		var filas=anuncios.length/cols;
 		var cont=0;
@@ -175,7 +176,7 @@
 		var botonFav=document.createElement("span");
 		var a=document.createElement("a");
 		a.setAttribute("href","javascript:marcarFavorito("+this.id+");");
-		botonFav.setAttribute("id","btnFavorito");
+		botonFav.setAttribute("id","btnFavorito2");
 
 		//CREACION DE ESTRUCTURA	
 		div.appendChild(foto);

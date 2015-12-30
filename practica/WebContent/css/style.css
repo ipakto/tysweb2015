@@ -183,6 +183,20 @@ box-shadow: 0px 0px 30px -5px rgba(0,0,0,0.75);
 #btnFavorito:hover{
 	background-image: url("http://localhost:8080/practica/img/her.png");
 }
+
+#btnFavorito2{
+  background-image: url("http://localhost:8080/practica/img/her.png");
+  background-position: center;  
+  background-repeat: no-repeat;
+  border:none;
+  height: 38px;
+  width:20%;
+  float: right;
+}
+#btnFavorito2:hover{
+  background-image: url("http://localhost:8080/practica/img/noHerB.png");
+}
+
 #btnMod{
 	background-image: url("http://localhost:8080/practica/img/penB.png");
 	background-position: center;  

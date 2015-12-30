@@ -305,22 +305,31 @@
 		}	
 		
 		function marcarFavorito(id){
-			var request=new XMLHttpRequest();
-			request.open("POST","MarcarFavorito.action");
-			request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-			request.onreadystatechange=function(){
-				if (request.readyState==4){ //ESTADO DE LA PETICIÓN
-					if(request.status==200){//ESTADO De la respuesta devuelta x el servidor
-										
-						
-					}else{
-						alert("Error: " + request.statusText);
-					}
-				}
-			};
-			var par="idAnuncio="+id+"&emailAnunciante="+sessionStorage.getItem("email");
-			request.send(par);
+			if(sessionStorage.getItem("email")!=null){
+		      var request=new XMLHttpRequest();
+		      request.open("POST","MarcarFavorito.action");
+		      request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+		      request.onreadystatechange=function(){
+		        if (request.readyState==4){ //ESTADO DE LA PETICIÓN
+		          if(request.status==200){//ESTADO De la respuesta devuelta x el servidor
+		              //alert("Marcado como favorito.");	            
+		          }else{
+		            alert("Error: " + request.statusText);
+		          }
+		        }
+		      };
+		      var par="idAnuncio="+id+"&emailAnunciante="+sessionStorage.getItem("email");
+		      request.send(par);
+		    }else{
+		    	favSinRegistrar();
+		    }
 		}
+		    function favSinRegistrar(){
+		        //$("#datosPersonales").load("FormDPLogin.html");
+		        crearForm();
+		        $("#forms").load("FormDPLogin.html");
+		        window.location.assign("#formFlotante");
+		    }
 	</script>
 	<script>
   $(document).ready(function(){
