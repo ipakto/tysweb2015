@@ -36,6 +36,8 @@ public class ServidorChat {
 				String login=jso.getString("texto");
 				if(login.equals("admin")){
 					admin=new ChatUser(login,session);
+				}else if(admin==null){
+					enviar(session,"NoDisponible","No existe ninguna persona del soporte conectada al chat. Intentelo más tarde","");
 				}else{
 					ChatUser chatUser=new ChatUser(login,session);
 					chatUsers.put(login,chatUser);

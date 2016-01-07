@@ -1,8 +1,9 @@
 <meta charset="UTF-8">
-<div id="chat" class="flotante">
+<div>
+  <a title="Cerrar" class="closeForm" onclick="cerrarChat()">X</a>
   <div id="welcome">
   <label>Welcome,</label>
-    <label>Paco</label></div>
+    <label id="nombreUsuarioChat">Paco</label></div>
   <br>
   <div id="conversacion" style= "overflow-y: scroll;"></div>
   <br>
@@ -26,6 +27,8 @@
 		      texto: sessionStorage.getItem("email")
 		    };
 		    chat.send(JSON.stringify(mensaje));
+		    var label=document.getElementById("nombreUsuarioChat");
+		    label.innerHTML=sessionStorage.getItem("email");
 		  }
 		  
 		  chat.onerror=function(){alert("Error al abrir WS");}
@@ -69,6 +72,15 @@
       textoEnviar.focus();
     }    
   }
+  function cerrarChat(){
+		var mensaje={
+			tipo: "cierre",
+	     	texto: sessionStorage.getItem("email")
+	   	};
+		chat.send(JSON.stringify(mensaje));
+		var divChat=document.getElementById("chat");
+		document.body.removeChild(divChat);
+	}
   function submitonenter(idChat,evt,thisObj) {
         evt = (evt) ? evt : ((window.event) ? window.event : "")
         if (evt) {

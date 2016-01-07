@@ -11,6 +11,10 @@
     <filter-name>struts2</filter-name>
     <url-pattern>*.action</url-pattern>
   </filter-mapping>
+  <servlet>
+    <servlet-name>ServirFoto</servlet-name>
+    <servlet-class>edu.uclm.esi.tysweb2015.servlets.ServirFoto</servlet-class>
+  </servlet>
   <welcome-file-list>
     <welcome-file>index.html</welcome-file>
   </welcome-file-list>

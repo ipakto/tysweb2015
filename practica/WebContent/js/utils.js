@@ -27,6 +27,7 @@ function gestionarCuenta(){
 	areaPrincipal.innerHTML="";
 	$("#areaPrincipal").load("FormGestionarCuenta.html");
 }
+
 function Anuncio(id,descripcion,titulo, precio,ruta,tipo){
 	this.id=id;
 	this.descripcion=descripcion;
@@ -42,7 +43,8 @@ Anuncio.prototype.getWidget=function(){
 	div.setAttribute("class","divAnuncio");
 	//IMAGEN ANUNCIO
 	var foto=document.createElement("img");
-	foto.setAttribute("src",this.fotos);
+	//foto.setAttribute("src",this.fotos);
+	servirFoto(this.fotos,foto);
 	foto.setAttribute("height","175px");
 	foto.setAttribute("width","150px");
 	//TITULO ANUNCIO
@@ -82,5 +84,28 @@ Anuncio.prototype.getWidget=function(){
 	div.appendChild(divPrecioFav);
 	
 	return div;
+	
+}
+function servirFoto(ruta,img){
+	if(ruta==="http://localhost:8080/practica/img/NO_EXISTE.png"){
+		img.setAttribute("src","http://localhost:8080/practica/img/NO_EXISTE.png");
+	}else{
+		img.setAttribute("src","/practica/ServirFoto?rutaFoto="+ruta);
+		/*var request=new XMLHttpRequest();
+		request.open("POST","/practica/ServirFoto");
+		request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+		request.onreadystatechange=function(){
+			if (request.readyState==4){ //ESTADO DE LA PETICIÓN
+				if(request.status==200){//ESTADO De la respuesta devuelta x el servidor
+					img.src = 'data:image/jpeg;base64,' + btoa(request.responseText);
+					//img.setAttribute("src","data:image/jpeg;base64,"+);
+				}else{
+					alert("Error: " + request.statusText);
+				}
+			}
+		};
+		var par="rutaFoto="+ruta;
+		request.send(par);*/
+	}
 	
 }

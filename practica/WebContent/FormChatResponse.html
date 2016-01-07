@@ -51,10 +51,13 @@ function iniciarChat(){
 		    	  chatKeys.push({id:chatKeys.length,value:msg.remitente});
 	    	  });
 	      }else if(msg.tipo === "cierre"){
-	    	  for(var aux;aux<chatKeys.length;aux++){
+	    	  for(var aux=0;aux<chatKeys.length;aux++){
 	    		  if(chatKeys[aux].value===msg.remitente){
 	    			  alert("Termino "+msg.remitente);
-	    		  }
+	    	    	  var divChat=document.getElementById("chat"+aux);
+	    	    	  divChat.setAttribute("style","display:none");
+	    	    	  chatKeys[aux].value="desconectado";
+	    	      }
 	    	  }
 	      }
 	      else{
