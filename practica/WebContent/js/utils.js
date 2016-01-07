@@ -90,7 +90,7 @@ function servirFoto(ruta,img){
 	if(ruta==="http://localhost:8080/practica/img/NO_EXISTE.png"){
 		img.setAttribute("src","http://localhost:8080/practica/img/NO_EXISTE.png");
 	}else{
-		img.setAttribute("src","/practica/ServirFoto?rutaFoto="+ruta);
+		img.setAttribute("src","/practica/ServirArchivo?rutaFoto="+ruta);
 		/*var request=new XMLHttpRequest();
 		request.open("POST","/practica/ServirFoto");
 		request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
@@ -107,5 +107,7 @@ function servirFoto(ruta,img){
 		var par="rutaFoto="+ruta;
 		request.send(par);*/
 	}
-	
+}
+function servirVideo(ruta,video){
+	video.setAttribute("src","/practica/ServirArchivo?rutaVideo="+ruta)
 }
