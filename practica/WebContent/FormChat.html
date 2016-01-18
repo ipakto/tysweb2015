@@ -44,11 +44,19 @@
 		      var msg = JSON.parse(mensaje.data);
 		      var txt=msg.contenido;
 		      var remit=msg.remitente;
+		      var tipo=msg.tipo;
+		      if(msg.tipo==="NoDisponible"){
+		    	  var button=document.getElementById("btnEnviar");
+		    	  button.disabled=true;
+		    	  var input=document.getElementById("txtChat");
+		    	  input.disabled=true;
+		      }
 		      var mensaje=document.createElement("label");
 		      mensaje.setAttribute("class", "lblIzquierda");
 		      mensaje.innerHTML = remit+": "+txt;
 		      var c=document.getElementById("conversacion");
 		      c.appendChild(mensaje);
+		      
 		     
 		  }
 	}

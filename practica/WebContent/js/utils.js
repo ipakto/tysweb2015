@@ -86,6 +86,8 @@ Anuncio.prototype.getWidget=function(){
 	return div;
 	
 }
+
+
 function servirFoto(ruta,img){
 	if(ruta==="http://localhost:8080/practica/img/NO_EXISTE.png"){
 		img.setAttribute("src","http://localhost:8080/practica/img/NO_EXISTE.png");

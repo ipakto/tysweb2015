@@ -209,24 +209,24 @@
 		}
 	}
 	
-	
 	function desmarcarFavorito(id){
-	      var request=new XMLHttpRequest();
-	      request.open("POST","DesmarcarFavorito.action");
-	      request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-	      request.onreadystatechange=function(){
-	        if (request.readyState==4){ //ESTADO DE LA PETICIÓN
-	          if(request.status==200){//ESTADO De la respuesta devuelta x el servidor
-	              alert("YA NO ES FAV");	
-	          	  gestionarCuenta();
-	          }else{
-	            alert("Error: " + request.statusText);
-	          }
+	    var request=new XMLHttpRequest();
+	    request.open("POST","DesmarcarFavorito.action");
+	    request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+	    request.onreadystatechange=function(){
+	      if (request.readyState==4){ //ESTADO DE LA PETICIÓN
+	        if(request.status==200){//ESTADO De la respuesta devuelta x el servidor
+	            alert("YA NO ES FAV");	
+	        	  gestionarCuenta();
+	        }else{
+	          alert("Error: " + request.statusText);
 	        }
-	      };
-	      var par="idAnuncio="+id+"&emailAnunciante="+sessionStorage.getItem("email");
-	      request.send(par);
+	      }
+	    };
+	    var par="idAnuncio="+id+"&emailAnunciante="+sessionStorage.getItem("email");
+	    request.send(par);
 	}
+	
 	function borrarAnuncio(id){
 	      var request=new XMLHttpRequest();
 	      request.open("POST","BorrarAnuncio.action");

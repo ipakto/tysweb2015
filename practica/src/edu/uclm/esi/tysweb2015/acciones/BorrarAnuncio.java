@@ -18,9 +18,7 @@ public class BorrarAnuncio extends ActionSupport  {
 		public String execute(){
 			try{
 				Gestor g= Gestor.get();
-				Usuario u=new Usuario(emailAnunciante);
-				u.existe();
-				g.borrarAnuncio(idAnuncio, u.getId());
+				g.borrarAnuncio(idAnuncio, emailAnunciante);
 				this.resultado="OK";
 				return SUCCESS;
 			}catch(Exception e){

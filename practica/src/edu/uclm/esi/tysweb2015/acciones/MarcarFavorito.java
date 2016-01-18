@@ -18,9 +18,7 @@ public class MarcarFavorito extends ActionSupport  {
 		public String execute(){
 			try{
 				Gestor g= Gestor.get();
-				Usuario u=new Usuario(emailAnunciante);
-				u.existe();
-				g.marcarFavorito(idAnuncio, u.getId());
+				g.marcarFavorito(idAnuncio, emailAnunciante);
 				this.resultado="OK";
 				return SUCCESS;
 			}catch(Exception e){

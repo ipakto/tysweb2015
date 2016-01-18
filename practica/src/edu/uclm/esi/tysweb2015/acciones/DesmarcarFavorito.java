@@ -18,9 +18,7 @@ public class DesmarcarFavorito extends ActionSupport  {
 		public String execute(){
 			try{
 				Gestor g= Gestor.get();
-				Usuario u=new Usuario(emailAnunciante);
-				u.existe();
-				g.desmarcarFavorito(idAnuncio, u.getId());
+				g.desmarcarFavorito(idAnuncio,emailAnunciante);
 				this.resultado="OK";
 				return SUCCESS;
 			}catch(Exception e){

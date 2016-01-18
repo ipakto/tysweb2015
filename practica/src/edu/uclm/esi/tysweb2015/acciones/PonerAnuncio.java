@@ -32,10 +32,8 @@ public class PonerAnuncio extends ActionSupport {
 		}
 		try{
 			Gestor g= Gestor.get();
-			Usuario u=new Usuario(emailAnunciante);
-			u.existe();
-			Anuncio a = g.ponerAnuncio(idCategoria, u.getId(), descripcion, titulo, precio);
-			ServletActionContext.getRequest().getSession().setAttribute("idAnuncio",a.getIdAnuncio());
+			int id = g.ponerAnuncio(idCategoria, emailAnunciante, descripcion, titulo, precio);
+			ServletActionContext.getRequest().getSession().setAttribute("idAnuncio",id);
 			this.resultado="OK";
 			return SUCCESS;
 		}catch(Exception e){

@@ -50,10 +50,12 @@ public class Gestor {
 		return DAOTokens.comprobar(token);
 	}
 	//ANUNCIOS
-	public Anuncio ponerAnuncio(int idCategoria, int idAnunciante, String descripcion,String titulo, String precio) throws Exception{
-		Anuncio a= new Anuncio (idCategoria, idAnunciante, descripcion, titulo, precio);
+	public int ponerAnuncio(int idCategoria, String emailAnunciante, String descripcion,String titulo, String precio) throws Exception{
+		Usuario u=new Usuario(emailAnunciante);
+		u.existe();
+		Anuncio a= new Anuncio (idCategoria, u.getId(), descripcion, titulo, precio);
 		a.insert();
-		return a;
+		return a.getIdAnuncio();
 		
 	}
 	public void insertarArchivo(File archivo, int idAnuncio, String tipo) throws Exception {
@@ -61,9 +63,12 @@ public class Gestor {
 		a.insert();
 		
 	}
-	public void marcarFavorito(int idAnuncio, int idAnunciante) throws Exception {
+	public void marcarFavorito(int idAnuncio, String emailAnunciante) throws Exception {
 		// TODO Auto-generated method stub
-		Anuncio a=new Anuncio(idAnuncio, idAnunciante);
+
+		Usuario u=new Usuario(emailAnunciante);
+		u.existe();
+		Anuncio a=new Anuncio(idAnuncio, u.getId());
 		a.marcarFavorito();
 	}
 	public void modificarPerfil(String emailSesion, String email, String nombre, String apellido1,
@@ -72,14 +77,20 @@ public class Gestor {
 		Usuario u=new Usuario(email,nombre, apellido1 ,apellido2, telefono,"",0);
 		u.modificar(emailSesion);
 	}
-	public void desmarcarFavorito(int idAnuncio, int idAnunciante) throws Exception {
+	public void desmarcarFavorito(int idAnuncio, String emailAnunciante) throws Exception {
 		// TODO Auto-generated method stub
-		Anuncio a=new Anuncio(idAnuncio, idAnunciante);
+
+		Usuario u=new Usuario(emailAnunciante);
+		u.existe();
+		Anuncio a=new Anuncio(idAnuncio, u.getId());
 		a.desmarcarFavorito();
 	}
-	public void borrarAnuncio(int idAnuncio, int idAnunciante) throws Exception {
+	public void borrarAnuncio(int idAnuncio, String emailAnunciante) throws Exception {
 		// TODO Auto-generated method stub
-		Anuncio a=new Anuncio(idAnuncio, idAnunciante);
+
+		Usuario u=new Usuario(emailAnunciante);
+		u.existe();
+		Anuncio a=new Anuncio(idAnuncio, u.getId());
 		a.borrarAnuncio();
 	}
 }
