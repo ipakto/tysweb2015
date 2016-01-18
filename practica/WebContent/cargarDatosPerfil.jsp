@@ -5,7 +5,7 @@
 <%
 Connection bd=Broker.get().getConnectionSeleccion(); 
 String email=request.getParameter("email");
-String sql="SELECT nombre,apellido1,apellido2,telefono FROM Usuarios WHERE email=?;";
+String sql="SELECT nombre,apellido1,apellido2,telefono,estado FROM Usuarios WHERE email=?;";
 PreparedStatement ps=bd.prepareStatement(sql);
 ps.setString(1,email);
 JSONObject jso=new JSONObject();
@@ -15,6 +15,7 @@ while (rs.next()){
 	jso.put("apellido1",rs.getString(2));
 	jso.put("apellido2",rs.getString(3));
 	jso.put("telefono",rs.getString(4));
+	jso.put("estado",rs.getInt(5));
 	jso.put("email", email);
 	//String par="{\"id\" : "+rs.getInt(1)+", "+ "\"nombre\" : \""+rs.getString(2)+ "\"}";
 }

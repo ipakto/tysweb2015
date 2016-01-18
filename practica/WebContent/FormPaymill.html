@@ -1,0 +1,107 @@
+<meta charset="UTF-8">
+<div id="formFlotante" class="formFlotante">
+	<div>
+	    <a title="Cerrar" class="closeForm" onclick="borrarForm()">X</a>
+	    <h2>Realizar pago con Paymill </h2>
+	    <strong> Introduzca sus datos para realizar el pago </strong>
+	    
+	    <p>
+			<label class="payment-errors" style="color:red"></label>
+<form id="payment-form" action="#" method="POST">
+	<label>Importe (14,99€)</label> 
+	<div class="form-row">
+		<label>Nº de tarjeta</label> <input class="card-number" type="text"
+			size="20" value=4111111111111111 />
+	</div>
+	<div class="form-row">
+		<label>CVC</label> <input class="card-cvc" type="text" size="3" value=123 />
+	</div>
+	<div class="form-row">
+		<label>Nombre del titular</label> <input class="card-holdername"
+			type="text" size="20" />
+	</div>
+	<div class="form-row">
+		<label>Fecha de caducidad (MM/AAAA)</label> <input
+			class="card-expiry-month" type="text" size="2" value=12 /> <span></span> <input
+			class="card-expiry-year" type="text" size="4" value=2018 />
+	</div>
+	<button class="submit-button" type="submit">Pagar</button>
+</form>
+	    </p>
+	</div>
+</div>
+
+
+<script type="text/javascript">
+var PAYMILL_PUBLIC_KEY = '5028934278321103e9fd803c40dd0ef9';
+</script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+<script type="text/javascript" src="https://bridge.paymill.de/"></script>
+<script type="text/javascript">
+	$(document).ready(function () {
+		function PaymillResponseHandler(error, result) {
+		if (error) {
+			// Shows the error above the form.
+			$(".payment-errors").text(error.apierror);
+		} else {
+			$(".payment-errors").text("");
+			var form = $("#payment-form");
+			// Token
+			var token = result.token;
+			// Insert token into form in order to submit to server
+			form.append("<input type='hidden' name='paymillToken' value='" + token + "'/>");
+			//form.get(0).submit();
+			actualizarCuenta();
+		}
+		$(".submit-button").removeAttr("disabled");
+	}
+	$("#payment-form").submit(function (event) {
+	// Deactivate submit button to avoid further clicks
+	$('.submit-button').attr("disabled", "disabled");
+	if (false == paymill.validateCardNumber($('.card-number').val())) {
+		$(".payment-errors").text("Invalid card number");
+		$(".submit-button").removeAttr("disabled");
+		return false;
+	}
+	if (false == paymill.validateExpiry($('.card-expiry-month').val(), $('.card-expiry-year').val())) {
+		$(".payment-errors").text("Invalid expiration date");
+		$(".submit-button").removeAttr("disabled");
+		return false;
+	}
+	paymill.createToken({
+		number:$('.card-number').val(),
+		exp_month:$('.card-expiry-month').val(),
+		exp_year:$('.card-expiry-year').val(),
+		cvc:$('.card-cvc').val(),
+		cardholdername:$('.card-holdername').val()
+		}, PaymillResponseHandler);
+		return false;
+	});
+});
+	function actualizarCuenta(){
+		var request= new XMLHttpRequest();
+		request.open("POST", "mejorarCuenta.jsp");
+		request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+		request.onreadystatechange=function(){
+			if(request.readyState==4){
+				if(request.status==200){
+					var respuesta=JSON.parse(request.responseText);
+					if(respuesta.resultado=="OK"){
+						alert("Felicidades, ahora eres PREMIUM");
+						gestionarCuenta();
+						//$("#datosPersonales").load("FormDPSesion.html");
+					}else{
+						alert(respuesta.resultado);
+					}
+				}else{
+					alert("Error: "+request.status);
+				}
+			}
+		}
+
+		var pars="emailAnunciante="+sessionStorage.getItem("email");
+		request.send(pars);
+	}
+</script>
+</body>
+</html>

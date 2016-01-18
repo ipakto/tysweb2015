@@ -22,6 +22,11 @@
 <span id="btnCancelar" onclick="gestionarCuenta()"></span>
 <br></br>
 </div>
+<div id="estadoCuenta">ESTADO DE LA CUENTA:
+<label id="estado">Normal</label>
+<div id="botonesPago">
+</div>
+</div>
 <div id="divFavoritos">ANUNCIOS FAVORITOS:
 </div>
 <div id="divMisAnuncios">MIS ANUNCIOS:
@@ -44,6 +49,13 @@
 					document.getElementById("inputApellido2").value=respuesta.apellido2;
 					document.getElementById("inputTelef").value=respuesta.telefono;
 					document.getElementById("inputEmail").value=respuesta.email;
+					if(respuesta.estado==0){
+						document.getElementById("estado").innerHTML="NORMAL";
+						$("#botonesPago").load("FormPago.html");	
+						
+					}else{
+						document.getElementById("estado").innerHTML="PREMIUM";
+					}
 						
 					
 				}else{

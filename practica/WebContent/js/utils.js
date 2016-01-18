@@ -64,12 +64,14 @@ Anuncio.prototype.getWidget=function(){
 	
 	if(this.tipo==0){
 		a.setAttribute("href","javascript:desmarcarFavorito("+this.id+");");
+		a.setAttribute("class","desmarcarFav");
 		boton.setAttribute("id","btnFavorito2");
 	}else if(this.tipo==1){
 		a.setAttribute("href","javascript:borrarAnuncio("+this.id+");");
 		boton.setAttribute("id","btnBorrarAnuncio");
 	}else if(this.tipo==2){
 		a.setAttribute("href","javascript:marcarFavorito("+this.id+");");
+		a.setAttribute("class","marcarFav");		
 		boton.setAttribute("id","btnFavorito");
 	}
 	

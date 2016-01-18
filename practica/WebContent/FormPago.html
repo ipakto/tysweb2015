@@ -1,0 +1,25 @@
+	<meta charset="UTF-8">
+	<label style="margin-left:50px;">MEJORA TU CUENTA POR 14,99€</label>
+	<table style="width: 60%;text-align: center;" class="aligncenter">
+		<tr>
+			<td>
+				<form action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post" target="_top" style="margin:20px 20px 20px 20px;">
+					<input type="hidden" name="cmd" value="_s-xclick">
+					<input type="hidden" name="hosted_button_id" value="WWQMLKEGPHTQ4">
+					<input onclick="javascript:hola()" type="image" src="https://www.sandbox.paypal.com/es_ES/ES/i/btn/btn_buynowCC_LG.gif" border="0" name="submit" alt="PayPal. La forma rápida y segura de pagar en Internet.">
+					<img alt="" border="0" src="https://www.sandbox.paypal.com/es_ES/i/scr/pixel.gif" width="1" height="1">
+				</form>
+			</td>
+			<td>
+				<img src="/practica/img/paymill.png" onclick="pagarPaymill()" 	style="border-radius: 62px 62px 62px 62px; margin:0px 20px 20px 20px; width:200px; cursor: pointer;">
+			</td> 
+		</tr>
+	</table>
+	
+	<script>
+		function pagarPaymill(){
+			crearForm();
+			$("#forms").load("FormPaymill.html");
+			window.location.assign("#formFlotante");
+		}
+	</script>
