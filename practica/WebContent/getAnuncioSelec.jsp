@@ -20,18 +20,53 @@ ResultSet rs=ps.executeQuery();
 if (rs.next()) {
 	   //String par="{\"id\": "+ rs.getInt(1)+", "+ "\"nombre\": \""+rs.getString(2)+"\"}"";
 	   JSONObject jso=new JSONObject();
+	   JSONArray jsaImagen=new JSONArray();
+	   JSONObject jso1=new JSONObject ();
+	   JSONArray jsaVideo=new JSONArray();
+	   JSONObject jso2=new JSONObject ();
 	   jso.put("descripcion",rs.getString(1));
 	   jso.put("titulo",rs.getString(2));
 	   jso.put("precio",rs.getString(3));
-	   //jso.put("ciudad",rs.getInt(4));
 	   
 	   String sql2="select ruta FROM Archivos WHERE idAnuncio="+idAnuncio+" AND tipo=\"image\"";
 	   PreparedStatement ps2=bd.prepareStatement(sql2);
 	   ResultSet rs2=ps2.executeQuery();
-	   if(rs2.next())jso.put("ruta",rs2.getString(1));
-	   else jso.put("ruta","http://localhost:8080/practica/img/NO_EXISTE.png");//IMAGEN_NO_DISPONIBLE.png");
-
+	   if(rs2.next()){
+		   do{
+			   jso1=new JSONObject();
+			   jso1.put("ruta",rs2.getString(1));
+			   jsaImagen.put(jso1);
+		   }while(rs2.next());
+	   }
+	   else{ 
+		   jso1=new JSONObject();
+		   jso1.put("ruta","http://localhost:8080/practica/img/NO_EXISTE.png");//IMAGEN_NO_DISPONIBLE.png");
+		   jsaImagen.put(jso1);
+	   }
+  	   
+  	   String sql3="select ruta FROM Archivos WHERE idAnuncio="+idAnuncio+" AND tipo=\"video\"";
+	   PreparedStatement ps3=bd.prepareStatement(sql3);
+	   ResultSet rs3=ps3.executeQuery();
+	   
+	   if(rs3.next()){
+		   do{
+			   jso2=new JSONObject();
+			   jso2.put("ruta",rs3.getString(1));
+			   jsaVideo.put(jso2);
+		   }while(rs3.next());
+	   }
+	   else{ 
+		   jso2=new JSONObject();
+		   jso2.put("ruta","NO EXISTE");//VIDEO_NO_DISPONIBLE
+		   jsaVideo.put(jso2);
+	   }
+	   jso.put("conjuntoImagenes",jsaImagen);
+	   jso.put("conjuntoVideos",jsaVideo);
+	   
+  	   
 	   jsa.put(jso);//rs.getString(1));
+	   
+	   
 	}
 bd.close();
 %>

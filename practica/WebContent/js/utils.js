@@ -23,10 +23,23 @@ function borrarForm(){
 	document.getElementById("paraForms").removeChild(document.getElementById("forms"));
 }
 function gestionarCuenta(){
-	var areaPrincipal=document.getElementById("areaPrincipal");
-	areaPrincipal.innerHTML="";
-	$("#areaPrincipal").load("FormGestionarCuenta.html");
-}
+	  var bc=document.getElementById("miga");
+	  var nodos=bc.childNodes;
+	  var liB=nodos[2];
+	  for (var i=nodos.length-1;i>1;i--){
+	    bc.removeChild(nodos[i]);
+	  }
+	  var li=document.createElement("li");
+	  li.innerHTML="Gestionar cuenta";
+	  bc.setAttribute("class","breadcrumb");
+	  li.setAttribute("class","active");
+	  li.value=-2;
+	  bc.appendChild(li);
+	  
+	  var areaPrincipal=document.getElementById("areaPrincipal");
+	  areaPrincipal.innerHTML="";
+	  $("#areaPrincipal").load("FormGestionarCuenta.html");
+	}
 
 function Anuncio(id,descripcion,titulo, precio,ruta,tipo){
 	this.id=id;

@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="js/utils.js"></script>
 <meta charset="UTF-8">
 <title>Anuncio</title>
 </head>
@@ -9,7 +11,7 @@
 		<tbody >
 			<tr>
 				<td style="max-width: 500px">
-				<div style="padding-top: 2%;" id="divImagenAnuncio"> <img  id="imagenAnuncio" class="img-responsive" src="http://jsequeiros.com/sites/default/files/imagen-cachorro-comprimir.jpg?1399003306" alt=""></div>
+				<div style="padding-top: 2%;" id="divImagenAnuncio"> <img id="imagenMostrada" ></img> </div>
                 </td>
 			</tr>
 			<tr style="max-width: 500px">
@@ -26,35 +28,44 @@
 				<td >
 				<div style="padding-top: 2%;" id="divPrecioProd"> <label id="precioProd"> 500€  </label></div>
                 </td>
-                <td >
-				<div style="padding-top: 2%;" id="divCiudadProd"> <label id="ciudadProd"> Ciudad Real </label></div>
-                </td>                
+                               
 			</tr>			
 		</tbody>
 	</table>
 	
 	<script>
-	
-	//intervalo tiempo cambio img slide, 5 segundos, se llama a la función "avanzaSlide()"
-	setInterval('avanzaSlide()',5000);
-	 
-	//array con las clases para las diferentes imagenes
-	var arrayImagenes = new Array(".img1",".img2",".img3");
-	 
+	var arrayImagenes = new Array();
 	//variable que nos permitirá saber qué imagen se está mostrando
 	var contador = 0;
-	avanzaSlide();
+	inicializar();
+	
+	function inicializar(){
+		//intervalo tiempo cambio img slide, 5 segundos, se llama a la función "avanzaSlide()"
+		setInterval('avanzaSlide()',3500);
+		alert("hello");
+		
+		//var i1=document.getElementById("imagenAnuncio");
+		//array con las clases para las diferentes imagenes
+		var imagenes=document.getElementsByTagName("img");
+		for(var i=1;i<imagenes.length;i++){
+			var id=	imagenes[i].id;
+			arrayImagenes.push(id);
+		}
+		
+		
+	}
 	//hace un efecto fadeIn para mostrar una imagen
 	function mostrar(img){
 		$(img).ready(function(){				
-	  		$(arrayImagenes[contador]).fadeIn(1500);		
+	  		//$(arrayImagenes[contador]).fadeIn(1500);	
+	  		$("#imagenMostrada").attr("src",document.getElementById(arrayImagenes[contador]).src);
 		});
 	}
 	 
 	//hace un efecto fadeOut para ocultar una imagen
 	function ocultar(img){
 		$(img).ready(function(){				
-	  		$(arrayImagenes[contador]).fadeOut(1500);		
+	  		//$(arrayImagenes[contador]).fadeOut(1500);		
 		});
 	}
 	 
@@ -63,10 +74,11 @@
 	        //se oculta la imagen actual
 		ocultar(arrayImagenes[contador]);
 	        //aumentamos el contador en una unidad
-		contador = (contador + 1) % 3;
+		contador = (contador + 1) % arrayImagenes.length;
 	        //mostramos la nueva imagen
 		mostrar(arrayImagenes[contador]);
 	}
+	
 	
 	</script>
 </body>
