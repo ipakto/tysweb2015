@@ -55,11 +55,6 @@ if (rs.next()) {
 			   jsaVideo.put(jso2);
 		   }while(rs3.next());
 	   }
-	   else{ 
-		   jso2=new JSONObject();
-		   jso2.put("ruta","NO EXISTE");//VIDEO_NO_DISPONIBLE
-		   jsaVideo.put(jso2);
-	   }
 	   jso.put("conjuntoImagenes",jsaImagen);
 	   jso.put("conjuntoVideos",jsaVideo);
 	   

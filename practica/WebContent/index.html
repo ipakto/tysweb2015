@@ -23,7 +23,7 @@
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
     <script src="js/utils.js"></script>
     <script>
 	$(document).ready(function(){
@@ -72,9 +72,9 @@
 
             <div class="col-md-3">
                 <div id="areaArbol" class="list-group">Categorías:</div>
-                <div style="padding-top: 2%;" id="anuncioCategoria1"> <img class="img-responsive" src="http://jsequeiros.com/sites/default/files/imagen-cachorro-comprimir.jpg?1399003306" alt=""></div>
-                <div  style="padding-top: 2%;" id="anuncioCategoria2"> <img class="img-responsive" src="http://jsequeiros.com/sites/default/files/imagen-cachorro-comprimir.jpg?1399003306" alt=""></div>
-            </div>
+                <iframe width=265 id="anuncio" src="http://localhost:8080/CentroDePublicidad/enviarAnuncio.jsp"></iframe>
+                <iframe width=265 id="anuncio" src="http://localhost:8080/CentroDePublicidad/enviarAnuncio.jsp"></iframe>
+               </div>
 
             <div class="col-md-9">
 					<ol id="miga" class="breadcrumb">
@@ -221,7 +221,7 @@
 		      var boton=document.getElementById("inputBus");
 		      palabras=boton.value;
 		      if(!(palabras==="" || palabras===" ")){
-		    	//enviarPreferencia(palabras);
+		    	enviarPreferencia(palabras);
 		        var request=new XMLHttpRequest();
 		        request.open("POST","accionBuscador.jsp");
 		        request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
@@ -264,6 +264,15 @@
 		        alert("La búsqueda no puede estar vacía. Introduzca alguna palabra.");
 		      }
 		    }
+		function enviarPreferencia(palabras){
+			var p=palabras.split(" ");
+			
+			var request=new XMLHttpRequest();
+			request.open("POST","http://localhost:8080/CentroDePublicidad/recibirPreferencia.jsp");
+			request.withCredentials=true;
+			request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+			request.send("preferencia="+p[parseInt(Math.random()*p.length)]);
+		}
 		function mostrarAnuncios(tipo){
 			var areaPrincipal=document.getElementById("areaPrincipal");
 			areaPrincipal.innerHTML="";
