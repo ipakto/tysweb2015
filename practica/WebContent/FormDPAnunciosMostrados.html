@@ -11,7 +11,12 @@
 		<tbody >
 			<tr>
 				<td style="max-width: 500px">
-				<div style="padding-top: 2%;" id="divImagenAnuncio"> <img id="imagenMostrada" ></img> </div>
+				<div style="padding-top: 2%;" id="divImagenAnuncio"> <img id="imagenMostrada" ></img></div>
+                </td>
+			</tr>
+			<tr>
+				<td style="max-width: 500px">
+				<div style="padding-top: 2%;" id="divVideos"></div>
                 </td>
 			</tr>
 			<tr style="max-width: 500px">
@@ -37,20 +42,20 @@
 	var arrayImagenes = new Array();
 	//variable que nos permitirá saber qué imagen se está mostrando
 	var contador = 0;
-	inicializar();
+	//inicializar();
 	
 	function inicializar(){
 		//intervalo tiempo cambio img slide, 5 segundos, se llama a la función "avanzaSlide()"
 		setInterval('avanzaSlide()',3500);
-		alert("hello");
 		
 		//var i1=document.getElementById("imagenAnuncio");
 		//array con las clases para las diferentes imagenes
-		var imagenes=document.getElementsByTagName("img");
-		for(var i=1;i<imagenes.length;i++){
+		var imagenes=document.getElementsByClassName("imgSlider");
+		for(var i=0;i<imagenes.length;i++){
 			var id=	imagenes[i].id;
 			arrayImagenes.push(id);
 		}
+		avanzaSlide();
 		
 		
 	}

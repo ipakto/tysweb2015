@@ -287,3 +287,19 @@ box-shadow: 0px 0px 30px -5px rgba(0,0,0,0.75);
     margin-right: auto;
     text-align: center;
 }
+.breadcrumb{
+  background-color:white;
+}
+
+#btnVideo{
+	background-image: url("http://localhost:8080/practica/img/videoBla.png");
+	background-position: center;  
+	background-repeat: no-repeat;
+	border:none;
+	height: 38px;
+	width:20%;
+	float:right;
+}
+#btnVideo:hover{
+	background-image: url("http://localhost:8080/practica/img/videoBlu.png");
+}

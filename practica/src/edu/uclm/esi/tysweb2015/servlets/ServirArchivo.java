@@ -24,9 +24,18 @@ public class ServirArchivo extends HttpServlet {
 		response.setContentType("image/jpeg");  
 		ServletOutputStream out;  
 		out = response.getOutputStream();  
-		String ruta=request.getParameter("rutaFoto");
-		FileInputStream fin = new FileInputStream(ruta);//request.getParameter("rutaFoto"));   
-
+		String rutaFoto=request.getParameter("rutaFoto");
+		String rutaVideo=request.getParameter("rutaVideo");
+		FileInputStream fin=null;;
+		if(rutaFoto!=null){
+			fin = new FileInputStream(rutaFoto); 
+			response.setContentType("image/jpeg");  
+		}else if(rutaVideo!=null){
+			fin = new FileInputStream(rutaVideo);
+			response.setContentType("video/mp4"); 
+			
+		}
+		
 		BufferedInputStream bin = new BufferedInputStream(fin);  
 		BufferedOutputStream bout = new BufferedOutputStream(out);  
 		int ch =0; ;  

@@ -221,6 +221,7 @@
 		      var boton=document.getElementById("inputBus");
 		      palabras=boton.value;
 		      if(!(palabras==="" || palabras===" ")){
+		    	//enviarPreferencia(palabras);
 		        var request=new XMLHttpRequest();
 		        request.open("POST","accionBuscador.jsp");
 		        request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
@@ -315,15 +316,29 @@
 		              var precio=anuncioRecibido[0].precio;
 		              p.innerHTML=precio+ " €";
 		              for(var i=0; i< anuncioRecibido[0].conjuntoImagenes.length; i++){
-		                var img=document.createElement("img");
-		                img.id="img"+i;
-		                img.class="imagenSlide";
-		                img.style.display="none";
-		                servirFoto(anuncioRecibido[0].conjuntoImagenes[i].ruta,img);
-		                divAnuncio.appendChild(img);
-		              }
+			                var img=document.createElement("img");
+			                img.id="img"+i;
+			                img.setAttribute("class","imgSlider");
+			                img.style.display="none";
+			                servirFoto(anuncioRecibido[0].conjuntoImagenes[i].ruta,img);
+			                divAnuncio.appendChild(img);
+			          }
+			          var divVideos=document.getElementById("divVideos");
+		              for(var i=0; i< anuncioRecibido[0].conjuntoVideos.length; i++){
+				                var a=document.createElement("a");
+				                a.id="video"+i;
+				                var ruta=replaceAll(anuncioRecibido[0].conjuntoVideos[i].ruta,"\\","/");
+				                //var ruta = anuncioRecibido[0].conjuntoVideos[i].ruta.replace("\\", "/");
+				                a.href="javascript:mostrarVideo(\""+ruta+"\");";
+				                a.title="Ver video "+(i+1);
+				                var span=document.createElement("span");
+				                span.id="btnVideo";
+				                a.appendChild(span);
+				                divVideos.appendChild(a);
+				       }
 		              /*var ruta=anuncioRecibido[0].ruta;
 		              img.innerHTML=ruta;    */
+				        inicializar();
 		          }else{
 		            alert("Error: " + request.statusText);
 		          }

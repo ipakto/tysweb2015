@@ -128,3 +128,24 @@ function servirFoto(ruta,img){
 function servirVideo(ruta,video){
 	video.setAttribute("src","/practica/ServirArchivo?rutaVideo="+ruta)
 }
+function mostrarVideo(ruta){
+	crearForm();
+	$("#forms").load("FormVideo.html",function(){
+		var div=document.getElementById("paraVideo");
+		var video=document.createElement("video");
+		video.width="600"	;
+		video.controls="true";
+		video.autoplay="autoplay"
+		servirVideo(ruta, video);
+		div.appendChild(video);
+	});
+    window.location.assign("#formFlotante");
+}
+//http://stackoverflow.com/questions/1144783/replacing-all-occurrences-of-a-string-in-javascript
+function escapeRegExp(str) {
+    return str.replace(/([.*+?^=!:${}()|\[\]\/\\])/g, "\\$1");
+}
+
+function replaceAll(str, find, replace) {
+	  return str.replace(new RegExp(escapeRegExp(find), 'g'), replace);
+	}
