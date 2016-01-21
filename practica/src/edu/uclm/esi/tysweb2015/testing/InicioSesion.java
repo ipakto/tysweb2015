@@ -30,8 +30,8 @@ private String mensajeEsperado;
   @Parameters   
   public static Collection<Object[]> valores() { 
 	  return Arrays.asList (new Object[][]{      
-			  {"manuel.gote@gmail.com", "pass1", "USUARIO REGISTRADO CORRECTAMENTE"},//usuario y pass válidas
-			  {"manuela.te@gmail.com","pass1", "USUARIO REGISTRADO CORRECTAMENTE"},//usuario y pass válidas
+			  {"manuel.gote@gmail.com", "pass1", "USUARIO LOGGUEADO CORRECTAMENTE"},//usuario y pass válidas
+			  {"manuela.te@gmail.com","pass1", "USUARIO LOGGUEADO CORRECTAMENTE"},//usuario y pass válidas
 			  {"manue@gmail.com", "p", "Login o contraseña incorrectos"}, //usuario y contrasña no validas
 			  {"ma@gmail.com", "pass1", "Login o contraseña incorrectos"}, //usuario no registrado y pass correcta
 			  { "manuel.gote@gmail.com", "p", "Login o contraseña incorrectos"}//password incorrecta y usuario válido
@@ -47,7 +47,7 @@ private String mensajeEsperado;
   @Before
   public void setUp() throws Exception {
     driver = new FirefoxDriver();
-    baseUrl = "http://localhost:8080/practica/index.html";
+    baseUrl = "http://localhost:8080";
     driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
   }
 
@@ -63,9 +63,12 @@ private String mensajeEsperado;
     driver.findElement(By.cssSelector("button[type=\"button\"]")).click();
     Thread.sleep (1000);
     try{
-    	assertEquals(driver.findElement(By.id("email")).getText(),email);
+    	if(mensajeEsperado.equals("USUARIO LOGGUEADO CORRECTAMENTE")){
+        	assertEquals(driver.findElement(By.id("email")).getText(),email);
+    	}else{
+        	assertEquals(closeAlertAndGetItsText(),mensajeEsperado);
+    	}
     }catch (Error e) {    
-    	assertEquals(closeAlertAndGetItsText(),mensajeEsperado);
     	verificationErrors.append(e.toString()); 
     }
   }

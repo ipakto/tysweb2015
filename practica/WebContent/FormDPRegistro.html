@@ -46,7 +46,11 @@
 				if(request.readyState==4){
 					if(request.status==200){
 						var respuesta=JSON.parse(request.responseText);
-						alert("USUARIO REGISTRADO CORRECTAMENTE");
+						if(respuesta.resultado=="OK"){
+							alert("USUARIO REGISTRADO CORRECTAMENTE");
+						}else{
+							alert(respuesta.resultado);
+						}
 					}else{
 						alert("Error: "+request.status);
 					}

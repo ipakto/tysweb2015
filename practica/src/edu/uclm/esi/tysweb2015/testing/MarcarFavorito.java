@@ -18,13 +18,13 @@ public class MarcarFavorito {
   @Before
   public void setUp() throws Exception {
     driver = new FirefoxDriver();
-    baseUrl = "http://localhost:8080/practica/index.html";
+    baseUrl = "http://localhost:8080";
     driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
   }
 
   @Test
   public void testMarcarFavorito() throws Exception {
-    driver.get(baseUrl + "/practica/index.html#formFlotante");
+    driver.get(baseUrl + "/practica/index.html");
     driver.findElement(By.linkText("Textil")).click();
     driver.findElement(By.id("btnFavorito")).click();
     //COMO NO DETECTA EL DIV EN EL CUAL SE HACE CLIC, NO SE HA PODIDO INSERTAR EL ORÁCULO CORRESPONDIENTE.
