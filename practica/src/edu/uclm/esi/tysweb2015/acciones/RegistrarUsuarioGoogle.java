@@ -2,9 +2,12 @@ package edu.uclm.esi.tysweb2015.acciones;
 
 
 
+import org.apache.struts2.ServletActionContext;
+
 import com.opensymphony.xwork2.ActionSupport;
 
 import edu.uclm.esi.tysweb2015.dominio.Gestor;
+import edu.uclm.esi.tysweb2015.dominio.Usuario;
 
 public class RegistrarUsuarioGoogle extends ActionSupport {
 	private String email;
@@ -15,7 +18,8 @@ public class RegistrarUsuarioGoogle extends ActionSupport {
 	public String execute(){
 		try{
 			Gestor gestor=Gestor.get();
-			gestor.existe(email);
+			Usuario u=gestor.existe(email);
+			ServletActionContext.getResponse().addHeader("premium", String.valueOf(u.getEstado()));
 			this.resultado="OK";
 			return SUCCESS;
 		}catch(Exception e){
@@ -23,6 +27,7 @@ public class RegistrarUsuarioGoogle extends ActionSupport {
 				try{
 					Gestor gestor=Gestor.get();
 					gestor.registraUsuarioGoogle(email,nombre,apellidos);
+					ServletActionContext.getResponse().addHeader("premium", String.valueOf(0));
 					this.resultado="OK";
 					return SUCCESS;
 				}catch(Exception e2){

@@ -14,7 +14,6 @@
 			<button type="button" onclick="recuperar()">Recuperar contraseña</button><br>
 	    	<div class="g-signin2" data-onsuccess="onSignIn"></div>
 	    </p>
-<iframe id="anuncio" src="http://localhost:8085/CentroDePublicidad/enviarAnuncio.jsp"></iframe>
 	    
 	</div>
 </div>
@@ -29,11 +28,12 @@
 						var respuesta=JSON.parse(request.responseText);
 						if(respuesta.resultado=="OK"){
 							sessionStorage.setItem("email", document.getElementById("email").value);
+							sessionStorage.setItem("premium", request.getResponseHeader("premium"));
 							window.location.assign("");
-							enviarDatosAlServidorDePublicidad(sessionStorage.getItem("email"));
+							//enviarDatosAlServidorDePublicidad(sessionStorage.getItem("email"));
 							//$("#datosPersonales").load("FormDPSesion.html");
 						}else{
-							alert(respuesta.resultado);
+							alert("Login o contraseña incorrectos");
 						}
 					}else{
 						alert("Error: "+request.status);

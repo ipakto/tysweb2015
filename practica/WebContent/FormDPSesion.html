@@ -41,6 +41,7 @@
 					}*/
 					document.body.removeChild(document.getElementById("btnChat"));
 					sessionStorage.clear();
+					
 					$("#datosPersonales").load("FormDPDesconectado.html");
 				}else{
 					alert("Error: "+request.status);

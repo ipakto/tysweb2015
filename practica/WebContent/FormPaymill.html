@@ -88,6 +88,8 @@ var PAYMILL_PUBLIC_KEY = '5028934278321103e9fd803c40dd0ef9';
 					var respuesta=JSON.parse(request.responseText);
 					if(respuesta.resultado=="OK"){
 						alert("Felicidades, ahora eres PREMIUM");
+						sessionStorage.setItem("premium", 1);
+						borrarForm();
 						gestionarCuenta();
 						//$("#datosPersonales").load("FormDPSesion.html");
 					}else{

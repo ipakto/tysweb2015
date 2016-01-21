@@ -87,8 +87,8 @@
 			if(request.readyState==4){
 				if(request.status==200){
 					var respuesta=JSON.parse(request.responseText);
-					alert(respuesta.resultado);
-					cargarDatosPerfil();
+					alert("Se han modificado los datos correctamente");
+					gestionarCuenta();
 				}else{
 					alert("Error: "+request.status);
 				}
@@ -228,7 +228,7 @@
 	    request.onreadystatechange=function(){
 	      if (request.readyState==4){ //ESTADO DE LA PETICIÓN
 	        if(request.status==200){//ESTADO De la respuesta devuelta x el servidor
-	            alert("YA NO ES FAV");	
+	        	alert("ANUNCIO DESMARCADO COMO FAVORITO");
 	        	  gestionarCuenta();
 	        }else{
 	          alert("Error: " + request.statusText);

@@ -19,6 +19,7 @@ public class Login extends ActionSupport {
 			Gestor gestor=Gestor.get();
 			Usuario usuario=gestor.identificar(email,pwd);
 			ServletActionContext.getRequest().getSession().setAttribute("usuario",usuario);
+			ServletActionContext.getResponse().addHeader("premium", String.valueOf(usuario.getEstado()));
 			this.resultado="OK";
 			return SUCCESS;
 		}catch(Exception e){

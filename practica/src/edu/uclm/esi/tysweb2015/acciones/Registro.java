@@ -35,7 +35,7 @@ public class Registro extends ActionSupport {
 	}
 	private String validar() {
 		if (this.pwd1==null || this.pwd1.length()==0){
-			return "Las password no puedo estar vacía";
+			return "Debe introducir las passwords";
 		}
 		if(!this.pwd1.equals(this.pwd2)){
 			return "Las passwords no coinciden";

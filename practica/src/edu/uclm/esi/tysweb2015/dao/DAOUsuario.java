@@ -55,7 +55,7 @@ public class DAOUsuario {
 	public static void identificar(Usuario usuario,String email, String pwd) throws Exception {
 		Connection bd=Broker.get().getConnectionSeleccion();
 		try{
-			String sql="SELECT id, nombre, apellido1, apellido2, telefono, idUbicacion FROM Usuarios WHERE email=?";
+			String sql="SELECT id, nombre, apellido1, apellido2, telefono, idUbicacion, estado FROM Usuarios WHERE email=?";
 			PreparedStatement p=bd.prepareStatement(sql);
 			p.setString(1, email);
 			ResultSet rs=p.executeQuery();
@@ -66,11 +66,13 @@ public class DAOUsuario {
 				String apellido2=rs.getString(4);
 				String telefono=rs.getString(5);
 				int idUbicacion=rs.getInt(6);
+				int estado=rs.getInt(7);
 				bd.close();
 				String userName="tysweb2015"+id;
 				if(Broker.get().existe(userName, pwd)){
-					usuario=new Usuario(email, nombre, apellido1, apellido2, telefono, pwd, idUbicacion);
+					//usuario=new Usuario(email, nombre, apellido1, apellido2, telefono, pwd, idUbicacion);
 					usuario.setId(id);
+					usuario.setEstado(estado);
 				}
 			}else throw new Exception ("Login o contraseña incorrectos");
 			
@@ -103,13 +105,15 @@ public class DAOUsuario {
 	public static void existe(Usuario user) throws Exception{
 		Connection bd=Broker.get().getConnectionSeleccion();
 		try{
-			String sql="SELECT id FROM Usuarios WHERE email=?";
+			String sql="SELECT id, estado FROM Usuarios WHERE email=?";
 			PreparedStatement p=bd.prepareStatement(sql);
 			p.setString(1, user.getEmail());
 			ResultSet rs=p.executeQuery();
 			if(rs.next()){
 				int id=rs.getInt(1);
+				int estado=rs.getInt(2);
 				user.setId(id);
+				user.setEstado(estado);
 			}else throw new Exception ("Usuario no encontrado");
 			
 		}catch(Exception e){

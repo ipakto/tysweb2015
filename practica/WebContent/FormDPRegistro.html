@@ -46,7 +46,7 @@
 				if(request.readyState==4){
 					if(request.status==200){
 						var respuesta=JSON.parse(request.responseText);
-						alert(respuesta.resultado);
+						alert("USUARIO REGISTRADO CORRECTAMENTE");
 					}else{
 						alert("Error: "+request.status);
 					}

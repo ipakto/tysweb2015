@@ -15,6 +15,7 @@ public class Usuario {
 	private String pwd1;
 	private int idUbicacion;
 	private int id;
+	private int estado;
 
 	public Usuario(String email, String nombre, String apellido1, String apellido2, String telefono, String pwd1,
 			int ubicacion) {
@@ -103,6 +104,15 @@ public class Usuario {
 
 	public void modificar(String emailSesion) throws Exception{
 		DAOUsuario.modify(this, emailSesion);
+	}
+
+	public void setEstado(int estado) {
+		this.estado=estado;
+		
+	}
+	public int getEstado() {
+		return estado;
+		
 	}
 
 }
