@@ -1,5 +1,15 @@
 package edu.uclm.esi.tysweb2015.dominio;
 
+/******************************************************************************************
+ * *****************TECNOLOGÍAS Y SISTEMAS DE LA INFORMACIÓN*******************************
+ * ******************ESCUELA SUPERIOR DE INFORMÁTICA(UCLM)*********************************
+ * ************************PRÁCTICA REALIZADA POR:*****************************************
+ *		 * 				- Jorge Vela Plaza											      *
+ *		 * 				- Francisco Ruiz Romero											  *
+ *		 * 				- Rosana Rodríguez-Bobada Aranda								  *
+ * 																						  *
+ ******************************************************************************************/
+
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
@@ -13,8 +23,8 @@ import java.util.Properties;
  * Created by anirudh on 28/10/14.
  */
 public class Mail {
-	private static String userName = "prj.tysweb2015@gmail.com";
-	private static String password = "P@co1234";
+	private static String userName = "yourEmail";
+	private static String password = "yourPassword";
 
 	private static Session getSession(){
 		Properties props = new Properties();

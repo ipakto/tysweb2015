@@ -1,6 +1,14 @@
 package edu.uclm.esi.tysweb2015.acciones;
 
-
+/******************************************************************************************
+ * *****************TECNOLOGÍAS Y SISTEMAS DE LA INFORMACIÓN*******************************
+ * ******************ESCUELA SUPERIOR DE INFORMÁTICA(UCLM)*********************************
+ * ************************PRÁCTICA REALIZADA POR:*****************************************
+ *		 * 				- Jorge Vela Plaza											      *
+ *		 * 				- Francisco Ruiz Romero											  *
+ *		 * 				- Rosana Rodríguez-Bobada Aranda								  *
+ * 																						  *
+ ******************************************************************************************/
 
 import org.apache.struts2.ServletActionContext;
 

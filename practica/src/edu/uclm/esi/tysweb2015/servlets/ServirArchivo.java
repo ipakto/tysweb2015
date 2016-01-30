@@ -1,5 +1,15 @@
 package edu.uclm.esi.tysweb2015.servlets;
 
+/******************************************************************************************
+ * *****************TECNOLOGÍAS Y SISTEMAS DE LA INFORMACIÓN*******************************
+ * ******************ESCUELA SUPERIOR DE INFORMÁTICA(UCLM)*********************************
+ * ************************PRÁCTICA REALIZADA POR:*****************************************
+ *		 * 				- Jorge Vela Plaza											      *
+ *		 * 				- Francisco Ruiz Romero											  *
+ *		 * 				- Rosana Rodríguez-Bobada Aranda								  *
+ * 																						  *
+ ******************************************************************************************/
+
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.FileInputStream;

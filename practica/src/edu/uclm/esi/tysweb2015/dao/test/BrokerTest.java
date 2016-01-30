@@ -1,5 +1,15 @@
 package edu.uclm.esi.tysweb2015.dao.test;
 
+/******************************************************************************************
+ * *****************TECNOLOGÍAS Y SISTEMAS DE LA INFORMACIÓN*******************************
+ * ******************ESCUELA SUPERIOR DE INFORMÁTICA(UCLM)*********************************
+ * ************************PRÁCTICA REALIZADA POR:*****************************************
+ *		 * 				- Jorge Vela Plaza											      *
+ *		 * 				- Francisco Ruiz Romero											  *
+ *		 * 				- Rosana Rodríguez-Bobada Aranda								  *
+ * 																						  *
+ ******************************************************************************************/
+
 import static org.junit.Assert.*;
 
 import java.sql.Connection;
@@ -20,12 +30,12 @@ public class BrokerTest {
 		Broker bd=Broker.get();
 		int i=1;
 		boolean error=false;
-		do{
+		do{/*
 			try{
 				bd.getDB("pepe@pepe.com","1234");
 			}catch(SQLException e){
 				error=true;
-			}
+			}*/
 			System.out.println(i++);
 		}while(!error);
 		fail("Not yet implemented");

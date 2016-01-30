@@ -1,5 +1,15 @@
 package edu.uclm.esi.tysweb2015.testing;
 
+/******************************************************************************************
+ * *****************TECNOLOGÍAS Y SISTEMAS DE LA INFORMACIÓN*******************************
+ * ******************ESCUELA SUPERIOR DE INFORMÁTICA(UCLM)*********************************
+ * ************************PRÁCTICA REALIZADA POR:*****************************************
+ *		 * 				- Jorge Vela Plaza											      *
+ *		 * 				- Francisco Ruiz Romero											  *
+ *		 * 				- Rosana Rodríguez-Bobada Aranda								  *
+ * 																						  *
+ ******************************************************************************************/
+
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.regex.Pattern;
